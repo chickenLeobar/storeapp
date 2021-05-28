@@ -1,4 +1,5 @@
 import { ApolloServer, gql } from "apollo-server";
+
 const typeDefs = gql`
   type Query {
     authors: [Author]

@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Simple React Button",
   "main": "dist/memonorepo-button.cjs.js",
+  "module": "dist/memonorepo-button.esm.js",
   "dependencies": {
     "react": "^17.0.2"
   }

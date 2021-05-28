@@ -1,0 +1,13 @@
+{
+  "name": "@memonorepo/shared",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/memonorepo-shared.cjs.js",
+  "module": "dist/memonorepo-shared.esm.js",
+  "scripts": {
+    "test": "node ."
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
