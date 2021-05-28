@@ -1,0 +1,9 @@
+{
+  "name": "@memonorepo/button",
+  "version": "1.0.0",
+  "description": "Simple React Button",
+  "main": "dist/memonorepo-button.cjs.js",
+  "dependencies": {
+    "react": "^17.0.2"
+  }
+}
