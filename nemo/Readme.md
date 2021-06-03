@@ -1,14 +1,16 @@
-<div align="center">
-   <h1>Store app</h1>
-   <img src="./icon.png"/>
-</div>
-<br/>
+# Django final project
 
-# Structure
+this project has been create to practice:
 
-| directory    |    description     |
-| :----------- | :----------------: |
-| [nemo](nemo) | nemo is django app |
+- Django
+- Python
+- web development
+
+## Links
+
+| Context | description                                     |
+| ------- | ----------------------------------------------- |
+| app     | view web -> [link](https://app.wellnespro.com/) |
 
 ## Contributtors: 💯
 

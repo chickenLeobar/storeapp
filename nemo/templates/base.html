@@ -1,0 +1,51 @@
+{% load render_bundle from webpack_loader %}
+<!-- prettier-ignore -->
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="{{ LANGUAGE }}">
+  <head>
+    <meta charset="utf-8" />
+    <title>{% block page_title %}{% endblock %}</title>
+    <meta
+      name="description"
+      content="{% block page_description %}{% endblock %}"
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Font awesome-->
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.15.3/css/all.css"
+      integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk"
+      crossorigin="anonymous"
+    />
+
+    <!-- google Fonts-->
+    <link
+      href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+      rel="stylesheet"
+    />
+    <link rel="icon" href="{% static 'img/favicon.png' %}" />
+    {% block page_extra_meta %} {% endblock %}
+    <!-- prettier-ignore -->
+
+    {% render_bundle 'main' 'css' %}
+  </head>
+  <body class="">
+    {% block body %} {% endblock %}
+
+    <!-- prettier-ignore -->
+
+    {% comment %}  {% endcomment %}
+    <script src="{% static 'libs/vendors/jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'libs/vendors/bootstrap/bootstrap.min.js' %}"></script>
+    <script src="{% static 'libs/vendors/bootstrap/popper.js' %}"></script>
+    <script src="{% static 'libs/vendors/jquery-easing/jquery.easing.min.js' %}"></script>
+    <script src="{% static 'libs/vendors/modal/bootstrap.modal.js' %}"></script>
+    {% render_bundle 'main' 'js' %}
+    <!-- prettier-ignore -->
+    {% block down %} 
+    {% endblock down %}
+  </body>
+</html>

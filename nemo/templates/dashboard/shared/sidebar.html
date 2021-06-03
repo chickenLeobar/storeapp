@@ -1,0 +1,210 @@
+<!-- Sidebar -->
+<ul
+  class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion"
+  id="accordionSidebar"
+>
+  <!-- Sidebar - Brand -->
+  <a
+    class="sidebar-brand d-flex align-items-center justify-content-center"
+    href="index.html"
+  >
+    <div class="sidebar-brand-icon rotate-n-15">
+    </div>
+    <div class="sidebar-brand-text mx-3">Mi tienda</sup></div>
+  </a>
+
+  <!-- Divider -->
+  <hr class="sidebar-divider my-0" />
+
+  <!-- Nav Item - Dashboard -->
+  <li class="nav-item active">
+    <a class="nav-link" href="">
+      <i class="fas fa-fw fa-tachometer-alt"></i>
+      <span>Dashboard</span></a
+    >
+  </li>
+
+  <!-- Divider -->
+  <hr class="sidebar-divider" />
+
+  <!-- Heading -->
+  <div class="sidebar-heading">Administración</div>
+
+  <!-- Nav Item - Pages Collapse Menu -->
+  <li class="nav-item">
+    <a
+      class="nav-link collapsed"
+      href="#"
+      data-toggle="collapse"
+      data-target="#collapseTwo"
+      aria-expanded="true"
+      aria-controls="collapseTwo"
+    >
+  <i class="fas fa-shopping-basket"></i>
+      <span>Inventario</span>
+    </a>
+    <div
+      id="collapseTwo"
+      class="collapse"
+      aria-labelledby="headingTwo"
+      data-parent="#accordionSidebar"
+    >
+      <div class="bg-white py-2 collapse-inner rounded">
+        <h6 class="collapse-header">Administración</h6>
+        <a class="collapse-item" href="{% url 'productpage' %}">Gestion de productos</a>
+        <a class="collapse-item" href="buttons.html">Gestion de categorias</a>
+        <a class="collapse-item" href="buttons.html">Gestion de marcas</a>
+        <h6 class="collapse-header">Reportes</h6>
+        <a class="collapse-item" href="buttons.html">General</a>
+      </div>
+    </div>
+  </li>
+
+  <!-- Ventas-->
+  <li class="nav-item">
+    <a
+      class="nav-link collapsed"
+      href="#"
+      data-toggle="collapse"
+      data-target="#collapseUtilities"
+      aria-expanded="true"
+      aria-controls="collapseUtilities"
+    >
+      <i class="fas fa-tags"></i>
+      <span>Ventas</span>
+    </a>
+    <div
+      id="collapseUtilities"
+      class="collapse"
+      aria-labelledby="headingUtilities"
+      data-parent="#accordionSidebar"
+    >
+      <div class="bg-white py-2 collapse-inner rounded">
+        <h6 class="collapse-header">Administración</h6>
+        <a class="collapse-item" href="utilities-color.html">Gestion de ventas</a>
+        <a class="collapse-item" href="utilities-color.html">Punto de venta</a>
+      
+      </div>
+    </div>
+  </li>
+  <!-- Compras-->
+
+    <li class="nav-item">
+    <a
+      class="nav-link collapsed"
+      href="#"
+      data-toggle="collapse"
+      data-target="#compras"
+      aria-expanded="true"
+      aria-controls="compras"
+    >
+    <i class="fas fa-shopping-cart"></i>
+      <span>Compras</span>
+    </a>
+    <div
+      id="compras"
+      class="collapse"
+      aria-labelledby="headingCompras"
+      data-parent="#accordionSidebar"
+    >
+      <div class="bg-white py-2 collapse-inner rounded">
+        <h6 class="collapse-header">Administración</h6>
+        <a class="collapse-item" href="utilities-color.html">Gestion de compras</a>
+        <a class="collapse-item" href="utilities-color.html">Punto de compra</a>
+
+      </div>
+    </div>
+  </li>
+
+  <!-- Divider -->
+  <hr class="sidebar-divider" />
+
+  <!-- Heading -->
+  <div class="sidebar-heading">Entidades</div>
+
+  <!-- Nav Item - Pages Collapse Menu -->
+  <li class="nav-item">
+    <a
+      class="nav-link collapsed"
+      href="#"
+      data-toggle="collapse"
+      data-target="#collapsePages"
+      aria-expanded="true"
+      aria-controls="collapsePages"
+    >
+    <i class="far fa-id-badge"></i>
+      <span>Clientes</span>
+    </a>
+    <div
+      id="collapsePages"
+      class="collapse"
+      aria-labelledby="headingPages"
+      data-parent="#accordionSidebar"
+    >
+      <div class="bg-white py-2 collapse-inner rounded">
+        {% comment %} <h6 class="collapse-header">Gestion</h6> {% endcomment %}
+        <a class="collapse-item" href="login.html">Gestión de Clientes</a>
+        <a class="collapse-item" href="register.html">Registro de Clientes</a>
+       
+      </div>
+    </div>
+  </li>
+  <!-- Nav Item - Pages Collapse Menu -->
+  <li class="nav-item">
+    <a
+      class="nav-link collapsed"
+      href="#"
+      data-toggle="collapse"
+      data-target="#proveedores"
+      aria-expanded="true"
+      aria-controls="proveedores"
+    >
+    <i class="far fa-id-badge"></i>
+      <span>Proveedores</span>
+    </a>
+    <div
+      id="proveedores"
+      class="collapse"
+      aria-labelledby="headingPages"
+      data-parent="#accordionSidebar"
+    >
+      <div class="bg-white py-2 collapse-inner rounded">
+        {% comment %} <h6 class="collapse-header">Gestion</h6> {% endcomment %}
+        <a class="collapse-item" href="login.html">Gestión de Proveedores</a>
+        <a class="collapse-item" href="register.html">Registro de Proveedores</a>
+       
+      </div>
+    </div>
+  </li>
+
+  <!-- Heading -->
+  <div class="sidebar-heading">Configuración</div>
+
+ <!-- Nav Item - Pages Collapse Menu -->
+  <li class="nav-item">
+    <a
+      class="nav-link"    
+    >
+    <i class="far fa-id-badge"></i>
+      <span>Negocio</span>
+    </a>
+  
+  </li>
+   <!-- Nav Item - Pages Collapse Menu -->
+  <li class="nav-item">
+    <a
+      class="nav-link"    
+    >
+    <i class="far fa-id-badge"></i>
+      <span>Cuenta</span>
+    </a>
+  </li>
+
+  <!-- Divider -->
+  <hr class="sidebar-divider d-none d-md-block" />
+
+  <!-- Sidebar Toggler (Sidebar) -->
+  <div class="text-center d-none d-md-inline">
+    <button class="rounded-circle border-0" id="sidebarToggle"></button>
+  </div>
+</ul>

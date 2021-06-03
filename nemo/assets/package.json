@@ -1,0 +1,46 @@
+{
+  "name": "django-starter-project",
+  "version": "1.0.0",
+  "description": "Asset files for django project.",
+  "main": "webpack.config.js",
+  "scripts": {
+    "dev": "webpack --mode development --env dev --watch",
+    "build_stg": "webpack --mode production --env stg",
+    "build_prod": "webpack --mode production --env prod",
+    "lint:js": "eslint js/** --fix",
+    "lint:scss": "stylelint scss/*.scss --syntax scss --fix"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/core": "^7.13.16",
+    "@babel/plugin-transform-modules-commonjs": "^7.14.0",
+    "@babel/preset-env": "^7.13.15",
+    "@babel/preset-typescript": "^7.13.0",
+    "@types/jquery": "^3.5.5",
+    "babel-eslint": "^10.1.0",
+    "babel-loader": "^8.2.2",
+    "css-loader": "^3.6.0",
+    "eslint": "^6.8.0",
+    "eslint-config-prettier": "^6.15.0",
+    "eslint-plugin-prettier": "^3.4.0",
+    "file-loader": "^5.1.0",
+    "mini-css-extract-plugin": "^0.9.0",
+    "node-sass": "^4.14.1",
+    "prettier": "^1.19.1",
+    "sass-loader": "^8.0.2",
+    "source-map-loader": "^2.0.1",
+    "stylelint": "^13.12.0",
+    "stylelint-config-standard": "^19.0.0",
+    "ts-loader": "^9.1.2",
+    "typescript": "^4.2.4",
+    "webpack": "^4.46.0",
+    "webpack-cli": "^3.3.12"
+  },
+  "dependencies": {
+    "bootstrap": "^5.0.1",
+    "jquery": "^3.6.0",
+    "normalize.css": "^8.0.1",
+    "webpack-bundle-tracker": "^1.0.0"
+  }
+}

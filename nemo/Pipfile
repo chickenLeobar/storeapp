@@ -1,0 +1,27 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+django = "*"
+django-webpack-loader = "*"
+django-widget-tweaks = "*"
+django-crispy-forms = "*"
+django-bootstrap-modal-forms = "2.2.0"
+requests = "*"
+psycopg2-binary = "*"
+python-environ = "*"
+
+[dev-packages]
+autopep8 = "*"
+
+[requires]
+python_version = "3.9"
+
+[scripts]
+dev = "python manage.py runserver"
+migrate = "python manage.py migrate"
+make = "python manage.py makemigrations"
+check = "python manage.py check"
+requeriments = "pipenv lock -r > requeriments.txt"

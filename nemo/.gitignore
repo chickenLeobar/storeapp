@@ -1,0 +1,27 @@
+# Python bytecode
+__pycache__
+*.egg-info
+Django-project-toEvLCwS
+# Django dynamic directories
+logs
+media
+
+# Database files
+*.sqlite3
+*.rdb
+
+# Environment variables
+.env
+.env.docker
+.venv
+
+# Static files
+assets/node_modules
+assets/bundles/webpack-bundle.dev.json
+assets/bundles/dev
+
+# IDE config
+.vscode
+
+
+./**/migrations/*.*

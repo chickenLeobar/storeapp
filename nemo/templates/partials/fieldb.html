@@ -1,0 +1,33 @@
+{% load widget_tweaks %}
+<!-- prettier-ignore -->
+{% for field in form.visible_fields %}
+<!-- prettier-ignore -->
+<div class="form-group" style="margin: 18px 0">
+  <label for="">{{field.label_tag}}</label>
+  <!-- if field is bound -->
+  {% if form.is_bound %}
+       <!-- prettier-ignore -->
+        {% if field.errors %} 
+            <!-- prettier-ignore -->
+            {% render_field field class="form-control is-invalid" %}
+                <!-- lopp errors-->
+                {% for error in field.errors %}
+                     <div class="invalid-feedback">{{ error}}</div>
+                {% endfor %} 
+  <!-- prettier-ignore -->
+        {% else %}
+  <!-- not errors-->
+             {% render_field field class="form-control is-valid" %} 
+        {% endif %} 
+        <!-- prettier-ignore -->
+        {% else %}
+
+  <!-- field not is bound-->
+            {% render_field field class="form-control" %}
+  <!-- prettier-ignore -->
+                {% if field.help_text %}
+                  <small clas="form-text text-muted"> {{ field.help_text}} </small>
+                {% endif %} 
+  {% endif %}
+</div>
+{% endfor %}

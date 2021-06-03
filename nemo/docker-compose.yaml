@@ -1,0 +1,15 @@
+version: "3.9"
+services:
+  project:
+    build: .
+    container_name: djangoapp2
+    ports:
+      - "${PORT}:8000"
+
+  base:
+    image: postgres:13.3
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_DB: djangobd
