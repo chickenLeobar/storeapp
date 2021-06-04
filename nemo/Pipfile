@@ -12,6 +12,7 @@ django-bootstrap-modal-forms = "2.2.0"
 requests = "*"
 psycopg2-binary = "*"
 python-environ = "*"
+djangorestframework = "*"
 
 [dev-packages]
 autopep8 = "*"

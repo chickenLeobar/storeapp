@@ -39,10 +39,17 @@ SECRET_KEY = "django-insecure-on=haw5$y1bez=n0&bj*$rs!ck_ndx1sgk_ft$_-=2fzi7*2xm
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["194.62.99.14", "127.0.0.1", "app.wellnespro.com" , "localhost"]
+ALLOWED_HOSTS = ["194.62.99.14", "127.0.0.1", "app.wellnespro.com", "localhost"]
 
 CRISPY_TEMPLATE_PACK = "bootstrap4"
 # Application definition
+
+
+REST_FRAMEWORK = {
+    "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
+    "PAGE_SIZE": 10,
+}
+
 
 INSTALLED_APPS = [
     "django.contrib.admin",
@@ -57,6 +64,7 @@ INSTALLED_APPS = [
     "bootstrap_modal_forms",
     # Third party
     "webpack_loader",
+    "rest_framework",
     # apps
     "website",
     "dashboard",

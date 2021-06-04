@@ -9,6 +9,7 @@
 | directory    |    description     |
 | :----------- | :----------------: |
 | [nemo](nemo) | nemo is django app |
+| [nimo](nimo) | angular workspace  |
 
 ## Contributtors: 💯
 
