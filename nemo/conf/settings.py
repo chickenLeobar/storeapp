@@ -12,114 +12,114 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 # https://pypi.org/project/python-environ/
 
-
-
 from os import path
 from pathlib import Path
 import os
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # ENVIROMENT
-import environ 
-env =  environ.Env()
-root_path =environ.Path(__file__) - 2;
+import environ
+
+env = environ.Env()
+root_path = environ.Path(__file__) - 2
 
 env.read_env(env_file=root_path(".env"))
 
-ENV = env("ENV" , default="prod")
+ENV = env("ENV", default="prod")
 
-print("read variablle of dockker file")
-print(env("author" , default="not read"))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-on=haw5$y1bez=n0&bj*$rs!ck_ndx1sgk_ft$_-=2fzi7*2xm'
+SECRET_KEY = "django-insecure-on=haw5$y1bez=n0&bj*$rs!ck_ndx1sgk_ft$_-=2fzi7*2xm"
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["194.62.99.14", "app.wellnespro.com"]
+ALLOWED_HOSTS = ["194.62.99.14", "127.0.0.1", "app.wellnespro.com" , "localhost"]
 
-CRISPY_TEMPLATE_PACK = 'bootstrap4'
+CRISPY_TEMPLATE_PACK = "bootstrap4"
 # Application definition
 
 INSTALLED_APPS = [
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
+    "django.contrib.admin",
+    "django.contrib.auth",
+    "django.contrib.contenttypes",
+    "django.contrib.sessions",
+    "django.contrib.messages",
+    "django.contrib.staticfiles",
     # out
-    'widget_tweaks',
-    'crispy_forms',
-    'bootstrap_modal_forms',
+    "widget_tweaks",
+    "crispy_forms",
+    "bootstrap_modal_forms",
     # Third party
     "webpack_loader",
     # apps
-    'website',
-    'dashboard',
+    "website",
+    "dashboard",
 ]
 
-AUTH_USER_MODEL = 'dashboard.Usuario'
+AUTH_USER_MODEL = "dashboard.Usuario"
 
 MIDDLEWARE = [
-    'django.middleware.security.SecurityMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    "django.middleware.security.SecurityMiddleware",
+    "django.contrib.sessions.middleware.SessionMiddleware",
+    "django.middleware.common.CommonMiddleware",
+    "django.middleware.csrf.CsrfViewMiddleware",
+    "django.contrib.auth.middleware.AuthenticationMiddleware",
+    "django.contrib.messages.middleware.MessageMiddleware",
+    "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
-ROOT_URLCONF = 'conf.urls'
+ROOT_URLCONF = "conf.urls"
 
 TEMPLATES = [
     {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        "BACKEND": "django.template.backends.django.DjangoTemplates",
         "DIRS": [BASE_DIR.joinpath("templates")],
-        'APP_DIRS': True,
-        'OPTIONS': {
-            'context_processors': [
-                'django.template.context_processors.debug',
-                'django.template.context_processors.request',
-                'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',
+        "APP_DIRS": True,
+        "OPTIONS": {
+            "context_processors": [
+                "django.template.context_processors.debug",
+                "django.template.context_processors.request",
+                "django.contrib.auth.context_processors.auth",
+                "django.contrib.messages.context_processors.messages",
             ],
         },
     },
 ]
 
-WSGI_APPLICATION = 'conf.wsgi.application'
+WSGI_APPLICATION = "conf.wsgi.application"
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 # postgres://postgres:6ca909936f57e880872040191405f2ab@dokku-postgres-djangoappbd:5432/djangoappbd
 # dev =  postgres://postgres:alfk3458@postgres:5432/django_project
-DATABASE = {
-       'ENGINE': 'django.db.backends.postgresql_psycopg2',
-       'NAME': 'django_project',
-       'USER': 'postgres',
-       'PASSWORD': 'alfk3458',
-       'HOST': 'localhost',
-       'PORT': '5432'
-     } if ENV == "dev" else  {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'djangoappbd',
-        'USER': 'postgres',
-        'PASSWORD': '6ca909936f57e880872040191405f2ab',
-        'HOST': '172.17.0.3',
-        'PORT': '5432'
+DATABASE = (
+    {
+        "ENGINE": "django.db.backends.postgresql_psycopg2",
+        "NAME": "django_project",
+        "USER": "postgres",
+        "PASSWORD": "alfk3458",
+        "HOST": "localhost",
+        "PORT": "5432",
     }
+    if ENV == "dev"
+    else {
+        "ENGINE": "django.db.backends.postgresql_psycopg2",
+        "NAME": "djangoappbd",
+        "USER": "postgres",
+        "PASSWORD": "6ca909936f57e880872040191405f2ab",
+        "HOST": "172.17.0.3",
+        "PORT": "5432",
+    }
+)
 
 
-DATABASES = {
-     "default" : DATABASE
-}
+DATABASES = {"default": DATABASE}
 
 
 # Password validation
@@ -127,16 +127,16 @@ DATABASES = {
 
 AUTH_PASSWORD_VALIDATORS = [
     {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+        "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+        "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+        "NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+        "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
     },
 ]
 
@@ -155,13 +155,12 @@ ADMIN_MEDIA_PREFIX = STATIC_URL + "admin/"
 
 STATICFILES_DIRS = (
     ("bundles", BASE_DIR.joinpath("assets/bundles")),
-    ("img",  BASE_DIR.joinpath("assets/img")),
-    ("libs",  BASE_DIR.joinpath("assets/lib")),
+    ("img", BASE_DIR.joinpath("assets/img")),
+    ("libs", BASE_DIR.joinpath("assets/lib")),
 )
 
 webpack_stats_filename = "webpack-bundle.%s.json" % ENV
-stats_file = os.path.join(BASE_DIR.joinpath(
-    "assets/bundles/"), webpack_stats_filename)
+stats_file = os.path.join(BASE_DIR.joinpath("assets/bundles/"), webpack_stats_filename)
 
 
 WEBPACK_LOADER = {
@@ -178,9 +177,9 @@ WEBPACK_LOADER = {
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = "en-us"
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = "UTC"
 
 USE_I18N = True
 
@@ -192,9 +191,9 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
-STATIC_URL = '/static/'
+STATIC_URL = "/static/"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"

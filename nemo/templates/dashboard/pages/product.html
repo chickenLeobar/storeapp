@@ -5,12 +5,19 @@
 
 {% block content %}
 
+
+{% if messages %}
+
+<!-- prettier-ignore -->
+{% for message in messages %}
+<b class="error" data-error="{{message}}" data-level="{{message.level}}"></b>
+{% endfor %} {% endif %}
+
 <!--Header -->
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
   <h1 class="h3 mb-0 text-gray-800">Registrar producto</h1>
 </div>
 <!-- End Header-->
-
 <!-- product-->
 <div class="container_fluid">
   <div class="row my-3">
@@ -36,7 +43,6 @@
             {% csrf_token %}
             <!-- prettier-ignore -->
             {{form | crispy}}
-
             <div class="w-100 my-4">
               <button class="btn btn-primary">Guardar product</button>
             </div>
@@ -51,16 +57,26 @@
         </div>
         <div>
           <ul class="list-group">
+            {{products |json_script:"products"}}
+            <!-- prettier-ignore -->
             {% for product in products %}
             <li class="list-group-item">
               <div class="row">
                 <div class="col-md-4">{{product.name}}</div>
                 <div class="col-md-4"></div>
                 <div class="col-md-4">
-                  <button class="btn btn-danger">
+                  <button
+                    class="btn btn-danger"
+                    data-id="{{product.id}}"
+                    id="deleteproduct"
+                  >
                     <i class="fas fa-trash"></i>
                   </button>
-                  <button class="btn btn-primary">
+                  <button
+                    class="btn btn-primary"
+                    data-id="{{product.id}}"
+                    id="edit"
+                  >
                     <i class="fas fa-edit"></i>
                   </button>
                 </div>
