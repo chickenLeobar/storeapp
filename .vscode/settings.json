@@ -1,4 +1,4 @@
 {
     "python.pythonPath": "nemo/.venv/bin/python3.9",
-    "python.formatting.provider": "black"
+    "python.formatting.provider": "autopep8"
 }

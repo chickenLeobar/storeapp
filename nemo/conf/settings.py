@@ -50,7 +50,6 @@ REST_FRAMEWORK = {
     "PAGE_SIZE": 10,
 }
 
-
 INSTALLED_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",
@@ -163,12 +162,14 @@ ADMIN_MEDIA_PREFIX = STATIC_URL + "admin/"
 
 STATICFILES_DIRS = (
     ("bundles", BASE_DIR.joinpath("assets/bundles")),
-    ("img", BASE_DIR.joinpath("assets/img")),
+    ("media", BASE_DIR.joinpath("media")),
     ("libs", BASE_DIR.joinpath("assets/lib")),
 )
 
 webpack_stats_filename = "webpack-bundle.%s.json" % ENV
 stats_file = os.path.join(BASE_DIR.joinpath("assets/bundles/"), webpack_stats_filename)
+
+REST_FRAMEWORK = { 'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema' }
 
 
 WEBPACK_LOADER = {

@@ -1,54 +1,41 @@
+<nz-dropdown-menu #administrationMenu>
+  <ul nz-menu>
+    <li nz-menu-item>Inventario</li>
+    <li nz-menu-item>Ventas</li>
+  </ul>
+</nz-dropdown-menu>
 <nz-layout class="app-layout">
-  <nz-sider class="menu-sidebar"
-            nzCollapsible
-            nzWidth="256px"
-            nzBreakpoint="md"
-            [(nzCollapsed)]="isCollapsed"
-            [nzTrigger]="null">
-    <div class="sidebar-logo">
-      <a href="https://ng.ant.design/" target="_blank">
-        <img src="https://ng.ant.design/assets/img/logo.svg" alt="logo">
-        <h1>Ant Design Of Angular</h1>
-      </a>
-    </div>
-    <ul nz-menu nzTheme="dark" nzMode="inline" [nzInlineCollapsed]="isCollapsed">
-      <li nz-submenu nzOpen nzTitle="Dashboard" nzIcon="dashboard">
-        <ul>
-          <li nz-menu-item nzMatchRouter>
-            <a routerLink="/welcome">Welcome</a>
-          </li>
-          <li nz-menu-item nzMatchRouter>
-            <a>Monitor</a>
-          </li>
-          <li nz-menu-item nzMatchRouter>
-            <a>Workplace</a>
-          </li>
-        </ul>
+  <nz-header>
+    <ul nz-menu nzTheme="dark" nzMode="horizontal" class="menu">
+      <li class="menu__right">
+        <nz-space>
+          <button nz-button *nzSpaceItem>
+            <i nz-icon nzType="appstore" nzTheme="outline"></i>
+          </button>
+          <nz-select *nzSpaceItem nzSize="default" style="width: 150px">
+            <nz-option nzLabel="Juanitod" nzValue="juanito"> </nz-option>
+            <nz-option nzLabel="Juanitod" nzValue="juanito"> </nz-option>
+            <nz-option nzLabel="Juanitod" nzValue="juanito"> </nz-option>
+          </nz-select>
+        </nz-space>
       </li>
-      <li nz-submenu nzOpen nzTitle="Form" nzIcon="form">
-        <ul>
-          <li nz-menu-item nzMatchRouter>
-            <a>Basic Form</a>
-          </li>
-        </ul>
-      </li>
+      <div class="menu__left">
+        <li
+          nz-menu-item
+          href=""
+          nz-dropdown
+          [nzDropdownMenu]="administrationMenu"
+          nzPlacement="bottomCenter"
+        >
+          Administración
+        </li>
+        <li nz-menu-item>
+          <nz-avatar nzIcon="user" nzSize="large"></nz-avatar>
+        </li>
+      </div>
     </ul>
-  </nz-sider>
-  <nz-layout>
-    <nz-header>
-      <div class="app-header">
-        <span class="header-trigger" (click)="isCollapsed = !isCollapsed">
-            <i class="trigger"
-               nz-icon
-               [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"
-            ></i>
-        </span>
-      </div>
-    </nz-header>
-    <nz-content>
-      <div class="inner-content">
-        <router-outlet></router-outlet>
-      </div>
-    </nz-content>
-  </nz-layout>
+  </nz-header>
+  <nz-content>
+    <router-outlet></router-outlet>
+  </nz-content>
 </nz-layout>

@@ -18,7 +18,7 @@
       },
       "root": "projects/webbapp",
       "sourceRoot": "projects/webbapp/src",
-      "prefix": "app",
+      "prefix": "leo",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
@@ -107,9 +107,7 @@
               "projects/webbapp/src/favicon.ico",
               "projects/webbapp/src/assets"
             ],
-            "styles": [
-              "projects/webbapp/src/styles.scss"
-            ],
+            "styles": ["projects/webbapp/src/styles.scss"],
             "scripts": []
           }
         }

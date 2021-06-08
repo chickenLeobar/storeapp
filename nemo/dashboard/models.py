@@ -1,7 +1,8 @@
 
 from django.db import models
 
-from .models import (Usuario)
+from .models import (Usuario , Negocio)
+
 # from .models import *
 
 # class Usuario(models.Model):

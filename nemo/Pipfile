@@ -13,6 +13,9 @@ requests = "*"
 psycopg2-binary = "*"
 python-environ = "*"
 djangorestframework = "*"
+pillow = "*"
+coreapi = "*"
+pyyaml = "*"
 
 [dev-packages]
 autopep8 = "*"
