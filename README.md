@@ -35,7 +35,9 @@ This project is not open source yet
 - **Write rour custom User:\***
   - [blog](https://testdriven.io/blog/django-custom-user-model/#user-model)
   - [docs](Write rour custom User:)
+  - [django-notes](https://github.com/ArchTaqi/django-rest-api/blob/master/docs/00-django-notes.md)
 
 ## tools
 
-- Bootstrap 4.6
+- [Angular](https://angular.io/)
+- [django-rest-frameworks](https://www.django-rest-framework.org/)
