@@ -1,8 +1,21 @@
+@import "src/sass/variables";
 .categories {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  li {
-    margin: 5px 0;
-  }
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    li {
+        margin: 5px 0;
+    }
+}
+
+.menu {
+    position: relative;
+    &__right {
+        position: absolute;
+        left: $space-menu;
+    }
+    &__left {
+        right: $space-menu;
+        position: absolute;
+    }
 }

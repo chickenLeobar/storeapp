@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 # https://pypi.org/project/python-environ/
 
+import environ
 from os import path
 from pathlib import Path
 import os
@@ -20,7 +21,6 @@ import os
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # ENVIROMENT
-import environ
 
 env = environ.Env()
 root_path = environ.Path(__file__) - 2
@@ -39,7 +39,8 @@ SECRET_KEY = "django-insecure-on=haw5$y1bez=n0&bj*$rs!ck_ndx1sgk_ft$_-=2fzi7*2xm
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["194.62.99.14", "127.0.0.1", "app.wellnespro.com", "localhost"]
+ALLOWED_HOSTS = ["194.62.99.14", "127.0.0.1",
+                 "app.wellnespro.com", "localhost"]
 
 CRISPY_TEMPLATE_PACK = "bootstrap4"
 # Application definition
@@ -64,13 +65,14 @@ INSTALLED_APPS = [
     # Third party
     "webpack_loader",
     "rest_framework",
+    'corsheaders',
     # apps
     "website",
     "dashboard",
 ]
 
 AUTH_USER_MODEL = "dashboard.Usuario"
-
+CORS_ORIGIN_ALLOW_ALL = True
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
@@ -79,6 +81,9 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    # cors
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
 ]
 
 ROOT_URLCONF = "conf.urls"
@@ -167,9 +172,11 @@ STATICFILES_DIRS = (
 )
 
 webpack_stats_filename = "webpack-bundle.%s.json" % ENV
-stats_file = os.path.join(BASE_DIR.joinpath("assets/bundles/"), webpack_stats_filename)
+stats_file = os.path.join(BASE_DIR.joinpath(
+    "assets/bundles/"), webpack_stats_filename)
 
-REST_FRAMEWORK = { 'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema' }
+REST_FRAMEWORK = {
+    'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema'}
 
 
 WEBPACK_LOADER = {

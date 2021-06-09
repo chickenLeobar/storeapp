@@ -1,4 +1,4 @@
 {
-    "python.pythonPath": "nemo/.venv/bin/python3.9",
+    "python.pythonPath": "C:\\Users\\USER\\.virtualenvs\\nemo-whi93kzG\\Scripts\\python.exe",
     "python.formatting.provider": "autopep8"
 }

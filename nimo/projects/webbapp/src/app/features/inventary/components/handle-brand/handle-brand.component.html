@@ -1,0 +1,25 @@
+<ng-template #formCreate>
+    <nz-form-item>
+        <nz-form-label>
+            Nombre
+        </nz-form-label>
+        <nz-form-control>
+            <input type="text" nz-input [formControl]="brandName" />
+        </nz-form-control>
+    </nz-form-item>
+</ng-template>
+
+<div class="w-100 my-2" style="margin-left: 510px;">
+    <button nz-button nzType="primary" fxFlexAlign="end" (click)="openCreateBrand()">
+    nueva marca
+  </button>
+</div>
+<div class="modal_handle" fxLayout="column" fxLayoutAlign="center center">
+    <nz-input-group nzPrefixIcon="search" style="width: 500px;">
+        <input nz-input nzSize="large" placeholder="Buscar marca" [formControl]="searchBrand" />
+    </nz-input-group>
+    <ul nz-list nzBordered class="my-4">
+        <leo-item-brand [brand]="brand" (eventItem)="eventItemBrand($event)" *ngFor="let brand of $brands | async">
+        </leo-item-brand>
+    </ul>
+</div>

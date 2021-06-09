@@ -1,7 +1,8 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "cli": {
-    "analytics": false
+    "analytics": false,
+    "defaultCollection": "@ngrx/schematics"
   },
   "version": 1,
   "newProjectRoot": "projects",
@@ -107,7 +108,9 @@
               "projects/webbapp/src/favicon.ico",
               "projects/webbapp/src/assets"
             ],
-            "styles": ["projects/webbapp/src/styles.scss"],
+            "styles": [
+              "projects/webbapp/src/styles.scss"
+            ],
             "scripts": []
           }
         }
