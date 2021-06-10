@@ -1,3 +1,4 @@
 import { ProductService } from './product.service';
 import { BrandService } from './brand.service';
-export default [ProductService, BrandService];
+import { CategoryService } from './category.service';
+export default [ProductService, BrandService, CategoryService];

@@ -4,9 +4,18 @@ export interface IBrand {
 }
 
 export interface ICategory {
-  id: number;
+  id?: number;
   name: string;
   description: string;
+  business?: number;
+}
+
+export interface INegocio {
+  id: number;
+  nombre: string;
+  decripcion: string;
+  imagen: string;
+  direction: string;
 }
 
 export interface IProduct {

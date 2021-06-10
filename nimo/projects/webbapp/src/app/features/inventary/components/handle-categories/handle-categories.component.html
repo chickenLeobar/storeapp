@@ -1,22 +1,25 @@
-<div class="modal_handle" fxLayout="column" fxLayoutAlign="center center">
+<div class="handle_categorie_list" fxLayout="column" fxLayoutAlign="center center">
+    <button nz-button nzType="primary" class="btn_more" (click)="createCategorieModalForm(null)">
+    <i nz-icon nzType="plus" nzTheme="outline"></i>
+  </button>
     <nz-input-group nzPrefixIcon="search" style="width: 500px;">
-        <input nz-input nzSize="large" placeholder="Buscar Categoria" />
+        <input [formControl]="searchInput" nz-input nzSize="large" placeholder="Buscar Categoria" />
     </nz-input-group>
     <ul nz-list nzBordered class="my-4">
-        <li nz-list-item style="width: 500px;">
+        <li nz-list-item style="width: 500px;" *ngFor="let categorie of categories$ | async">
             <ul nz-list-item-actions>
                 <nz-list-item-action>
-                    <button nz-button nzType="primary" nzDanger>
+                    <button nz-button (click)="deleteCategorie(categorie)" nzType="primary" nzDanger>
             <i nz-icon nzType="delete" nzTheme="outline"></i>
           </button>
                 </nz-list-item-action>
                 <nz-list-item-action>
-                    <button nz-button nzType="primary">
+                    <button nz-button nzType="primary" (click)="createCategorieModalForm(categorie)">
             <i nz-icon nzType="edit" nzTheme="outline"></i>
           </button>
                 </nz-list-item-action>
             </ul>
-            categoria abd
+            {{ categorie.name }}
         </li>
     </ul>
 </div>

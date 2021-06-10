@@ -41,3 +41,4 @@ This project is not open source yet
 
 - [Angular](https://angular.io/)
 - [django-rest-frameworks](https://www.django-rest-framework.org/)
+- [NGRIO](https://ngrx.io/)

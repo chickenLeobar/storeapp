@@ -22,7 +22,10 @@ import { HandleBrandComponent } from './components/handle-brand/handle-brand.com
 import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { NzModalModule } from 'ng-zorro-antd/modal';
-import { HandleCategoriesComponent } from './components/handle-categories/handle-categories.component';
+import {
+  HandleCategoriesComponent,
+  CreateCategorieComponent
+} from './components/handle-categories/handle-categories.component';
 import { NzListModule } from 'ng-zorro-antd/list';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NzIconModule } from 'ng-zorro-antd/icon';
@@ -50,7 +53,8 @@ const zorro = [
     InventaryComponent,
     HandleBrandComponent,
     HandleCategoriesComponent,
-    ItemBrandComponent
+    ItemBrandComponent,
+    CreateCategorieComponent
   ],
   imports: [
     CommonModule,

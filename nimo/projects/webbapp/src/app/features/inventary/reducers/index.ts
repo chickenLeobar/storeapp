@@ -7,10 +7,13 @@ import {
 } from '@ngrx/store';
 import * as fromRoot from '../../../reducers';
 import * as fromBrand from '../reducers/brand.reducer';
+import * as fromCateory from './category.reducer';
+
 export const featureKey = 'inventary';
 
 export interface InventaryState {
   [fromBrand.featureKey]: fromBrand.State;
+  [fromCateory.featureKey]: fromCateory.State;
 }
 export const selectInventaryState = createFeatureSelector<InventaryState>(
   featureKey
@@ -21,13 +24,17 @@ export interface State extends fromRoot.State {
 }
 
 const _reducers: ActionReducerMap<InventaryState, Action> = {
-  [fromBrand.featureKey]: fromBrand.reducer
+  [fromBrand.featureKey]: fromBrand.reducer,
+  [fromCateory.featureKey]: fromCateory.reducer
 };
 
 export function reducers(state: InventaryState, action: Action) {
   return combineReducers(_reducers)(state, action);
 }
 
+/*=============================================
+=            BRANDS            =
+=============================================*/
 export const selectBrandState = createSelector<
   State,
   InventaryState,
@@ -40,3 +47,53 @@ export const {
   selectTotal: selectTotalBrands,
   selectEntities: selectEntitiesBrand
 } = fromBrand.adapter.getSelectors(selectBrandState);
+
+/*=============================================
+=            Category            =
+=============================================*/
+
+export const selectCategoryState = createSelector(
+  selectInventaryState,
+  (state: InventaryState) => state[fromCateory.featureKey]
+);
+
+export const {
+  selectAll: selectCategories,
+  selectTotal: selectTotal,
+  selectEntities: selectEntitiesCategory
+} = fromCateory.adapter.getSelectors(selectCategoryState);
+export const {
+  selecCurrentId,
+  selectquery,
+  selectIds
+} = fromCateory.getSelectors(selectCategoryState);
+
+export const selectCurrentCategory = createSelector(
+  selectEntitiesCategory,
+  selecCurrentId,
+  (entites, id) => {
+    if (id) {
+      return entites[id];
+    }
+    return null;
+  }
+);
+
+export const selectAndSearchCategories = createSelector(
+  selectCategories,
+  selectIds,
+  (entities, ids) => {
+    if (ids.length == entities.length) {
+      return entities;
+    }
+    if (ids.length === 0) {
+      return entities;
+    }
+    return entities.filter(entitie => {
+      if (!entitie.id) {
+        return false;
+      }
+      return ids.indexOf(entitie.id) >= 0;
+    });
+  }
+);

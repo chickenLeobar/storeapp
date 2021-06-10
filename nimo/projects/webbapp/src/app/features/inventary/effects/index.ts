@@ -1,2 +1,3 @@
 import { BrandEffects } from './brand.effects';
-export default [BrandEffects];
+import { CategoryEffects } from './category.effects';
+export default [BrandEffects, CategoryEffects];
