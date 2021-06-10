@@ -5,7 +5,7 @@ from conf.utils import drive_upload_image
 class Negocio(models.Model):
     nombre =  models.CharField(max_length=250, null=False)
     decripcion =  models.TextField(max_length=500 , null=True)
-    imagen =  models.ImageField(upload_to=drive_upload_image)
+    imagen =  models.ImageField(upload_to=drive_upload_image , null= True)
     direction =  models.CharField(max_length=350, null=False)
 
     def __str__(self) -> str:
