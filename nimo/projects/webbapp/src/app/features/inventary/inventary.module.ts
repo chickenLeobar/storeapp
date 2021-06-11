@@ -30,10 +30,14 @@ import { NzListModule } from 'ng-zorro-antd/list';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { ItemBrandComponent } from './components/handle-brand/item-brand.component';
-
+import { HandleProductComponent } from './components/handle-product/handle-product.component';
+import { NzInputNumberModule } from 'ng-zorro-antd/input-number';
+import { NzSelectModule } from 'ng-zorro-antd/select';
+import { NzUploadModule } from 'ng-zorro-antd/upload';
 const EXTRA = [FlexLayoutModule];
 
 const zorro = [
+  NzUploadModule,
   NzLayoutModule,
   NzListModule,
   NzInputModule,
@@ -46,7 +50,9 @@ const zorro = [
   NzButtonModule,
   NzCheckboxModule,
   NzTypographyModule,
-  NzIconModule
+  NzIconModule,
+  NzSelectModule,
+  NzInputNumberModule
 ];
 @NgModule({
   declarations: [
@@ -54,7 +60,8 @@ const zorro = [
     HandleBrandComponent,
     HandleCategoriesComponent,
     ItemBrandComponent,
-    CreateCategorieComponent
+    CreateCategorieComponent,
+    HandleProductComponent
   ],
   imports: [
     CommonModule,

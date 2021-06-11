@@ -77,10 +77,6 @@ export class CategoryEffects {
       map(([{ query }, categories]) => {
         const ids: number[] = categories
           .filter(val => {
-            console.log(
-              val.name.toLocaleLowerCase().indexOf(query.toLocaleLowerCase())
-            );
-
             return (
               val.name.toLocaleLowerCase().indexOf(query.toLocaleLowerCase()) >=
               0

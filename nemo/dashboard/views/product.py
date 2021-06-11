@@ -4,7 +4,7 @@ from django.db.models.query import QuerySet
 from rest_framework import serializers
 
 from ..models import (Brand, Category)
-
+from cloudinary import *
 from django.urls import reverse_lazy
 
 from ..models import Product
@@ -13,8 +13,12 @@ from rest_framework.decorators import action
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.response import Response
 
+from rest_framework.generics import CreateAPIView
+
 from ..serializers.product_serializer import (
     ProductSerializer, CategorySerializer, BrandSerializer)
+
+
 
 
 class ProductViewSet(ModelViewSet):

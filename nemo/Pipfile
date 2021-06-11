@@ -17,6 +17,7 @@ pillow = "*"
 coreapi = "*"
 pyyaml = "*"
 django-cors-headers = "*"
+cloudinary = "*"
 
 [dev-packages]
 autopep8 = "*"
@@ -25,7 +26,7 @@ autopep8 = "*"
 python_version = "3.9"
 
 [scripts]
-dev = "python manage.py runserver"
+dev = "python manage.py runserver localhost:3000"
 migrate = "python manage.py migrate"
 make = "python manage.py makemigrations"
 check = "python manage.py check"

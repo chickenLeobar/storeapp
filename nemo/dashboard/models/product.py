@@ -1,12 +1,14 @@
 import re
+import cloudinary
 from django.db import models
+
 # - imagen
 # - descripcion
 # - price
 # - name
 # - cantidad
 # - created
-# - stock
+# - stockc
 
 from django.core.validators import MinValueValidator
 unit = (
@@ -49,7 +51,8 @@ class Product(models.Model):
     description = models.TextField(null=False, max_length=250)
 
     stock = models.IntegerField(
-        validators=[MinValueValidator(0, "min value violated")])
+        validators=[MinValueValidator(0, "Min value is 0")], null=True)
+
     created = models.DateTimeField(auto_created=True, auto_now_add=True)
 
     mont_enter = models.DecimalField(max_digits=9, decimal_places=2)
@@ -63,7 +66,8 @@ class Product(models.Model):
     category = models.ForeignKey(
         Category, on_delete=models.CASCADE, verbose_name='Categoria')
 
-    # def get_related_products(self):
+    # ad images
+    images = models.JSONField(null=False, default=list)
 
     def __str__(self):
         return self.name

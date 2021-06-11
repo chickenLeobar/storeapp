@@ -7,7 +7,7 @@ import { NZ_I18N } from 'ng-zorro-antd/i18n';
 import { es_ES } from 'ng-zorro-antd/i18n';
 import { registerLocaleData } from '@angular/common';
 import es from '@angular/common/locales/es';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { IconsProviderModule } from './icons-provider.module';
@@ -21,6 +21,8 @@ import { NzAvatarModule } from 'ng-zorro-antd/avatar';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { ROOT_REDUCERS } from './reducers';
+import { FormlyModule } from '@ngx-formly/core';
+import { FormlyNgZorroAntdModule } from '@ngx-formly/ng-zorro-antd';
 const zorro = [
   NzDropDownModule,
   NzSpaceModule,
@@ -43,7 +45,10 @@ registerLocaleData(es);
     NzMenuModule,
     ...zorro,
     StoreModule.forRoot(ROOT_REDUCERS, {}),
-    EffectsModule.forRoot([])
+    EffectsModule.forRoot([]),
+    ReactiveFormsModule,
+    FormlyModule.forRoot({ extras: { lazyRender: true } }),
+    FormlyNgZorroAntdModule
   ],
   providers: [{ provide: NZ_I18N, useValue: es_ES }],
   bootstrap: [AppComponent]

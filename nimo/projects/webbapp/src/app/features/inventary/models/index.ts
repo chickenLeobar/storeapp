@@ -26,7 +26,10 @@ export interface IProduct {
   created: Date;
   mont_enter: number;
   mont_exist: number;
-
+  method_cont : string;
+  brand : number;
+  categoru : number
+  images? : []
   // brand
 
   // category

@@ -1,0 +1,83 @@
+<div *ngIf="$vm | async as vm">
+    <form action="" nz-form>
+        <!-- name -->
+        <nz-form-item>
+            <nz-form-control>
+                <nz-form-label>
+                    Nombre
+                </nz-form-label>
+                <input type="text" nz-input />
+            </nz-form-control>
+        </nz-form-item>
+        <!-- count method -->
+        <nz-form-item>
+            <nz-form-control>
+                <nz-form-label>
+                    Metodo de evaluación
+                </nz-form-label>
+                <nz-select [formControl]="controlMethodChangue">
+                    <nz-option *ngFor="let item of methodcounts" [nzValue]="item.value" [nzLabel]="item.label">
+                    </nz-option>
+                </nz-select>
+            </nz-form-control>
+        </nz-form-item>
+
+        <!-- categorie -->
+        <nz-form-item>
+            <nz-form-control>
+                <nz-form-label>
+                    Categorias
+                </nz-form-label>
+                <nz-select nzShowSearch>
+                    <nz-option *ngFor="let categorie of vm.categories" [nzValue]="categorie.id" [nzLabel]="categorie.name">
+                    </nz-option>
+                </nz-select>
+            </nz-form-control>
+        </nz-form-item>
+        <!-- brand -->
+        <nz-form-item>
+            <nz-form-control>
+                <nz-form-label>
+                    Marca
+                </nz-form-label>
+                <nz-select nzShowSearch>
+                    <nz-option *ngFor="let brand of vm.brands" [nzValue]="brand.id" [nzLabel]="brand.name">
+                    </nz-option>
+                </nz-select>
+            </nz-form-control>
+        </nz-form-item>
+        <!-- Method -->
+        <nz-form-item nzJustify="start" nzGutter="24" *ngIf="vm.interface?.labels">
+            <nz-form-control>
+                <nz-form-label>
+                    {{ vm.interface?.labels | slice: 0:1 }}
+                </nz-form-label>
+                <nz-input-number></nz-input-number>
+            </nz-form-control>
+            <nz-form-control>
+                <nz-form-label>
+                    {{ vm.interface?.labels | slice: 1 }}
+                </nz-form-label>
+                <nz-input-number></nz-input-number>
+            </nz-form-control>
+        </nz-form-item>
+        <!-- Stock -->
+        <nz-form-item nzJustify="start" nzGutter="24" *ngIf="vm.interface?.stockVisible">
+            <nz-form-control nzSpan="4">
+                <nz-form-label>
+                    {{ vm.interface?.labelStock }}
+                </nz-form-label>
+                <nz-input-number></nz-input-number>
+            </nz-form-control>
+        </nz-form-item>
+        <!-- description -->
+        <nz-form-item>
+            <nz-form-control>
+                <nz-form-label>
+                    Descripción
+                </nz-form-label>
+                <textarea name="" nz-input></textarea>
+            </nz-form-control>
+        </nz-form-item>
+    </form>
+</div>
