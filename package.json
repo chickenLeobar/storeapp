@@ -9,7 +9,8 @@
   "scripts": {
     "postinstall": "preconstruct dev && manypkg check",
     "build": "preconstruct build",
-    "fixpre": "preconstruct fix "
+    "fixpre": "preconstruct fix ",
+    "commit": "cz"
   },
   "dependencies": {
     "@babel/core": "^7.14.3",
@@ -21,6 +22,11 @@
     "@changesets/cli": "^2.16.0",
     "@manypkg/cli": "^0.18.0",
     "@preconstruct/cli": "^2.1.0"
+  },
+  "config": {
+    "commitizen": {
+      "path": "cz-emoji"
+    }
   },
   "preconstruct": {
     "packages": [

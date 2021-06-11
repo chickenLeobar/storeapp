@@ -1,10 +1,10 @@
 <div align="center">
    <h1>Store app</h1>
-   <img src="./icon.png"/>
+   <img width="300" src="./icon.svg"/>
 </div>
 <br/>
 
-# Structure
+## Directories
 
 | directory    |    description     |
 | :----------- | :----------------: |
