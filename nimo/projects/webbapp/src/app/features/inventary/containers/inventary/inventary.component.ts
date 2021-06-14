@@ -6,9 +6,9 @@ import { HandleCategoriesComponent } from '../../components/handle-categories/ha
 import { HandleProductComponent } from '../../components/handle-product/handle-product.component';
 import * as categoriactions from '../../actions/category.actions';
 import * as fromActions from '../../actions/brand.actions';
+import * as productActions from '../../actions/product.actionts';
 import { Store } from '@ngrx/store';
 import { State, selectCategories, selectProducts } from '../../reducers';
-import * as productActions from '../../actions/product.actionts';
 import { ComponentStore } from '@ngrx/component-store';
 
 interface ContainerProductState {}

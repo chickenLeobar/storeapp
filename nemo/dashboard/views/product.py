@@ -23,7 +23,7 @@ from ..serializers.product_serializer import (
 
 class ProductViewSet(ModelViewSet):
     serializer_class = ProductSerializer
-    lookup_field = "name"
+    lookup_field = "id"
     queryset = Product.objects.all()
 
 
@@ -41,7 +41,6 @@ class CategoryViewSet(ModelViewSet):
 class BrandSerializer(ModelViewSet):
     serializer_class = BrandSerializer
     queryset = Brand.objects.all()
-
     def filter_queryset(self, queryset: QuerySet):
         keyword = self.request.query_params.get("keyword")
         if(keyword != None or keyword == ''):

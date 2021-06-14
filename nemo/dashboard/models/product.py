@@ -17,7 +17,6 @@ unit = (
     ("und", "unidad")
 )
 
-
 class Brand(models.Model):
     name = models.CharField(max_length=150, null=False, verbose_name="Nombre")
     # business = models.ForeignKey('Negocio', on_delete=models.CASCADE)
@@ -42,7 +41,6 @@ class ProductManager(models.Manager):
 
     def filter_products(self, keyword: str):
         qs = self.get_queryset()
-
         return qs
 
 
@@ -56,12 +54,12 @@ class Product(models.Model):
     created = models.DateTimeField(auto_created=True, auto_now_add=True)
 
     mont_enter = models.DecimalField(max_digits=9, decimal_places=2)
-    mont_enter = models.DecimalField(max_digits=9, decimal_places=2)
 
-    method_cont = models.CharField(
-        choices=unit, verbose_name="Unidad", default="und", max_length=50)
+    mont_exist = models.DecimalField(max_digits=9, decimal_places=2)
+
+    method_cont = models.CharField(verbose_name="Unidad", default="und", max_length=50)
     brand = models.ForeignKey(
-        Brand, on_delete=models.CASCADE, verbose_name="Marca")
+        Brand, on_delete=models.CASCADE, verbose_name="Marca"  , null=True)
 
     category = models.ForeignKey(
         Category, on_delete=models.CASCADE, verbose_name='Categoria')

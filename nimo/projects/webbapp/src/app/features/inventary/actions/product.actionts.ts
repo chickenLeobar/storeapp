@@ -40,3 +40,8 @@ export const selectProduct = createAction(
 export const cleanProductId = createAction(
   '[product/api] clean selected product'
 );
+
+export const addProductForSale = createAction(
+  '[product/api] add product for sale',
+  props<{ id: number; mont: number }>()
+);

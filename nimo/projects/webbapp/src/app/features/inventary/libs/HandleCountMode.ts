@@ -6,26 +6,31 @@ const labels: {
     enter: string;
     exit: string;
     stocKLabel?: string;
+    saleLabel: string;
   };
 } = {
   MONT: {
     enter: 'Entrada',
-    exit: 'Ganancia'
+    exit: 'Ganancia',
+    saleLabel: 'por monto'
   },
   UNITY: {
     enter: 'Costo de compra',
     exit: 'Precio de venta',
-    stocKLabel: 'Unidades'
+    stocKLabel: 'Unidades',
+    saleLabel: 'por unidades'
   },
   kilo: {
     enter: 'Costo de compra (por kilo)',
     exit: 'Precio de venta (por kilo)',
-    stocKLabel: 'Kilos'
+    stocKLabel: 'Kilos',
+    saleLabel: 'por kilos'
   },
   LITER: {
     enter: 'Costo de compra (por litro)',
     exit: 'Precio de venta (por Litro)',
-    stocKLabel: 'Litros'
+    stocKLabel: 'Litros',
+    saleLabel: 'por libros'
   }
 };
 
@@ -34,7 +39,6 @@ export type IInterfaz = {
   stockVisible: boolean;
   labelStock: string;
 };
-
 
 @Injectable()
 export class HandleCountMode {
@@ -68,5 +72,8 @@ export class HandleCountMode {
       labels: this.labels,
       stockVisible: this.stockVisible
     });
+  }
+  public get saleLabel() {
+    return labels[this.mode]?.saleLabel;
   }
 }

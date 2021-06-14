@@ -13,13 +13,15 @@ import * as productActions from '../actions/product.actionts';
 export const featureKey = 'product';
 
 export const adapter: EntityAdapter<IProduct> = createEntityAdapter();
-
+import produce from 'immer';
 export interface State extends EntityState<IProduct> {
   selectId: number | null;
+  saleProducts: { id: number; mont: number }[];
 }
 
 const initialState: State = adapter.getInitialState({
-  selectId: null
+  selectId: null,
+  saleProducts: []
 });
 
 export const reducer = createReducer(
@@ -53,6 +55,28 @@ export const reducer = createReducer(
       ...state,
       selectId: null
     };
+  }),
+  // add product for
+  on(productActions.addProductForSale, (state, { id, mont }) => {
+    return produce(state, draf => {
+      if (draf.saleProducts.some(d => d.id == id)) {
+        // exist poduct
+        if (mont <= 0) {
+          draf.saleProducts.filter(pr => pr.id !== id);
+        } else {
+          // replace id
+          draf.saleProducts.map(pr => {
+            if (pr.id == id) {
+              pr.mont = mont;
+            }
+            return pr;
+          });
+        }
+      } else {
+        // push
+        draf.saleProducts.push({ id, mont });
+      }
+    });
   })
 );
 

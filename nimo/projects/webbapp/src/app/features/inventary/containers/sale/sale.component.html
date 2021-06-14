@@ -1,4 +1,4 @@
-<nz-layout class="w-100 h-100">
+<nz-layout class="w-100  h-100" *ngIf="$vm | async as vm">
   <nz-content nz-row nzJustify="start" nzAlign="top">
     <!-- search -->
     <nz-form-control nz-col nzSpan="8">
@@ -6,31 +6,55 @@
         <input type="text" nz-input placeholder="Buscar" />
       </nz-input-group>
     </nz-form-control>
-    <!-- filters -->
-    <!-- grid products -->
-    <div nz-row class="w-100" style="border: 2px solid black;">
-      <nz-card nz-col nzSpan="4" [nzCover]="covertemplate">
-        <ng-template #covertemplate>
-          <img src="assets/images/pepsi.png" alt="" style="padding: 10px;" />
-        </ng-template>
-        <h3 nz-typography>Pepsi Cola</h3>
-        <p nz-typography>
-          Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet
-        </p>
-        <div nz-row>
-          <div nz-col nzSpan="20">
-            Venta: Por unidad
-          </div>
-          <span>
-            2$
-          </span>
-        </div>
-      </nz-card>
+    <div nz-row class="w-100">
+      <nz-form-control nzSpan="8">
+        <nz-form-label>
+          Marca
+        </nz-form-label>
+        <nz-select class="w-50" nzShowSearch>
+          <nz-option
+            *ngFor="let brand of vm.brands"
+            [nzValue]="brand.id"
+            [nzLabel]="brand.name"
+          >
+          </nz-option>
+        </nz-select>
+      </nz-form-control>
+      <nz-form-control nzSpan="8">
+        <nz-form-label>
+          Categoria
+        </nz-form-label>
+        <nz-select class="w-50" nzShowSearch>
+          <nz-option
+            *ngFor="let categorie of vm.categories"
+            [nzValue]="categorie.id"
+            [nzLabel]="categorie.name"
+          >
+          </nz-option>
+        </nz-select>
+      </nz-form-control>
     </div>
+    <!-- filters -->
+    <leo-sale-show-products [products]="vm.products"></leo-sale-show-products>
   </nz-content>
-  <nz-sider nzWidth="250px" nzTheme="light">
+  <nz-sider nzWidth="25%" nzTheme="light">
     <!--list-->
-    <!-- monts-->
+
+    <leo-sale-products></leo-sale-products>
+
     <!-- actions -->
+    <div class="w-100 actions">
+      <button nz-button nzType="primary">
+        vender
+      </button>
+    </div>
+    <div class="actions_bottom">
+      <button nz-button nzType="primary" nzDanger>
+        cancelar
+      </button>
+      <button nz-button nzType="primary">
+        caja
+      </button>
+    </div>
   </nz-sider>
 </nz-layout>

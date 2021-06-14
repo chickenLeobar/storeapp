@@ -36,6 +36,12 @@ import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzUploadModule } from 'ng-zorro-antd/upload';
 import { SaleComponent } from './containers/sale/sale.component';
 import { NzCardModule } from 'ng-zorro-antd/card';
+import { NzDividerModule } from 'ng-zorro-antd/divider';
+import { SaleProductsComponent } from './components/sale-products/sale-products.component';
+import { SaleShowProductsComponent } from './components/sale-show-products/sale-show-products.component';
+import { ProductComponent } from './components/sale-show-products/product.component';
+import { ScrollingModule } from '@angular/cdk/scrolling';
+
 const EXTRA = [FlexLayoutModule];
 
 const zorro = [
@@ -56,8 +62,12 @@ const zorro = [
   NzIconModule,
   NzSelectModule,
   NzInputNumberModule,
-  NzSwitchModule
+  NzSwitchModule,
+  NzDividerModule
 ];
+
+const MATERIAL = [ScrollingModule];
+
 @NgModule({
   declarations: [
     InventaryComponent,
@@ -66,13 +76,17 @@ const zorro = [
     ItemBrandComponent,
     CreateCategorieComponent,
     HandleProductComponent,
-    SaleComponent
+    SaleComponent,
+    SaleProductsComponent,
+    SaleShowProductsComponent,
+    ProductComponent
   ],
   imports: [
     CommonModule,
     InventaryRoutingModule,
     HttpClientModule,
     ...zorro,
+    ...MATERIAL,
     FormsModule,
     ReactiveFormsModule,
     EXTRA,

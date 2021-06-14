@@ -1,3 +1,4 @@
+import { AvalibleModes } from './../libs/HandleCountMode';
 export interface IBrand {
   id?: number;
   name: string;
@@ -26,7 +27,7 @@ export interface IProduct {
   created: Date;
   mont_enter: number;
   mont_exist: number;
-  method_cont: string;
+  method_cont: AvalibleModes;
   brand?: number;
   category: number;
   images?: [];
