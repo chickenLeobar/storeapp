@@ -4,16 +4,16 @@ import { Routes, RouterModule } from '@angular/router';
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: '' },
   {
-    path: 'inventary',
+    path: '',
     loadChildren: () =>
       import('./features/inventary/inventary.module').then(
-        (m) => m.InventaryModule
-      ),
-  },
+        m => m.InventaryModule
+      )
+  }
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule],
+  exports: [RouterModule]
 })
 export class AppRoutingModule {}

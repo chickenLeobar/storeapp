@@ -1,0 +1,36 @@
+<nz-layout class="w-100 h-100">
+  <nz-content nz-row nzJustify="start" nzAlign="top">
+    <!-- search -->
+    <nz-form-control nz-col nzSpan="8">
+      <nz-input-group nzPrefixIcon="search">
+        <input type="text" nz-input placeholder="Buscar" />
+      </nz-input-group>
+    </nz-form-control>
+    <!-- filters -->
+    <!-- grid products -->
+    <div nz-row class="w-100" style="border: 2px solid black;">
+      <nz-card nz-col nzSpan="4" [nzCover]="covertemplate">
+        <ng-template #covertemplate>
+          <img src="assets/images/pepsi.png" alt="" style="padding: 10px;" />
+        </ng-template>
+        <h3 nz-typography>Pepsi Cola</h3>
+        <p nz-typography>
+          Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet
+        </p>
+        <div nz-row>
+          <div nz-col nzSpan="20">
+            Venta: Por unidad
+          </div>
+          <span>
+            2$
+          </span>
+        </div>
+      </nz-card>
+    </div>
+  </nz-content>
+  <nz-sider nzWidth="250px" nzTheme="light">
+    <!--list-->
+    <!-- monts-->
+    <!-- actions -->
+  </nz-sider>
+</nz-layout>

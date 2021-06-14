@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 
 @Injectable()
 export class ProductService {
-  private apiurl = environment.apiUrl.concat('api/category/');
+  private apiurl = environment.apiUrl.concat('api/products/');
   constructor(private http: HttpClient) {}
   // post product
   public createProduct(product: Partial<IProduct>): Observable<IProduct> {
@@ -21,9 +21,7 @@ export class ProductService {
   }
   // delete
   public deleteProduct(product: IProduct) {
-    return this.http
-      .delete(this.apiurl.concat(`${product.id}/`))
-      .pipe(tap(console.log));
+    return this.http.delete(this.apiurl.concat(`${product.id}/`));
   }
   // get products
   public getProducts(): Observable<IProduct[]> {

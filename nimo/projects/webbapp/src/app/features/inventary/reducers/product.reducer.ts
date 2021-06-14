@@ -33,12 +33,26 @@ export const reducer = createReducer(
     return adapter.setAll(products, state);
   }),
   // edit products
-  on(productActions.editProduct, (state, { product }) => {
+  on(productActions.editProductSuccess, (state, { product }) => {
     return adapter.setOne(product, state);
   }),
   // remove product
-  on(productActions.removeProduct, (state, { product }) => {
+  on(productActions.removeProductSuccess, (state, { product }) => {
     return adapter.removeOne(product.id, state);
+  }),
+  // selected product
+  on(productActions.selectProduct, (state, { product }) => {
+    return {
+      ...state,
+      selectId: product.id
+    };
+  }),
+  // clean product id
+  on(productActions.cleanProductId, state => {
+    return {
+      ...state,
+      selectId: null
+    };
   })
 );
 
@@ -46,7 +60,25 @@ export const getSelectors = (
   selectorBase: MemoizedSelector<NzSafeAny, State>
 ) => {
   const selectCurrentId = createSelector(selectorBase, state => state.selectId);
+  const {
+    selectAll,
+    selectEntities,
+    selectIds,
+    selectTotal: selectTotalProducts
+  } = adapter.getSelectors(selectorBase);
+  const selectProducts = createSelector(selectAll, products => {
+    return products;
+  });
+  const selectCurrentProduct = createSelector(
+    selectCurrentId,
+    selectEntities,
+    (id, entities) => (id ? entities[id] : null)
+  );
+
   return {
-    selectCurrentId
+    selectCurrentId,
+    selectProducts,
+    selectTotalProducts,
+    selectCurrentProduct
   };
 };

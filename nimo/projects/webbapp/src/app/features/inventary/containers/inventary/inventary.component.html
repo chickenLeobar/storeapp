@@ -1,0 +1,92 @@
+<!-- modal create -->
+
+<ng-container *ngIf="$vm | async as vm">
+  <nz-header>
+    <ul nz-menu nzTheme="dark" nzMode="horizontal" class="menu">
+      <li class="menu__right">
+        <nz-space>
+          <button *nzSpaceItem nz-button (click)="openBrandModal()">
+            marcas
+          </button>
+          <button nz-button *nzSpaceItem (click)="openCategoriesModal()">
+            categorias
+          </button>
+        </nz-space>
+      </li>
+      <li class="menu__left">
+        <button nz-button nzType="primary" (click)="createProduct()">
+          Nuevo producto
+        </button>
+      </li>
+    </ul>
+  </nz-header>
+  <div nz-row class="w-100 mt-4 mx-3">
+    <div nz-col nzSpan="4" class="container">
+      <h3 nz-typography>Categorias</h3>
+      <ul class="categories">
+        <li *ngFor="let item of $categories | async">
+          <label nz-checkbox>{{ item.name }}</label>
+        </li>
+      </ul>
+    </div>
+    <div nz-col nzSpan="18">
+      <div nz-row>
+        <nz-form-item nz-col nzSpan="8" nzPush="2">
+          <nz-input-group nzPrefixIcon="search">
+            <input placeholder="Buscar" type="text" nz-input />
+          </nz-input-group>
+        </nz-form-item>
+        <!-- <button nz-button nz-col nzSpan="4" nzPush="10" nzType="primary">
+          Agregar
+        </button> -->
+      </div>
+      <div nz-row nzJustify="center">
+        <nz-table #products nz-col nzSpan="20" [nzData]="vm.products">
+          <thead>
+            <tr>
+              <th>Nombre</th>
+              <th>Cantidad</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let product of products.data">
+              <td>{{ product.name }}</td>
+              <td>{{ product.stock }}</td>
+              <td>
+                <nz-space>
+                  <button
+                    *nzSpaceItem
+                    nz-button
+                    nzType="primary"
+                    nzSize="small"
+                    (click)="editProduct(product)"
+                  >
+                    <i nz-icon nzType="edit" nzTheme="outline"></i>
+                  </button>
+                  <button
+                    *nzSpaceItem
+                    nzSize="small"
+                    nz-button
+                    nzType="primary"
+                  >
+                    <i nz-icon nzType="eye" nzTheme="outline"></i>
+                  </button>
+                  <button
+                    (click)="deleteProduct(product)"
+                    nz-button
+                    nzSize="small"
+                    nzDanger
+                    *nzSpaceItem
+                  >
+                    <i nz-icon nzType="delete" nzTheme="outline"></i>
+                  </button>
+                </nz-space>
+              </td>
+            </tr>
+          </tbody>
+        </nz-table>
+      </div>
+    </div>
+  </div>
+</ng-container>

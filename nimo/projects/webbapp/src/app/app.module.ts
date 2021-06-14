@@ -23,6 +23,8 @@ import { EffectsModule } from '@ngrx/effects';
 import { ROOT_REDUCERS } from './reducers';
 import { FormlyModule } from '@ngx-formly/core';
 import { FormlyNgZorroAntdModule } from '@ngx-formly/ng-zorro-antd';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { environment } from '../environments/environment';
 const zorro = [
   NzDropDownModule,
   NzSpaceModule,
@@ -48,7 +50,12 @@ registerLocaleData(es);
     EffectsModule.forRoot([]),
     ReactiveFormsModule,
     FormlyModule.forRoot({ extras: { lazyRender: true } }),
-    FormlyNgZorroAntdModule
+    FormlyNgZorroAntdModule,
+    StoreDevtoolsModule.instrument({
+      maxAge: 25,
+      logOnly: environment.production,
+      name: 'Store app'
+    })
   ],
   providers: [{ provide: NZ_I18N, useValue: es_ES }],
   bootstrap: [AppComponent]

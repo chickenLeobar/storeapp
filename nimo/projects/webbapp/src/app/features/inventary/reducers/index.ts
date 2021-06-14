@@ -8,12 +8,13 @@ import {
 import * as fromRoot from '../../../reducers';
 import * as fromBrand from '../reducers/brand.reducer';
 import * as fromCateory from './category.reducer';
-
+import * as fromProduct from './product.reducer';
 export const featureKey = 'inventary';
 
 export interface InventaryState {
   [fromBrand.featureKey]: fromBrand.State;
   [fromCateory.featureKey]: fromCateory.State;
+  [fromProduct.featureKey]: fromProduct.State;
 }
 export const selectInventaryState = createFeatureSelector<InventaryState>(
   featureKey
@@ -25,7 +26,8 @@ export interface State extends fromRoot.State {
 
 const _reducers: ActionReducerMap<InventaryState, Action> = {
   [fromBrand.featureKey]: fromBrand.reducer,
-  [fromCateory.featureKey]: fromCateory.reducer
+  [fromCateory.featureKey]: fromCateory.reducer,
+  [fromProduct.featureKey]: fromProduct.reducer
 };
 
 export function reducers(state: InventaryState, action: Action) {
@@ -97,3 +99,18 @@ export const selectAndSearchCategories = createSelector(
     });
   }
 );
+
+/*=============================================
+=            Products            =
+=============================================*/
+
+export const selectProductState = createSelector(
+  selectInventaryState,
+  state => state[fromProduct.featureKey]
+);
+
+export const {
+  selectProducts,
+  selectTotalProducts,
+  selectCurrentProduct
+} = fromProduct.getSelectors(selectProductState);

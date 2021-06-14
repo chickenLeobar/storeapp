@@ -22,15 +22,14 @@ export interface IProduct {
   id: number;
   name: string;
   description: string;
-  stock: number;
+  stock?: number;
   created: Date;
   mont_enter: number;
   mont_exist: number;
-  method_cont : string;
-  brand : number;
-  categoru : number
-  images? : []
+  method_cont: string;
+  brand?: number;
+  category: number;
+  images?: [];
   // brand
-
   // category
 }

@@ -1,23 +1,33 @@
-import { FormControl } from '@angular/forms';
+import { IProduct } from './../../models/index';
+import { FormControl, FormBuilder } from '@angular/forms';
 import { NzSafeAny } from 'ng-zorro-antd/core/types';
-import { map, switchMap, tap } from 'rxjs/operators';
+import { map, switchMap, tap, filter, take } from 'rxjs/operators';
 import { EMPTY, Observable, of } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 import { ComponentStore } from '@ngrx/component-store';
 import { Store } from '@ngrx/store';
-import { State, selectAndSearchCategories, selectBrands } from '../../reducers';
+import {
+  State,
+  selectAndSearchCategories,
+  selectBrands,
+  selecCurrentId,
+  selectCurrentProduct
+} from '../../reducers';
 import { AvalibleModes, HandleCountMode, IInterfaz } from '../../libs';
-
+import { FormGroup } from '@angular/forms';
+import * as productActions from '../../actions/product.actionts';
 interface InitialState {
   interfaz?: IInterfaz;
+  currentProduct?: IProduct;
 }
-
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 @Component({
   selector: 'leo-handle-product',
   templateUrl: './handle-product.component.html',
   styles: [],
   providers: [ComponentStore, HandleCountMode]
 })
+@UntilDestroy()
 export class HandleProductComponent implements OnInit {
   methodcounts: {
     label: string;
@@ -41,8 +51,29 @@ export class HandleProductComponent implements OnInit {
     }
   ];
 
-  controlMethodChangue: FormControl = new FormControl();
+  /*=============================================
+  =            others controls            =
+  =============================================*/
 
+  visibleBrandChague: FormControl = new FormControl(true);
+
+  /*=============================================
+ =            forms Definition            =
+ =============================================*/
+  productForm = new FormGroup({
+    name: this.fb.control([]),
+    description: this.fb.control([]),
+    stock: this.fb.control([]),
+    mont_enter: this.fb.control([]),
+    mont_exist: this.fb.control([]),
+    method_cont: this.fb.control([]),
+    brand: this.fb.control([]),
+    category: this.fb.control([])
+  });
+
+  /*=============================================
+  =            local Effects            =
+  =============================================*/
   changueEvaluateMethod$ = this.componentStore.effect(
     ($trigger: Observable<{ mode: AvalibleModes }>) => {
       return $trigger.pipe(
@@ -50,7 +81,6 @@ export class HandleProductComponent implements OnInit {
           this.resultMode.changueMode(mod.mode);
           return this.resultMode.value.pipe(
             tap(data => {
-              console.log('changue state', data);
               this.componentStore.patchState({
                 interfaz: data
               });
@@ -61,13 +91,19 @@ export class HandleProductComponent implements OnInit {
     }
   );
 
+  /*=============================================
+  =            variaables            =
+  =============================================*/
+
+  private isEdit = false;
+
   constructor(
     private readonly componentStore: ComponentStore<InitialState>,
     private store: Store<State>,
-    private resultMode: HandleCountMode
+    private resultMode: HandleCountMode,
+    private fb: FormBuilder
   ) {
     this.componentStore.setState({});
-
     this.changueEvaluateMethod$({ mode: 'MONT' });
   }
   // categories
@@ -78,22 +114,77 @@ export class HandleProductComponent implements OnInit {
   readonly $selectInterfaz = this.componentStore.select(
     state => state.interfaz
   );
+
   ngOnInit(): void {
-    // listen chngue of value method
-    this.controlMethodChangue.patchValue('MONT');
-    this.controlMethodChangue.valueChanges.subscribe(val => {
+    this.formConfigurations();
+    this.$selectedCurrentProdcut
+      .pipe(
+        tap(d => {
+          console.log(d);
+        }),
+        filter(Boolean)
+      )
+      .pipe(untilDestroyed(this))
+      .subscribe(pr => {
+        let praux = pr as IProduct;
+        // set values in form
+        console.log('on init');
+        this.productForm.patchValue({
+          ...praux
+        });
+      });
+  }
+  private formConfigurations() {
+    this.productForm.get('method_cont')?.patchValue('MONT');
+    this.productForm.get('method_cont')?.valueChanges.subscribe(val => {
       this.changueEvaluateMethod$({ mode: val });
     });
   }
+
+  public registerProduct(event: NzSafeAny) {
+    // prepare product
+    let product = this.productForm.value as IProduct;
+    const sendBrand = Boolean(this.visibleBrandChague.value);
+    if (!sendBrand) {
+      delete product?.brand;
+    }
+    if (!this.resultMode.stockVisible) {
+      delete product.stock;
+    }
+    //
+    this.$selectedCurrentProdcut.pipe(take(1)).subscribe(pr => {
+      if (this.isEdit) {
+        product = {
+          ...product,
+          id: pr.id
+        };
+        this.store.dispatch(productActions.editProduct({ product }));
+      } else {
+        this.store.dispatch(
+          productActions.addProduct({
+            product: product
+          })
+        );
+      }
+    });
+  }
+  // selected current id
+  $selectedCurrentProdcut = this.store.select(
+    selectCurrentProduct
+  ) as Observable<IProduct>;
+
   public $vm = this.componentStore.select(
     this.$categories,
     this.$brands,
     this.$selectInterfaz,
-    (categories, brands, interfaz) => {
+    this.$selectedCurrentProdcut,
+    (categories, brands, interfaz, curentProduct) => {
+      this.isEdit = curentProduct != null;
       return {
         categories: categories,
         brands: brands,
-        interface: interfaz
+        interface: interfaz,
+        isEdit: this.isEdit
       };
     }
   );

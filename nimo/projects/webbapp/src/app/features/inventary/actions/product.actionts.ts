@@ -18,10 +18,7 @@ export const removeProductSuccess = createAction(
   props<{ product: IProduct }>()
 );
 
-export const loadProducts = createAction(
-  '[product/api] load products',
-  props<{ products: IProduct[] }>()
-);
+export const loadProducts = createAction('[product/api] load products');
 export const loadProductSuccess = createAction(
   '[product/api] load products success',
   props<{ products: IProduct[] }>()
@@ -33,4 +30,13 @@ export const editProduct = createAction(
 export const editProductSuccess = createAction(
   '[product/api] edit product success',
   props<{ product: IProduct }>()
+);
+
+export const selectProduct = createAction(
+  '[product/api] selected product',
+  props<{ product: IProduct }>()
+);
+
+export const cleanProductId = createAction(
+  '[product/api] clean selected product'
 );

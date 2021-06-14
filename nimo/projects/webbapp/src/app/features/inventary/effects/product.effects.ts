@@ -3,6 +3,8 @@ import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { ProductService } from '../services/product.service';
 import * as productActions from '../actions/product.actionts';
+import { Store } from '@ngrx/store';
+import { State } from '../reducers';
 @Injectable()
 export class ProductEffects {
   $loadProducts = createEffect(() =>
@@ -31,15 +33,23 @@ export class ProductEffects {
     )
   );
 
+  $selectProduct = createEffect(() =>
+    this.actions$.pipe(
+      ofType(productActions.addProductSuccess),
+      map(actin => productActions.selectProduct({ product: actin.product }))
+    )
+  );
+
   $editProduct = createEffect(() =>
     this.actions$.pipe(
       ofType(productActions.editProduct),
       exhaustMap(({ product }) =>
-        this.productService
-          .updateProduct(product)
-          .pipe(
-            map(data => productActions.editProductSuccess({ product: data }))
-          )
+        this.productService.updateProduct(product).pipe(
+          map(data => {
+            // this.store.dispatch(productActions.cleanProductId());
+            return productActions.editProductSuccess({ product: data });
+          })
+        )
       )
     )
   );
@@ -50,13 +60,16 @@ export class ProductEffects {
         this.productService
           .deleteProduct(product)
           .pipe(
-            map(data => productActions.removeProductSuccess({ product: data }))
+            map(data =>
+              productActions.removeProductSuccess({ product: product })
+            )
           )
       )
     )
   );
   constructor(
     private actions$: Actions,
-    private productService: ProductService
+    private productService: ProductService,
+    private store: Store<State>
   ) {}
 }

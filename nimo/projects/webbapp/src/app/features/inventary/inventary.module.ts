@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { InventaryRoutingModule } from './inventary-routing.module';
-import { InventaryComponent } from './containers/inventary.component';
+import { InventaryComponent } from './containers/inventary/inventary.component';
 import { NzSpaceModule } from 'ng-zorro-antd/space';
 import { NzGridModule } from 'ng-zorro-antd/grid';
 import { NzTypographyModule } from 'ng-zorro-antd/typography';
@@ -20,7 +20,7 @@ import services from './services';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { HandleBrandComponent } from './components/handle-brand/handle-brand.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
-
+import { NzSwitchModule } from 'ng-zorro-antd/switch';
 import { NzModalModule } from 'ng-zorro-antd/modal';
 import {
   HandleCategoriesComponent,
@@ -34,6 +34,8 @@ import { HandleProductComponent } from './components/handle-product/handle-produ
 import { NzInputNumberModule } from 'ng-zorro-antd/input-number';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzUploadModule } from 'ng-zorro-antd/upload';
+import { SaleComponent } from './containers/sale/sale.component';
+import { NzCardModule } from 'ng-zorro-antd/card';
 const EXTRA = [FlexLayoutModule];
 
 const zorro = [
@@ -41,6 +43,7 @@ const zorro = [
   NzLayoutModule,
   NzListModule,
   NzInputModule,
+  NzCardModule,
   NzTableModule,
   NzLayoutModule,
   NzSpaceModule,
@@ -52,7 +55,8 @@ const zorro = [
   NzTypographyModule,
   NzIconModule,
   NzSelectModule,
-  NzInputNumberModule
+  NzInputNumberModule,
+  NzSwitchModule
 ];
 @NgModule({
   declarations: [
@@ -61,7 +65,8 @@ const zorro = [
     HandleCategoriesComponent,
     ItemBrandComponent,
     CreateCategorieComponent,
-    HandleProductComponent
+    HandleProductComponent,
+    SaleComponent
   ],
   imports: [
     CommonModule,
