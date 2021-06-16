@@ -37,10 +37,13 @@
     <!-- filters -->
     <leo-sale-show-products [products]="vm.products"></leo-sale-show-products>
   </nz-content>
-  <nz-sider nzWidth="25%" nzTheme="light">
+  <nz-sider nzWidth="30%" nzTheme="light">
     <!--list-->
 
-    <leo-sale-products></leo-sale-products>
+    <leo-sale-products
+      [totalAndCount]="vm.totalAndCount"
+      [sales]="vm.sales"
+    ></leo-sale-products>
 
     <!-- actions -->
     <div class="w-100 actions">
@@ -49,7 +52,7 @@
       </button>
     </div>
     <div class="actions_bottom">
-      <button nz-button nzType="primary" nzDanger>
+      <button nz-button nzType="primary" nzDanger (click)="cancelSale()">
         cancelar
       </button>
       <button nz-button nzType="primary">

@@ -1,6 +1,6 @@
 $blue-color: #096dd9;
 $background: #f0f2f5;
-$max-height-list: 550px;
+$max-height-list: 500px;
 nz-layout {
   nz-content {
     //grid of products
@@ -42,6 +42,7 @@ nz-layout {
       max-height: $max-height-list;
       min-height: $max-height-list;
       overflow-y: scroll;
+      overflow-x: hidden;
       // item of list
       nz-list-item {
         background: $background;
@@ -51,9 +52,11 @@ nz-layout {
         margin-left: 10px;
       }
       .title {
+        min-width: 450px;
         margin: 0 !important;
         padding: 0 !important;
         font-weight: 400;
+        font-size: 1rem;
       }
       .price {
         margin: 0 !important;

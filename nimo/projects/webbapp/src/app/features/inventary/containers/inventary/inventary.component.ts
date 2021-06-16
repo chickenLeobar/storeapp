@@ -21,7 +21,6 @@ interface ContainerProductState {}
   providers: [ComponentStore]
 })
 export class InventaryComponent implements OnInit, OnDestroy {
-  categories = ['gaseosas', 'inergumenos', 'lacteos'];
   $categories = this.store.select(selectCategories);
   $products = this.store.select(selectProducts);
 

@@ -7,30 +7,35 @@ const labels: {
     exit: string;
     stocKLabel?: string;
     saleLabel: string;
+    letterIdentifier: string;
   };
 } = {
   MONT: {
     enter: 'Entrada',
     exit: 'Ganancia',
-    saleLabel: 'por monto'
+    saleLabel: 'por monto',
+    letterIdentifier: 'M'
   },
   UNITY: {
     enter: 'Costo de compra',
     exit: 'Precio de venta',
     stocKLabel: 'Unidades',
-    saleLabel: 'por unidades'
+    saleLabel: 'por unidades',
+    letterIdentifier: 'U'
   },
   kilo: {
     enter: 'Costo de compra (por kilo)',
     exit: 'Precio de venta (por kilo)',
     stocKLabel: 'Kilos',
-    saleLabel: 'por kilos'
+    saleLabel: 'por kilos',
+    letterIdentifier: 'K'
   },
   LITER: {
     enter: 'Costo de compra (por litro)',
     exit: 'Precio de venta (por Litro)',
     stocKLabel: 'Litros',
-    saleLabel: 'por libros'
+    saleLabel: 'por libros',
+    letterIdentifier: 'L'
   }
 };
 
@@ -40,7 +45,9 @@ export type IInterfaz = {
   labelStock: string;
 };
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class HandleCountMode {
   private mode: AvalibleModes = 'MONT';
   constructor() {
@@ -75,5 +82,8 @@ export class HandleCountMode {
   }
   public get saleLabel() {
     return labels[this.mode]?.saleLabel;
+  }
+  public get letterIdentifier(): string {
+    return labels[this.mode]?.letterIdentifier || '';
   }
 }

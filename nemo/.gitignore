@@ -24,4 +24,4 @@ assets/bundles/dev
 .vscode
 
 
-./**/migrations/*.*
+./**/migrations/*.py

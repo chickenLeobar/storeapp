@@ -1,13 +1,16 @@
 import { HandleCountMode } from './../../libs/HandleCountMode';
 import { IProduct } from './../../models/index';
-
+import { Store } from '@ngrx/store';
+import { State } from '../,,/../../reducers';
 import {
   ChangeDetectionStrategy,
   Component,
   Input,
   OnInit,
-  ViewEncapsulation
+  ViewEncapsulation,
+  HostListener
 } from '@angular/core';
+import * as productActions from '../../actions/product.actionts';
 
 @Component({
   selector: 'leo-product',
@@ -28,7 +31,7 @@ import {
           />
         </ng-template>
       </ng-template>
-      <h3 nz-typography>Pepsi Cola</h3>
+      <h3 nz-typography>{{ product.name }}</h3>
       <p nz-typography class="description">
         {{ product.description | slice: 0:20 }}
       </p>
@@ -53,7 +56,14 @@ export class ProductComponent implements OnInit {
   get product() {
     return this._product;
   }
-  constructor(public countMode: HandleCountMode) {}
+  constructor(public countMode: HandleCountMode, private store: Store<State>) {}
+
+  @HostListener('dblclick')
+  selectProduct() {
+    this.store.dispatch(
+      productActions.addProductForSale({ product: this.product, count: 0 })
+    );
+  }
 
   ngOnInit(): void {
     this.countMode.changueMode(this.product.method_cont);

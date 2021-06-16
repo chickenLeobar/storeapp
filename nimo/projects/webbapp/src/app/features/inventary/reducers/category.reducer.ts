@@ -54,8 +54,6 @@ export const reducer = createReducer(
   }),
   // result of search
   on(categoryActions.searchCategorieSuccess, (state, { ids }) => {
-    console.log('ond ids');
-
     return {
       ...state,
       selectIds: ids

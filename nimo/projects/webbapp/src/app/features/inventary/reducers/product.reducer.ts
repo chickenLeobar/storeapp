@@ -1,27 +1,28 @@
-import { NzSafeAny } from 'ng-zorro-antd/core/types';
-
+import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
 import {
   createReducer,
-  on,
   createSelector,
-  MemoizedSelector
+  MemoizedSelector,
+  on
 } from '@ngrx/store';
-
-import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
-import { IProduct } from '../models';
+import produce from 'immer';
+import { NzSafeAny } from 'ng-zorro-antd/core/types';
 import * as productActions from '../actions/product.actionts';
+import { IProduct } from '../models';
+
 export const featureKey = 'product';
 
 export const adapter: EntityAdapter<IProduct> = createEntityAdapter();
-import produce from 'immer';
+
 export interface State extends EntityState<IProduct> {
   selectId: number | null;
-  saleProducts: { id: number; mont: number }[];
+  saleProducts: Record<number, { mont: number; count: number }>;
 }
 
 const initialState: State = adapter.getInitialState({
   selectId: null,
-  saleProducts: []
+  saleProducts: [],
+  searchProducts: []
 });
 
 export const reducer = createReducer(
@@ -57,26 +58,35 @@ export const reducer = createReducer(
     };
   }),
   // add product for
-  on(productActions.addProductForSale, (state, { id, mont }) => {
+  on(productActions.addProductForSale, (state, { product, count }) => {
     return produce(state, draf => {
-      if (draf.saleProducts.some(d => d.id == id)) {
-        // exist poduct
-        if (mont <= 0) {
-          draf.saleProducts.filter(pr => pr.id !== id);
+      let pr = draf.saleProducts[product.id];
+      if (pr) {
+        if (product.method_cont == 'MONT') {
+          draf.saleProducts[product.id] = {
+            count: count,
+            mont: count
+          };
         } else {
-          // replace id
-          draf.saleProducts.map(pr => {
-            if (pr.id == id) {
-              pr.mont = mont;
-            }
-            return pr;
-          });
+          draf.saleProducts[product.id] = {
+            count: count,
+            mont: count * product.mont_exist
+          };
         }
       } else {
-        // push
-        draf.saleProducts.push({ id, mont });
+        draf.saleProducts[product.id] = {
+          count: 0,
+          mont: 0
+        };
       }
     });
+  }),
+  // clean sale
+  on(productActions.cleanSale, state => {
+    return {
+      ...state,
+      saleProducts: {}
+    };
   })
 );
 
@@ -87,22 +97,45 @@ export const getSelectors = (
   const {
     selectAll,
     selectEntities,
-    selectIds,
     selectTotal: selectTotalProducts
   } = adapter.getSelectors(selectorBase);
   const selectProducts = createSelector(selectAll, products => {
     return products;
   });
+
+  const selecSaleInfo = createSelector(
+    selectorBase,
+    state => state.saleProducts
+  );
+
   const selectCurrentProduct = createSelector(
     selectCurrentId,
     selectEntities,
     (id, entities) => (id ? entities[id] : null)
   );
 
+  // select product of sale
+  const selectProductSale = createSelector(
+    selectEntities,
+    selecSaleInfo,
+    (entities, saleInfo) => {
+      return Object.keys(saleInfo).map((key, i) => {
+        let pr = entities[key];
+        let sale = saleInfo[Number(key)];
+        return {
+          product: pr,
+          mont: sale.mont,
+          count: sale.count
+        };
+      });
+    }
+  );
+
   return {
     selectCurrentId,
     selectProducts,
     selectTotalProducts,
-    selectCurrentProduct
+    selectCurrentProduct,
+    selectProductSale
   };
 };

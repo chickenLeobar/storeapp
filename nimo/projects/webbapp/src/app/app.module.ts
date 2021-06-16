@@ -25,6 +25,7 @@ import { FormlyModule } from '@ngx-formly/core';
 import { FormlyNgZorroAntdModule } from '@ngx-formly/ng-zorro-antd';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
+import { StoreRouterConnectingModule } from '@ngrx/router-store';
 const zorro = [
   NzDropDownModule,
   NzSpaceModule,
@@ -55,7 +56,8 @@ registerLocaleData(es);
       maxAge: 25,
       logOnly: environment.production,
       name: 'Store app'
-    })
+    }),
+    StoreRouterConnectingModule.forRoot()
   ],
   providers: [{ provide: NZ_I18N, useValue: es_ES }],
   bootstrap: [AppComponent]

@@ -41,6 +41,7 @@ import { SaleProductsComponent } from './components/sale-products/sale-products.
 import { SaleShowProductsComponent } from './components/sale-show-products/sale-show-products.component';
 import { ProductComponent } from './components/sale-show-products/product.component';
 import { ScrollingModule } from '@angular/cdk/scrolling';
+import { ItemSaleComponent } from './components/sale-products/item-sale.component';
 
 const EXTRA = [FlexLayoutModule];
 
@@ -79,7 +80,8 @@ const MATERIAL = [ScrollingModule];
     SaleComponent,
     SaleProductsComponent,
     SaleShowProductsComponent,
-    ProductComponent
+    ProductComponent,
+    ItemSaleComponent
   ],
   imports: [
     CommonModule,

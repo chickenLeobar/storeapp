@@ -112,5 +112,6 @@ export const selectProductState = createSelector(
 export const {
   selectProducts,
   selectTotalProducts,
-  selectCurrentProduct
+  selectCurrentProduct,
+  selectProductSale
 } = fromProduct.getSelectors(selectProductState);

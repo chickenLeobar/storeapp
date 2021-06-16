@@ -1,4 +1,5 @@
-import { IProduct } from '../models';
+import { IProduct } from './../models/index';
+
 import { createAction, props } from '@ngrx/store';
 
 export const addProduct = createAction(
@@ -43,5 +44,8 @@ export const cleanProductId = createAction(
 
 export const addProductForSale = createAction(
   '[product/api] add product for sale',
-  props<{ id: number; mont: number }>()
+  props<{ product: IProduct; count: number }>()
 );
+
+// clean sale
+export const cleanSale = createAction('[product/api] clean sale');

@@ -83,8 +83,6 @@ export class CategoryEffects {
             );
           })
           .map(val => val.id) as number[];
-        console.log(ids);
-
         return categoryActions.searchCategorieSuccess({
           ids: ids
         });
