@@ -1,4 +1,4 @@
-import { IProduct } from './../models/index';
+import { IProduct, ISale } from './../models/index';
 import { Injectable } from '@angular/core';
 import { environment } from '../../../../environments/environment';
 import { HttpClient, HttpParams } from '@angular/common/http';

@@ -21,8 +21,6 @@ from .models import Usuario
 
 
 # admin.site.register(Usuario, UserAdmin)
-
-
 admin.site.register(Product)
 admin.site.register(Brand)
 admin.site.register(Category)

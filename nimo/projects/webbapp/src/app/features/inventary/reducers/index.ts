@@ -113,5 +113,6 @@ export const {
   selectProducts,
   selectTotalProducts,
   selectCurrentProduct,
-  selectProductSale
+  selectProductSale,
+  selectProductsWithSerach
 } = fromProduct.getSelectors(selectProductState);

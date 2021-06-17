@@ -10,6 +10,8 @@ import { NzSafeAny } from 'ng-zorro-antd/core/types';
 import * as productActions from '../actions/product.actionts';
 import { IProduct } from '../models';
 
+import { filtersAreDirty } from 'shared';
+
 export const featureKey = 'product';
 
 export const adapter: EntityAdapter<IProduct> = createEntityAdapter();
@@ -17,12 +19,15 @@ export const adapter: EntityAdapter<IProduct> = createEntityAdapter();
 export interface State extends EntityState<IProduct> {
   selectId: number | null;
   saleProducts: Record<number, { mont: number; count: number }>;
+  searchProducts: number[];
+  filters: { category?: number; brand?: number; query?: string };
 }
 
 const initialState: State = adapter.getInitialState({
   selectId: null,
   saleProducts: [],
-  searchProducts: []
+  searchProducts: [],
+  filters: {}
 });
 
 export const reducer = createReducer(
@@ -87,6 +92,13 @@ export const reducer = createReducer(
       ...state,
       saleProducts: {}
     };
+  }),
+  // search values
+  on(productActions.searchProductsSuccess, (state, { ids }) => {
+    return {
+      ...state,
+      searchProducts: ids
+    };
   })
 );
 
@@ -102,6 +114,30 @@ export const getSelectors = (
   const selectProducts = createSelector(selectAll, products => {
     return products;
   });
+
+  const selectedSearchIds = createSelector(
+    selectorBase,
+    state => state.searchProducts
+  );
+
+  const selectProductsWithSerach = createSelector(
+    selectAll,
+    selectedSearchIds,
+    (entities, ids) => {
+      if (ids.length == entities.length) {
+        return [];
+      }
+      if (ids.length === 0) {
+        return entities;
+      }
+      return entities.filter(entitie => {
+        if (!entitie.id) {
+          return false;
+        }
+        return ids.indexOf(entitie.id) >= 0;
+      });
+    }
+  );
 
   const selecSaleInfo = createSelector(
     selectorBase,
@@ -136,6 +172,7 @@ export const getSelectors = (
     selectProducts,
     selectTotalProducts,
     selectCurrentProduct,
-    selectProductSale
+    selectProductSale,
+    selectProductsWithSerach
   };
 };

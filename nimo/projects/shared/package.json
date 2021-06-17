@@ -1,6 +1,7 @@
 {
   "name": "shared",
   "version": "0.0.1",
+  "main": "",
   "peerDependencies": {
     "@angular/common": "^12.0.3",
     "@angular/core": "^12.0.3"

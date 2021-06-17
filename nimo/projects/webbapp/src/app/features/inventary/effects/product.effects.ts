@@ -1,10 +1,23 @@
-import { switchMap, map, concatMap, exhaustMap } from 'rxjs/operators';
+import { IProduct } from './../models/index';
+import {
+  switchMap,
+  map,
+  concatMap,
+  exhaustMap,
+  tap,
+  filter
+} from 'rxjs/operators';
 import { Injectable } from '@angular/core';
-import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { Actions, createEffect, ofType, concatLatestFrom } from '@ngrx/effects';
 import { ProductService } from '../services/product.service';
 import * as productActions from '../actions/product.actionts';
 import { Store } from '@ngrx/store';
-import { State } from '../reducers';
+import { selectProductSale, State, selectProducts } from '../reducers';
+import { SaleService } from '../services/sale.service';
+import { tapResponse } from '@ngrx/component-store';
+import { of } from 'rxjs';
+import { filtersAreDirty } from 'shared';
+
 @Injectable()
 export class ProductEffects {
   $loadProducts = createEffect(() =>
@@ -67,9 +80,91 @@ export class ProductEffects {
       )
     )
   );
+
+  /*=============================================
+   =            Sale actions            =
+   =============================================*/
+  $saveSale = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(productActions.saveSale),
+        concatLatestFrom(() => this.store.select(selectProductSale)),
+        exhaustMap(([, sales]) => {
+          const details = sales.map(node => ({
+            producto: node.product?.id,
+            cantidad: node.count
+          }));
+          return this.saleService
+            .saveSale({
+              details: details
+            })
+            .pipe(
+              tapResponse(
+                res => {
+                  console.log('success');
+                  console.log(res);
+                  this.store.dispatch(productActions.cleanSale());
+                },
+                err => {
+                  console.log('this tha erro');
+                  console.log(err);
+                }
+              )
+            );
+        })
+      ),
+    {
+      dispatch: false
+    }
+  );
+
+  // search products
+
+  $searchProducts = createEffect(() =>
+    this.actions$.pipe(ofType(productActions.searchProducts)).pipe(
+      concatLatestFrom(() => this.store.select(selectProducts)),
+      switchMap(([{ brand, category, query }, products]) => {
+        const ids = this.filterProducts({ brand, category, query }, products);
+        return of(productActions.searchProductsSuccess({ ids: ids }));
+      })
+    )
+  );
+
+  private filterProducts(
+    filters: { category?: number; brand?: number; query?: string },
+    products: IProduct[]
+  ) {
+    let arr: IProduct[] = products;
+    if (filters?.category && filters?.category != -1) {
+      arr = arr.filter(pr => pr.category == filters.category);
+    }
+    if (filters?.brand && filters?.brand != -1) {
+      arr = arr.filter(pr => pr.brand == filters.brand);
+    }
+    if (filters?.query && filters.query != '') {
+      arr = arr.filter(
+        pr =>
+          pr.name
+            .toLocaleLowerCase()
+            .indexOf(filters.query?.toLocaleLowerCase() || '') >= 0
+      );
+    }
+    console.log(filters);
+
+    if (!filtersAreDirty(filters) && arr.length == products.length) {
+      return [];
+    }
+    if (filtersAreDirty(filters) && arr.length == 0) {
+      return products.map(pr => pr.id);
+    }
+    const ids = arr.map(pr => pr.id);
+    return ids;
+  }
+
   constructor(
     private actions$: Actions,
     private productService: ProductService,
-    private store: Store<State>
+    private store: Store<State>,
+    private saleService: SaleService
   ) {}
 }

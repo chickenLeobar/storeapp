@@ -25,3 +25,6 @@ assets/bundles/dev
 
 
 ./**/migrations/*.py
+
+.idea
+

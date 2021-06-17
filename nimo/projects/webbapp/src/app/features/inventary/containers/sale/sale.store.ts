@@ -6,7 +6,8 @@ import {
   selectBrands,
   selectCategories,
   selectProducts,
-  selectProductSale
+  selectProductSale,
+  selectProductsWithSerach
 } from '../../reducers';
 import { ComponentStore } from '@ngrx/component-store';
 import * as categoriactions from '../../actions/category.actions';
@@ -30,19 +31,18 @@ export class SaleStoreService extends ComponentStore<SaleStore> {
   public cancelSale() {
     this.store.dispatch(productActions.cleanSale());
   }
+  public saveSale(): void {
+    this.store.dispatch(productActions.saveSale());
+  }
 
   /*=============================================
   =            VIEW             =
   =============================================*/
-
   brands$ = this.store.select(selectBrands);
   categories$ = this.store.select(selectCategories);
-  products$ = this.store.select(selectProducts);
-  sales$ = this.store.select(selectProductSale).pipe(
-    tap(sales => {
-      console.log(sales);
-    })
-  );
+  products$ = this.store.select(selectProductsWithSerach);
+  sales$ = this.store.select(selectProductSale);
+
   totalAndCount$ = this.select(this.sales$, sales => {
     const [count, mont] = sales.reduce(
       (prev, curr) => {
@@ -60,9 +60,6 @@ export class SaleStoreService extends ComponentStore<SaleStore> {
       },
       [0, 0]
     );
-    console.log('calculate');
-    console.log({ count, mont });
-
     return {
       count: count,
       mont: mont

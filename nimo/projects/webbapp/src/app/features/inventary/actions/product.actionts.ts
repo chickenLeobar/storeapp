@@ -20,6 +20,7 @@ export const removeProductSuccess = createAction(
 );
 
 export const loadProducts = createAction('[product/api] load products');
+
 export const loadProductSuccess = createAction(
   '[product/api] load products success',
   props<{ products: IProduct[] }>()
@@ -49,3 +50,17 @@ export const addProductForSale = createAction(
 
 // clean sale
 export const cleanSale = createAction('[product/api] clean sale');
+
+// save sale on server
+export const saveSale = createAction('[product/api] save sale');
+
+// action for search products
+
+export const searchProducts = createAction(
+  '[product/api] search prducts',
+  props<{ category?: number; brand?: number; query?: string }>()
+);
+export const searchProductsSuccess = createAction(
+  '[product/api] search prduct success',
+  props<{ ids: number[] }>()
+);

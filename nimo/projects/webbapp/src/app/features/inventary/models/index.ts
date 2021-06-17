@@ -34,3 +34,39 @@ export interface IProduct {
   // brand
   // category
 }
+
+export interface IDetailSale {
+  producto: number;
+  cantidad: number;
+}
+
+// model for sale
+export interface ISale {
+  id?: number;
+  fecha_venta?: Date;
+  monto_total?: number;
+  cliente?: number;
+  serie_documento?: string;
+  tipo_documento?: string;
+  vendedor?: number;
+  meta?: {
+    business?: number;
+  };
+  details?: Partial<IDetailSale>[];
+}
+/**
+ * {
+   "vendedor":1,
+	 "bussiness" : 1 ,
+   "details":[
+      {
+         "producto":78,
+         "cantidad":220
+      },
+		  {
+         "producto":79,
+         "cantidad": 300
+      }
+   ]
+}
+ */

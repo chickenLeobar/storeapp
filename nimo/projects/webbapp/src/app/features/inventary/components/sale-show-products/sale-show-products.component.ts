@@ -29,7 +29,5 @@ export class SaleShowProductsComponent implements OnInit {
 
   constructor() {}
 
-  ngOnInit(): void {
-    console.log(this.products);
-  }
+  ngOnInit(): void {}
 }

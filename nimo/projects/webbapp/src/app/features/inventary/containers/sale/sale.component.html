@@ -1,39 +1,56 @@
 <nz-layout class="w-100  h-100" *ngIf="$vm | async as vm">
   <nz-content nz-row nzJustify="start" nzAlign="top">
     <!-- search -->
-    <nz-form-control nz-col nzSpan="8">
-      <nz-input-group nzPrefixIcon="search">
-        <input type="text" nz-input placeholder="Buscar" />
-      </nz-input-group>
-    </nz-form-control>
-    <div nz-row class="w-100">
-      <nz-form-control nzSpan="8">
-        <nz-form-label>
-          Marca
-        </nz-form-label>
-        <nz-select class="w-50" nzShowSearch>
-          <nz-option
-            *ngFor="let brand of vm.brands"
-            [nzValue]="brand.id"
-            [nzLabel]="brand.name"
-          >
-          </nz-option>
-        </nz-select>
+    <form nz-form [formGroup]="searchForm" class="w-100">
+      <nz-form-control nz-col nzSpan="8">
+        <nz-input-group nzPrefixIcon="search">
+          <input
+            type="text"
+            nz-input
+            placeholder="Buscar"
+            formControlName="query"
+          />
+        </nz-input-group>
       </nz-form-control>
-      <nz-form-control nzSpan="8">
-        <nz-form-label>
-          Categoria
-        </nz-form-label>
-        <nz-select class="w-50" nzShowSearch>
-          <nz-option
-            *ngFor="let categorie of vm.categories"
-            [nzValue]="categorie.id"
-            [nzLabel]="categorie.name"
+      <div nz-row class="w-100 my-2">
+        <nz-form-control nzSpan="8">
+          <nz-form-label>
+            Marca
+          </nz-form-label>
+          <nz-select
+            class="w-50"
+            nzShowSearch
+            nzAllowClear
+            formControlName="brand"
           >
-          </nz-option>
-        </nz-select>
-      </nz-form-control>
-    </div>
+            <nz-option
+              *ngFor="let brand of vm.brands"
+              [nzValue]="brand.id"
+              [nzLabel]="brand.name"
+            >
+            </nz-option>
+          </nz-select>
+        </nz-form-control>
+        <nz-form-control nzSpan="8">
+          <nz-form-label>
+            Categoria
+          </nz-form-label>
+          <nz-select
+            class="w-50"
+            nzShowSearch
+            nzAllowClear
+            formControlName="category"
+          >
+            <nz-option
+              *ngFor="let categorie of vm.categories"
+              [nzValue]="categorie.id"
+              [nzLabel]="categorie.name"
+            >
+            </nz-option>
+          </nz-select>
+        </nz-form-control>
+      </div>
+    </form>
     <!-- filters -->
     <leo-sale-show-products [products]="vm.products"></leo-sale-show-products>
   </nz-content>
@@ -47,7 +64,7 @@
 
     <!-- actions -->
     <div class="w-100 actions">
-      <button nz-button nzType="primary">
+      <button nz-button nzType="primary" (click)="saveSale()">
         vender
       </button>
     </div>
