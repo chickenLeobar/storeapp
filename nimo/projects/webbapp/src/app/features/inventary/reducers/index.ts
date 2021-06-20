@@ -9,12 +9,14 @@ import * as fromRoot from '../../../reducers';
 import * as fromBrand from '../reducers/brand.reducer';
 import * as fromCateory from './category.reducer';
 import * as fromProduct from './product.reducer';
+import * as fromBusiness from './business.reducer';
 export const featureKey = 'inventary';
 
 export interface InventaryState {
   [fromBrand.featureKey]: fromBrand.State;
   [fromCateory.featureKey]: fromCateory.State;
   [fromProduct.featureKey]: fromProduct.State;
+  [fromBusiness.featureKey]: fromBusiness.State;
 }
 export const selectInventaryState = createFeatureSelector<InventaryState>(
   featureKey
@@ -27,7 +29,8 @@ export interface State extends fromRoot.State {
 const _reducers: ActionReducerMap<InventaryState, Action> = {
   [fromBrand.featureKey]: fromBrand.reducer,
   [fromCateory.featureKey]: fromCateory.reducer,
-  [fromProduct.featureKey]: fromProduct.reducer
+  [fromProduct.featureKey]: fromProduct.reducer,
+  [fromBusiness.featureKey]: fromBusiness.reducer
 };
 
 export function reducers(state: InventaryState, action: Action) {
@@ -114,5 +117,19 @@ export const {
   selectTotalProducts,
   selectCurrentProduct,
   selectProductSale,
-  selectProductsWithSerach
+  selectProductsWithSerach,
+  existsProductInsale
 } = fromProduct.getSelectors(selectProductState);
+
+/*=============================================
+=            Negocios            =
+=============================================*/
+
+export const selectBusinessState = createSelector(
+  selectInventaryState,
+  state => state[fromBusiness.featureKey]
+);
+
+export const { selectAllBusiness } = fromBusiness.getSelectors(
+  selectBusinessState
+);

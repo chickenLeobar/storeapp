@@ -101,12 +101,9 @@ export class ProductEffects {
             .pipe(
               tapResponse(
                 res => {
-                  console.log('success');
-                  console.log(res);
                   this.store.dispatch(productActions.cleanSale());
                 },
                 err => {
-                  console.log('this tha erro');
                   console.log(err);
                 }
               )
@@ -135,22 +132,24 @@ export class ProductEffects {
     products: IProduct[]
   ) {
     let arr: IProduct[] = products;
-    if (filters?.category && filters?.category != -1) {
-      arr = arr.filter(pr => pr.category == filters.category);
-    }
-    if (filters?.brand && filters?.brand != -1) {
-      arr = arr.filter(pr => pr.brand == filters.brand);
-    }
-    if (filters?.query && filters.query != '') {
-      arr = arr.filter(
-        pr =>
+    let applyFilters = (pr: IProduct) => {
+      let shouldBeReturn = false;
+      if (filters?.category && filters?.category != -1) {
+        shouldBeReturn = pr.category == filters.category;
+      }
+      if (filters?.brand && filters?.brand != -1) {
+        shouldBeReturn = pr.brand == filters.brand;
+      }
+      if (filters?.query && filters.query != '') {
+        shouldBeReturn =
           pr.name
             .toLocaleLowerCase()
-            .indexOf(filters.query?.toLocaleLowerCase() || '') >= 0
-      );
-    }
-    console.log(filters);
-
+            .indexOf(filters.query?.toLocaleLowerCase() || '') >= 0;
+      }
+      return shouldBeReturn;
+    };
+    // apply filters
+    arr = arr.filter(applyFilters);
     if (!filtersAreDirty(filters) && arr.length == products.length) {
       return [];
     }

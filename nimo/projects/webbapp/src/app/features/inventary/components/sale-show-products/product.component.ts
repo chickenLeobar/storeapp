@@ -11,7 +11,10 @@ import {
   HostListener
 } from '@angular/core';
 import * as productActions from '../../actions/product.actionts';
-
+import { existsProductInsale } from '../../reducers';
+import { take, tap } from 'rxjs/operators';
+import { get } from 'lodash';
+import { NzMessageService } from 'ng-zorro-antd/message';
 @Component({
   selector: 'leo-product',
   template: `
@@ -56,13 +59,33 @@ export class ProductComponent implements OnInit {
   get product() {
     return this._product;
   }
-  constructor(public countMode: HandleCountMode, private store: Store<State>) {}
+  constructor(
+    public countMode: HandleCountMode,
+    private store: Store<State>,
+    private messageService: NzMessageService
+  ) {}
 
   @HostListener('dblclick')
   selectProduct() {
-    this.store.dispatch(
-      productActions.addProductForSale({ product: this.product, count: 0 })
-    );
+    this.store
+      .select(existsProductInsale(get(this.product, 'id', -1)))
+      .pipe(
+        take(1),
+        tap(res => {
+          if (res) {
+            this.messageService.error('Esto producto ya existe en la venta');
+          } else {
+            if (this.product)
+              this.store.dispatch(
+                productActions.addProductForSale({
+                  product: this.product,
+                  count: 0
+                })
+              );
+          }
+        })
+      )
+      .subscribe();
   }
 
   ngOnInit(): void {

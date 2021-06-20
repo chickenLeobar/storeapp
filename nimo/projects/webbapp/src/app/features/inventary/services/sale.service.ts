@@ -4,7 +4,6 @@ import { environment } from '../../../../environments/environment';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { tap } from 'rxjs/operators';
-
 interface ISaleRequest {
   bussiness?: number;
   vendedor?: number;

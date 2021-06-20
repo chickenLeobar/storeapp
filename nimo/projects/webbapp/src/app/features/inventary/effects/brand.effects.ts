@@ -26,7 +26,6 @@ export class BrandEffects {
       )
     )
   );
-
   $addBrand = createEffect(() =>
     this.actions$.pipe(
       ofType(brandActions.addBrand),

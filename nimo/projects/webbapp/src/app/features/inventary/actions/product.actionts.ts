@@ -64,3 +64,10 @@ export const searchProductsSuccess = createAction(
   '[product/api] search prduct success',
   props<{ ids: number[] }>()
 );
+
+// remove item
+
+export const removeProducOfsale = createAction(
+  '[product/api] remove product of sale',
+  props<{ id: number }>()
+);

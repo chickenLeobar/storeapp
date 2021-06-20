@@ -1,4 +1,5 @@
 import { AvalibleModes } from './../libs/HandleCountMode';
+import { CloudinaryResponse } from 'shared';
 export interface IBrand {
   id?: number;
   name: string;
@@ -11,12 +12,21 @@ export interface ICategory {
   business?: number;
 }
 
+export interface Meta {
+  [key: string]: unknown;
+}
+
 export interface INegocio {
   id: number;
-  nombre: string;
-  decripcion: string;
-  imagen: string;
+  name: string;
+  image: CloudinaryResponse;
+  description: string;
   direction: string;
+  social_reason: string;
+  meta: Meta;
+  last_open?: Date;
+  date_updated?: Date;
+  date_created?: Date;
 }
 
 export interface IProduct {
@@ -54,19 +64,3 @@ export interface ISale {
   };
   details?: Partial<IDetailSale>[];
 }
-/**
- * {
-   "vendedor":1,
-	 "bussiness" : 1 ,
-   "details":[
-      {
-         "producto":78,
-         "cantidad":220
-      },
-		  {
-         "producto":79,
-         "cantidad": 300
-      }
-   ]
-}
- */

@@ -20,14 +20,12 @@ export interface State extends EntityState<IProduct> {
   selectId: number | null;
   saleProducts: Record<number, { mont: number; count: number }>;
   searchProducts: number[];
-  filters: { category?: number; brand?: number; query?: string };
 }
 
 const initialState: State = adapter.getInitialState({
   selectId: null,
   saleProducts: [],
-  searchProducts: [],
-  filters: {}
+  searchProducts: []
 });
 
 export const reducer = createReducer(
@@ -38,6 +36,14 @@ export const reducer = createReducer(
   }),
   /// load products
   on(productActions.loadProductSuccess, (state, { products }) => {
+    // FIXME:
+    // save sale temporaly in localStorage
+    // if (localStorage.getItem('sale')) {
+    //   state = {
+    //     ...state,
+    //     saleProducts: JSON.parse(localStorage.getItem('sale') || '')
+    //   };
+    // }
     return adapter.setAll(products, state);
   }),
   // edit products
@@ -84,6 +90,12 @@ export const reducer = createReducer(
           mont: 0
         };
       }
+      // // FIXME:
+      // // save sale temporaly in localStorage
+      // localStorage.setItem(
+      //   'sale',
+      //   JSON.stringify(Object.assign({}, state.saleProducts))
+      // );
     });
   }),
   // clean sale
@@ -99,9 +111,14 @@ export const reducer = createReducer(
       ...state,
       searchProducts: ids
     };
+  }),
+  // remove product of sale
+  on(productActions.removeProducOfsale, (state, { id }) => {
+    return produce(state, draf => {
+      delete draf.saleProducts[id];
+    });
   })
 );
-
 export const getSelectors = (
   selectorBase: MemoizedSelector<NzSafeAny, State>
 ) => {
@@ -150,6 +167,12 @@ export const getSelectors = (
     (id, entities) => (id ? entities[id] : null)
   );
 
+  const existsProductInsale = (id: number) => {
+    return createSelector(selecSaleInfo, sales => {
+      return sales[id] ? true : false;
+    });
+  };
+
   // select product of sale
   const selectProductSale = createSelector(
     selectEntities,
@@ -173,6 +196,7 @@ export const getSelectors = (
     selectTotalProducts,
     selectCurrentProduct,
     selectProductSale,
-    selectProductsWithSerach
+    selectProductsWithSerach,
+    existsProductInsale
   };
 };

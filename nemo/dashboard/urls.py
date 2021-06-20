@@ -1,6 +1,6 @@
-from django import urls
+
 from django.conf.urls import url
-from django.urls import path, include
+from django.urls import include
 from .views import index
 from .views import (user_rest)
 
@@ -14,11 +14,11 @@ from rest_framework import routers
 
 from rest_framework.documentation import include_docs_urls
 
-## Endpoint for cloudinary
 
-from .api import get_sign_url
+from .api.cloudinary import Cloudinary
 
 router = routers.DefaultRouter()
+
 router.register(r"^users$", user_rest.UserViewSet)
 router.register(r"^groups", user_rest.GroupViewSet)
 router.register(r"^products", ProductViewSet)
@@ -31,6 +31,6 @@ urlpatterns = [
     url(r'^$', index, name="dashboard"),
     url(r'^', include(router.urls)),
     url(r'^docs/', include_docs_urls(title="Api", public=False)),
-    url(r'^cloudinarysign$', get_sign_url, name="sign_url"),
-    # url(r'^sale$', SaleView.as_view(), name="sign_url"),
+    url(r'^cloudinary$', Cloudinary.as_view(), name="sign_url"),
+    url(r'^cloudinary/(?P<id>[\w]+)/$', Cloudinary.as_view(), name="delete_resource"),
 ]

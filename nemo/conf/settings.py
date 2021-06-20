@@ -23,6 +23,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # ENVIROMENT
 
 env = environ.Env()
+
+# configure cloudinary
+
+
 root_path = environ.Path(__file__) - 2
 
 env.read_env(env_file=root_path(".env"))

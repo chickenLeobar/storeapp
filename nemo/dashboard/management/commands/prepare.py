@@ -6,7 +6,7 @@ class Command(BaseCommand):
     def add_arguments(self, parser: CommandParser) -> None:
         parser.add_argument("--createuser" , action="store_true", default=False , help="create superuser for env")
         return super().add_arguments(parser)
-    
+
     def handle(self, *args: Any, **options: Any) -> Optional[str]:
          if(options['createuser'] == True):
              print("generating user for default")

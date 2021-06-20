@@ -1,0 +1,49 @@
+<ng-template [nzModalTitle]>
+  <div class="w-100" fxLayout fxLayoutAlign="space-between center">
+    <h3 nz-typography>
+      Detalle De venta
+    </h3>
+    <img width="90px" class="p-2 mr-3" src="assets/images/logo_b.svg" alt="" />
+  </div>
+</ng-template>
+<section *ngIf="$vm | async as vm">
+  <nz-descriptions>
+    <nz-descriptions-item nzTitle="Monto Total" nzSpan="3">
+      {{ vm.results.mont }}
+    </nz-descriptions-item>
+    <nz-descriptions-item nzTitle="Cantidad Total" nzSpan="3">
+      {{ vm.results.count }}
+    </nz-descriptions-item>
+  </nz-descriptions>
+  <h4 nz-typography>
+    Productos
+  </h4>
+  <nz-table #productsTable [nzData]="vm.sales">
+    <thead>
+      <tr>
+        <th>
+          Nombre
+        </th>
+        <th>
+          Cantidad
+        </th>
+        <th>
+          Total
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of productsTable.data">
+        <td>
+          {{ item.product?.name }}
+        </td>
+        <td>
+          {{ item.count }}
+        </td>
+        <td>
+          {{ item.mont }}
+        </td>
+      </tr>
+    </tbody>
+  </nz-table>
+</section>

@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, Injector, ComponentFactoryResolver } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -26,6 +26,26 @@ import { FormlyNgZorroAntdModule } from '@ngx-formly/ng-zorro-antd';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
+import { EmptyDefaultComponentComponent } from './core/componets/empty-default-component/empty-default-component.component';
+import { NzConfig, NZ_CONFIG } from 'ng-zorro-antd/core/config';
+
+// const nzConfigFactory = (
+//   injector: Injector,
+//   resolver: ComponentFactoryResolver
+// ): NzConfig => {
+//   const factory = resolver.resolveComponentFactory(
+//     EmptyDefaultComponentComponent
+//   );
+//   const { tplEmpty } = factory.create(injector).instance;
+//   console.log('render empty');
+
+//   return {
+//     empty: {
+//       nzDefaultEmptyContent: tplEmpty
+//     }
+//   };
+// };
+
 const zorro = [
   NzDropDownModule,
   NzSpaceModule,
@@ -50,8 +70,8 @@ registerLocaleData(es);
     StoreModule.forRoot(ROOT_REDUCERS, {}),
     EffectsModule.forRoot([]),
     ReactiveFormsModule,
-    FormlyModule.forRoot({ extras: { lazyRender: true } }),
     FormlyNgZorroAntdModule,
+    FormlyModule.forRoot({ extras: { lazyRender: true } }),
     StoreDevtoolsModule.instrument({
       maxAge: 25,
       logOnly: environment.production,
@@ -59,7 +79,14 @@ registerLocaleData(es);
     }),
     StoreRouterConnectingModule.forRoot()
   ],
-  providers: [{ provide: NZ_I18N, useValue: es_ES }],
+  providers: [
+    { provide: NZ_I18N, useValue: es_ES }
+    // {
+    //   provide: NZ_CONFIG,
+    //   useFactory: nzConfigFactory,
+    //   deps: [Injector, ComponentFactoryResolver]
+    // }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

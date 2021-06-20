@@ -14,14 +14,17 @@ nz-layout {
       flex-direction: row;
       justify-content: flex-start;
       flex-wrap: wrap;
-
+      &.empty {
+        width: 60vw !important;
+        justify-content: center;
+        align-items: center;
+      }
       nz-card {
         $card-width: 300px;
         margin: 5px 10px;
         width: $card-width;
         max-height: 400px;
         cursor: pointer;
-        // detail styles
         .detail {
           p {
             color: $blue-color;
@@ -32,6 +35,20 @@ nz-layout {
         }
       }
     }
+  }
+  //
+  .cdk-drag-preview {
+    box-sizing: border-box;
+    border-radius: 4px;
+    box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
+      0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12);
+  }
+  .cdk-drag-placeholder {
+    opacity: 0;
+  }
+
+  .cdk-drag-animating {
+    transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
   }
   // sidebar
   nz-sider {
@@ -47,6 +64,19 @@ nz-layout {
       nz-list-item {
         background: $background;
         margin: 10px 0;
+        .unity {
+          font-weight: bold;
+        }
+        .close_button {
+          transition: display 1s ease-in-out;
+          visibility: hidden;
+        }
+        &:hover {
+          cursor: pointer;
+          .close_button {
+            visibility: visible;
+          }
+        }
       }
       nz-list-item-meta {
         margin-left: 10px;
