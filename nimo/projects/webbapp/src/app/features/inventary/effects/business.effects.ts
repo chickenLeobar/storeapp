@@ -1,8 +1,12 @@
-import { switchMap, map, exhaustMap, mergeMap } from 'rxjs/operators';
+import { switchMap, map, exhaustMap, mergeMap, filter } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
-import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { Actions, createEffect, ofType, concatLatestFrom } from '@ngrx/effects';
 import * as businessActions from '../actions/business.actions';
 import { NegocioService } from '../services/business.service';
+import { Store } from '@ngrx/store';
+import { State, selectRawBusiness } from '../reducers';
+import { filtersAreDirty } from 'shared';
+
 @Injectable()
 export class BusinessEffects {
   $loadAllBusiness = createEffect(() =>
@@ -61,9 +65,34 @@ export class BusinessEffects {
       )
     )
   );
+  $searchBusiness = createEffect(() =>
+    this.actions$.pipe(
+      ofType(businessActions.searchBusiness),
+      concatLatestFrom(() => this.store.select(selectRawBusiness)),
+      map(([{ query }, business]) => {
+        let ids = business
+          .filter(
+            deal =>
+              deal.name
+                .toLocaleLowerCase()
+                .indexOf(query.toLocaleLowerCase()) >= 0
+          )
+          .map(deal => deal.id);
+        let isIntial = true;
+        if (filtersAreDirty({ query }) && ids.length == 0) {
+          isIntial = false;
+        }
+        return businessActions.searchBusinessSuccess({
+          ids: ids,
+          isInitial: isIntial
+        });
+      })
+    )
+  );
 
   constructor(
     private actions$: Actions,
-    private businessService: NegocioService
+    private businessService: NegocioService,
+    private store: Store<State>
   ) {}
 }

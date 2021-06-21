@@ -1,17 +1,22 @@
-import { map, take, tap } from 'rxjs/operators';
+import { map, take, tap, filter, mergeMap } from 'rxjs/operators';
 import { INegocio } from './../../models/index';
 import {
   ChangeDetectionStrategy,
   Component,
   OnInit,
-  ViewEncapsulation
+  ViewEncapsulation,
+  ChangeDetectorRef
 } from '@angular/core';
 import { FormlyFormOptions, FormlyFieldConfig } from '@ngx-formly/core';
 import { FormGroup } from '@angular/forms';
-import { CloudinaryResponse, CloudinaryService } from 'shared';
+import { CloudinaryService, CloudinaryResponse } from 'shared';
 import { Store } from '@ngrx/store';
 import { State } from '../../reducers';
 import * as businessActions from '../../actions/business.actions';
+import { selectCurrentBusiness } from '../../reducers';
+import { iif, of, defer } from 'rxjs';
+import { get } from 'lodash';
+import { obtainPreviewUrlOrNotFound } from '../../utils';
 @Component({
   selector: 'leo-business-cu',
   templateUrl: './business-cu.component.html',
@@ -26,8 +31,36 @@ export class BusinessCuComponent implements OnInit {
 
   constructor(
     private cloudinaryService: CloudinaryService,
-    private store: Store<State>
+    private store: Store<State>,
+    private cdr: ChangeDetectorRef
   ) {}
+
+  public selectedBusiness: null | INegocio = null;
+
+  public get isEdit(): boolean {
+    return this.selectedBusiness != null;
+  }
+
+  public get previewImage() {
+    if (this.selectedBusiness) {
+      return obtainPreviewUrlOrNotFound(this.selectedBusiness);
+    }
+    return '';
+  }
+
+  $mode = this.store
+    .select(selectCurrentBusiness)
+    .pipe(
+      filter(el => el != null),
+      tap(business => {
+        if (business) {
+          this.model = business;
+          this.cdr.markForCheck();
+          this.selectedBusiness = business;
+        }
+      })
+    )
+    .subscribe();
 
   public options: FormlyFormOptions = {
     formState: {}
@@ -86,31 +119,70 @@ export class BusinessCuComponent implements OnInit {
   public saveBusiness() {
     let business = this.model as INegocio;
     if (!this.form.valid) {
-      console.log('form not is valid');
       return;
     }
 
-    if (this.file) {
-      this.cloudinaryService
-        .uploadFile(this.file)
-        .pipe(
-          tap(resp => {
-            business = {
-              ...business,
-              image: resp
-            };
-            this.store.dispatch(
-              businessActions.saveBusiness({
-                negocio: business
-              })
-            );
-          }),
-          take(1)
-        )
-        .subscribe();
-    } else {
-      console.log('not file');
-    }
+    const createBusiness = (sourceImage?: CloudinaryResponse) => {
+      let imageSource = sourceImage ? sourceImage : {};
+      console.log('create', sourceImage);
+
+      business = {
+        ...business,
+        image: imageSource
+      };
+      this.store.dispatch(
+        businessActions.saveBusiness({
+          negocio: business
+        })
+      );
+    };
+
+    const existFile = () => this.file != null;
+
+    const cloudinarAndCreate = this.cloudinaryService
+      .uploadFile(this.file)
+      .pipe(map(createBusiness));
+
+    const editBusiness = (sourceImage?: CloudinaryResponse) => {
+      let imageSource = sourceImage ? sourceImage : {};
+      console.log('edit business');
+
+      business = {
+        ...business,
+        image: imageSource
+      };
+
+      this.store.dispatch(
+        businessActions.editBusiness({
+          negocio: business
+        })
+      );
+    };
+
+    const cloudinaryAndUpate = this.cloudinaryService
+      .deleteAndCreate(
+        get(this.selectedBusiness, 'image.public_id', null),
+        this.file
+      )
+      .pipe(map(editBusiness));
+
+    const create$ = iif(
+      existFile,
+      cloudinarAndCreate,
+      defer(() => createBusiness())
+    );
+    const update$ = iif(
+      existFile,
+      cloudinaryAndUpate,
+      defer(() => editBusiness())
+    );
+
+    of([1])
+      .pipe(
+        mergeMap(() => iif(() => this.isEdit, update$, create$)),
+        take(1)
+      )
+      .subscribe();
   }
 
   ngOnInit(): void {}

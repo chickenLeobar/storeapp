@@ -19,7 +19,7 @@ export interface Meta {
 export interface INegocio {
   id: number;
   name: string;
-  image: CloudinaryResponse;
+  image: CloudinaryResponse | {};
   description: string;
   direction: string;
   social_reason: string;

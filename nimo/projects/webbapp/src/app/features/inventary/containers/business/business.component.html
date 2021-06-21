@@ -5,7 +5,12 @@
       <nz-form-item nz-col nzSpan="10">
         <nz-form-control>
           <nz-input-group nzPrefixIcon="search">
-            <input type="text" nz-input placeholder="Buscar negocio" />
+            <input
+              type="text"
+              [formControl]="searchInput"
+              nz-input
+              placeholder="Buscar negocio"
+            />
           </nz-input-group>
         </nz-form-control>
       </nz-form-item>

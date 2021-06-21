@@ -1,3 +1,4 @@
+import { CloudinaryResponse } from 'shared';
 import { INegocio } from './../../models/index';
 import {
   ChangeDetectionStrategy,
@@ -6,11 +7,15 @@ import {
   ViewEncapsulation,
   Input
 } from '@angular/core';
+import { StoreBusinessService } from '../../containers/business/business.store';
+import { NzModalService } from 'ng-zorro-antd/modal';
+import { obtainPreviewUrlOrNotFound } from '../../utils';
 
 @Component({
   selector: 'leo-business-card',
   template: `
     <nz-card
+      class="card_business_show"
       style="width:300px; margin: 10px 10px;"
       [nzCover]="coverTemplate"
       [nzActions]="[actionSetting, actionEdit]"
@@ -21,18 +26,19 @@ import {
         [nzDescription]="negocio.description"
       ></nz-card-meta>
       <ng-template #coverTemplate>
-        <img
-          width="200"
-          style="padding: 10px;"
-          [alt]="negocio.name"
-          [src]="urlImage"
-        />
+        <div class="contain_image">
+          <img [alt]="negocio.name" [src]="urlImage" />
+        </div>
       </ng-template>
       <ng-template #actionSetting>
-        <i nz-icon nzType="setting"></i>
+        <a nz-button (click)="deleteBusiness()">
+          <i nz-icon nzType="delete"></i>
+        </a>
       </ng-template>
       <ng-template #actionEdit>
-        <i nz-icon nzType="edit"></i>
+        <a nz-button (click)="editBusiness()">
+          <i nz-icon nzType="edit"></i>
+        </a>
       </ng-template>
     </nz-card>
   `,
@@ -42,12 +48,25 @@ import {
 })
 export class BusinessCardComponent implements OnInit {
   @Input() negocio!: INegocio;
-
-  constructor() {}
+  constructor(
+    private businessService: StoreBusinessService,
+    private modalService: NzModalService
+  ) {}
 
   public get urlImage() {
-    return this.negocio.image.url;
+    return obtainPreviewUrlOrNotFound(this.negocio);
   }
-
+  public deleteBusiness(): void {
+    this.modalService.confirm({
+      nzTitle: 'Eliminar negocio',
+      nzContent: '¿Desea eliminar este negocio? \n',
+      nzOnOk: () => {
+        this.businessService.deleteBusiness(this.negocio);
+      }
+    });
+  }
+  public editBusiness() {
+    this.businessService.editBusiness(this.negocio);
+  }
   ngOnInit(): void {}
 }

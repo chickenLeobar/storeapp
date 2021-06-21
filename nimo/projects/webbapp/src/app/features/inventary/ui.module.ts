@@ -25,6 +25,7 @@ import { NzTableModule } from 'ng-zorro-antd/table';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzAvatarModule } from 'ng-zorro-antd/avatar';
 import { NzListModule } from 'ng-zorro-antd/list';
+import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
 const EXTRA = [FlexLayoutModule, EmptyIconsModule];
 
 const zorro = [
@@ -50,7 +51,8 @@ const zorro = [
   NzDescriptionsModule,
   NzEmptyModule,
   NzMessageModule,
-  NzAvatarModule
+  NzAvatarModule,
+  NzDropDownModule
 ];
 
 const MATERIAL = [ScrollingModule, DragDropModule];

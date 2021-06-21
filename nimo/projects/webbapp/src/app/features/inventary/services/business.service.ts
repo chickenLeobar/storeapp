@@ -11,17 +11,14 @@ export class NegocioService {
   constructor(private http: HttpClient) {}
   // post Negocio
   public createNegocio(negocio: Partial<INegocio>): Observable<INegocio> {
-    return this.http.post(this.apiurl, negocio).pipe(
-      tap((data: unknown) => {
-        console.log(data);
-      })
-    ) as Observable<INegocio>;
+    return this.http.post(this.apiurl, negocio) as Observable<INegocio>;
   }
   // put
   public updateNegocio(negocio: INegocio): Observable<INegocio> {
-    return this.http
-      .put(this.apiurl.concat(`${negocio.id}/`), negocio)
-      .pipe(tap(console.log));
+    return this.http.put(
+      this.apiurl.concat(`${negocio.id}/`),
+      negocio
+    ) as Observable<INegocio>;
   }
   // delete
   public deleteNegocio(negocio: INegocio) {

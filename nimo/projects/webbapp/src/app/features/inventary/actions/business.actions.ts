@@ -39,3 +39,16 @@ export const selectBusiness = createAction(
   '[business/api] select business',
   props<{ negocio: INegocio }>()
 );
+
+export const openModalBusiness = createAction('[business/api] open modal');
+
+export const closeModalBusiness = createAction('[business/api] close modal');
+
+export const searchBusiness = createAction(
+  '[business/api] search business',
+  props<{ query: string }>()
+);
+export const searchBusinessSuccess = createAction(
+  '[business/api] search business success',
+  props<{ ids: number[]; isInitial: boolean }>()
+);

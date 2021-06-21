@@ -7,7 +7,8 @@ import {
   OnInit,
   ChangeDetectorRef,
   Output,
-  EventEmitter
+  EventEmitter,
+  Input
 } from '@angular/core';
 import {
   CloudinaryService,
@@ -42,7 +43,7 @@ import {
 })
 export class UploadInputComponent implements OnInit {
   loading = false;
-  imageUrl?: string;
+  @Input() imageUrl?: string;
   public fileImage!: File;
   @Output() payloadUploadEvent = new EventEmitter<{
     errors: string[];

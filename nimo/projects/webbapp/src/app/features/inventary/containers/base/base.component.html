@@ -1,0 +1,62 @@
+<nz-dropdown-menu #administrationMenu>
+  <ul nz-menu>
+    <li
+      nz-menu-item
+      [routerLink]="['/inventary']"
+      routerLinkActive="router-link-active"
+    >
+      Inventario
+    </li>
+    <li
+      nz-menu-item
+      [routerLink]="['/sale']"
+      routerLinkActive="router-link-active"
+    >
+      Ventas
+    </li>
+  </ul>
+</nz-dropdown-menu>
+<nz-layout class="app-layout">
+  <nz-header>
+    <ul nz-menu nzTheme="dark" nzMode="horizontal" class="menu">
+      <li class="menu__right">
+        <nz-space>
+          <button nz-button *nzSpaceItem>
+            <i
+              nz-icon
+              nzType="appstore"
+              [routerLink]="['/business']"
+              routerLinkActive="router-link-active"
+              nzTheme="outline"
+            ></i>
+          </button>
+          <nz-select *nzSpaceItem nzSize="default" style="width: 150px">
+            <nz-option
+              [nzLabel]="deal.name"
+              [nzValue]="deal.id"
+              *ngFor="let deal of business$ | async"
+            >
+            </nz-option>
+          </nz-select>
+        </nz-space>
+      </li>
+      <div class="menu__left">
+        <li
+          nz-menu-item
+          href=""
+          nz-dropdown
+          [nzDropdownMenu]="administrationMenu"
+          nzPlacement="bottomCenter"
+        >
+          Administración
+        </li>
+        <li nz-menu-item>
+          <nz-avatar nzIcon="user" nzSize="large"></nz-avatar>
+        </li>
+      </div>
+    </ul>
+  </nz-header>
+  <nz-content>
+    <router-outlet></router-outlet>
+  </nz-content>
+</nz-layout>

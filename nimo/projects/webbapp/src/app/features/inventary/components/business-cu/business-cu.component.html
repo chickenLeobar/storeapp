@@ -1,15 +1,19 @@
 <form [formGroup]="form" nz-form [nzLayout]="'vertical'">
-  <le-upload-input (payloadUploadEvent)="receiveFile($event)">
+  <le-upload-input
+    [imageUrl]="previewImage"
+    (payloadUploadEvent)="receiveFile($event)"
+  >
   </le-upload-input>
   <formly-form
     [model]="model"
     [fields]="fields"
     [options]="options"
+    [form]="form"
   ></formly-form>
 
   <div *nzModalFooter>
     <button nz-button nzType="primary" (click)="saveBusiness()">
-      Guardar
+      {{ isEdit ? "Guardar cambios" : "Guardar" }}
     </button>
   </div>
 </form>

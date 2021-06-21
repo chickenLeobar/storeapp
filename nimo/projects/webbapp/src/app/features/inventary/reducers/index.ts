@@ -130,6 +130,9 @@ export const selectBusinessState = createSelector(
   state => state[fromBusiness.featureKey]
 );
 
-export const { selectAllBusiness } = fromBusiness.getSelectors(
-  selectBusinessState
-);
+export const {
+  selectAllBusiness,
+  selectModalState,
+  selectCurrentBusiness,
+  selectRawBusiness
+} = fromBusiness.getSelectors(selectBusinessState);

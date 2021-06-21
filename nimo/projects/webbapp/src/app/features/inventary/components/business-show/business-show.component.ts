@@ -25,7 +25,5 @@ export class BusinessShowComponent implements OnInit {
   @Input() business!: INegocio[];
 
   constructor() {}
-  ngOnInit(): void {
-    console.log(this.business);
-  }
+  ngOnInit(): void {}
 }
