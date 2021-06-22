@@ -14,7 +14,6 @@ export class StoreBusinessService extends ComponentStore<BusinessState> {
   }
 
   private readonly business$ = this.store.select(selectAllBusiness);
-
   public readonly modalBuiness$ = this.store.select(selectModalState);
 
   public vm$ = this.select(this.business$, business => {
@@ -29,8 +28,11 @@ export class StoreBusinessService extends ComponentStore<BusinessState> {
   public deleteBusiness(deal: INegocio): void {
     this.store.dispatch(businessActions.removeBusiness({ negocio: deal }));
   }
+  public cleanBusiness() {
+    this.store.dispatch(businessActions.cleanSelectedBusiness());
+  }
 
-  // edit business
+  // edit businesss
   public editBusiness(deal: INegocio): void {
     this.store.dispatch(businessActions.selectBusiness({ negocio: deal }));
     this.store.dispatch(businessActions.openModalBusiness());

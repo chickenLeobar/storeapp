@@ -15,7 +15,7 @@ export class CategoryService {
     // FIXME: temporal id  for every categories, until ready business CRUD
     category = {
       ...category,
-      business: 1
+      business: 8
     };
     return this.http.post(url, category) as Observable<ICategory>;
   }
@@ -36,7 +36,7 @@ export class CategoryService {
     // FIXME: temporal id  for every categories, until ready business CRUD
     category = {
       ...category,
-      business: 1
+      business: 8
     };
     return this.http.put(url, category) as Observable<ICategory>;
   }

@@ -1,4 +1,11 @@
-import { tap, catchError, pluck, mergeMap, switchMap, filter } from 'rxjs/operators';
+import {
+  tap,
+  catchError,
+  pluck,
+  mergeMap,
+  switchMap,
+  filter
+} from 'rxjs/operators';
 import { of, Observable } from 'rxjs';
 import { Injectable, Inject } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
@@ -26,7 +33,6 @@ export class CloudinaryService {
     >;
   }
   public uploadFile(file: File): Observable<CloudinaryResponse> {
-
     return this.getSignature().pipe(
       mergeMap(res => this.uploadFileCloudinary(file, res))
     );
@@ -38,17 +44,16 @@ export class CloudinaryService {
     );
   }
   public deleteResource(publicId: string) {
-    return this.http.delete(this.config.url.concat(`/${publicId}`));
+    return this.http.delete(this.config.url.concat(`/${publicId}/`));
   }
   // edit resource
   public deleteAndCreate(publicId: string | null | undefined, file: File) {
-    if(publicId){
+    if (publicId) {
       return this.deleteResource(publicId).pipe(
         switchMap(res => this.uploadFile(file))
       );
-    }else{
+    } else {
       return this.uploadFile(file);
     }
-   
   }
 }

@@ -40,6 +40,10 @@ export const selectBusiness = createAction(
   props<{ negocio: INegocio }>()
 );
 
+export const cleanSelectedBusiness = createAction(
+  '[business/api] clean business'
+);
+
 export const openModalBusiness = createAction('[business/api] open modal');
 
 export const closeModalBusiness = createAction('[business/api] close modal');

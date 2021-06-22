@@ -26,7 +26,8 @@ import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzAvatarModule } from 'ng-zorro-antd/avatar';
 import { NzListModule } from 'ng-zorro-antd/list';
 import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
-const EXTRA = [FlexLayoutModule, EmptyIconsModule];
+import { LoadingModule } from './components/loading/loading.module';
+const EXTRA = [FlexLayoutModule, EmptyIconsModule, LoadingModule];
 
 const zorro = [
   NzUploadModule,

@@ -78,6 +78,12 @@ export const reducer = createReducer(
         isInitial: isInitial
       }
     };
+  }),
+  on(businessActions.cleanSelectedBusiness, state => {
+    return {
+      ...state,
+      selectedBusiness: null
+    };
   })
 );
 

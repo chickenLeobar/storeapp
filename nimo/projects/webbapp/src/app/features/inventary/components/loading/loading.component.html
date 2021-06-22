@@ -1,0 +1,15 @@
+<ngx-spinner
+  bdColor="rgba(240,242,245,0.4)"
+  size="large"
+  color="#001529"
+  type="ball-8bits"
+  [fullScreen]="true"
+>
+  <div *ngIf="message$ | async as message">
+    <ng-container *nzStringTemplateOutlet="message">
+      <h2 style="color: black;" class="mt-4">
+        {{ message }}
+      </h2>
+    </ng-container>
+  </div>
+</ngx-spinner>

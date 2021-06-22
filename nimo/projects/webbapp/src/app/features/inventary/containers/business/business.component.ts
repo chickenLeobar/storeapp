@@ -42,6 +42,7 @@ export class BusinessComponent implements OnInit, OnDestroy {
         untilDestroyed(this)
       )
       .subscribe();
+
     this.searchInput.valueChanges.subscribe(query => {
       this.businessStore.searchBusiness(query);
     });
@@ -54,9 +55,9 @@ export class BusinessComponent implements OnInit, OnDestroy {
       nzOnOk: () => {},
       nzViewContainerRef: this.viewContainerRef
     });
-
     ref.afterClose.pipe(take(1)).subscribe(() => {
       this.businessStore.closeModal();
+      this.businessStore.cleanBusiness();
     });
   }
 

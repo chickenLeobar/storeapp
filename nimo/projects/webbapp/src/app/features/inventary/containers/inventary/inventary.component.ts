@@ -10,7 +10,7 @@ import * as productActions from '../../actions/product.actionts';
 import { Store } from '@ngrx/store';
 import { State, selectCategories, selectProducts } from '../../reducers';
 import { ComponentStore } from '@ngrx/component-store';
-
+import { LoadingService } from '../../components/loading/loading.service';
 interface ContainerProductState {}
 
 @Component({
@@ -23,7 +23,6 @@ interface ContainerProductState {}
 export class InventaryComponent implements OnInit, OnDestroy {
   $categories = this.store.select(selectCategories);
   $products = this.store.select(selectProducts);
-
   constructor(
     private modal: NzModalService,
     private store: Store<State>,

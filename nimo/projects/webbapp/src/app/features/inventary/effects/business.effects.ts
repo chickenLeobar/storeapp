@@ -6,24 +6,23 @@ import { NegocioService } from '../services/business.service';
 import { Store } from '@ngrx/store';
 import { State, selectRawBusiness } from '../reducers';
 import { filtersAreDirty } from 'shared';
-
+import { LoadingService } from '../components/loading/loading.service';
 @Injectable()
 export class BusinessEffects {
   $loadAllBusiness = createEffect(() =>
     this.actions$.pipe(
       ofType(businessActions.loadAllBusiness),
-      switchMap(() =>
-        this.businessService
+      switchMap(() => {
+        return this.businessService
           .getNegocios()
           .pipe(
             map(data =>
               businessActions.loadAllBusinessSuccess({ negocios: data })
             )
-          )
-      )
+          );
+      })
     )
   );
-
   $saveBusiness = createEffect(() =>
     this.actions$.pipe(
       ofType(businessActions.saveBusiness),
@@ -89,10 +88,28 @@ export class BusinessEffects {
       })
     )
   );
+  // listen success actions for close loading
+
+  $closeLoading = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(
+          businessActions.saveBusinessSucess,
+          businessActions.editBusinesSuccess,
+          businessActions.removeBusinesSuccess
+        ),
+        map(() => {
+          this.store.dispatch(businessActions.cleanSelectedBusiness());
+          this.loading.hide();
+        })
+      ),
+    { dispatch: false }
+  );
 
   constructor(
     private actions$: Actions,
     private businessService: NegocioService,
-    private store: Store<State>
+    private store: Store<State>,
+    private loading: LoadingService
   ) {}
 }

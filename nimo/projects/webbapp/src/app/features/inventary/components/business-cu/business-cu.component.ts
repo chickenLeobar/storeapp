@@ -14,15 +14,19 @@ import { Store } from '@ngrx/store';
 import { State } from '../../reducers';
 import * as businessActions from '../../actions/business.actions';
 import { selectCurrentBusiness } from '../../reducers';
-import { iif, of, defer } from 'rxjs';
+import { iif, of, defer, pipe } from 'rxjs';
 import { get } from 'lodash';
 import { obtainPreviewUrlOrNotFound } from '../../utils';
+import { untilDestroyed, UntilDestroy } from '@ngneat/until-destroy';
+import { LoadingService } from '../loading/loading.service';
+import { castDraft } from 'immer';
 @Component({
   selector: 'leo-business-cu',
   templateUrl: './business-cu.component.html',
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
+@UntilDestroy()
 export class BusinessCuComponent implements OnInit {
   public form: FormGroup = new FormGroup({});
   model: any = {};
@@ -32,7 +36,8 @@ export class BusinessCuComponent implements OnInit {
   constructor(
     private cloudinaryService: CloudinaryService,
     private store: Store<State>,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private loading: LoadingService
   ) {}
 
   public selectedBusiness: null | INegocio = null;
@@ -53,12 +58,17 @@ export class BusinessCuComponent implements OnInit {
     .pipe(
       filter(el => el != null),
       tap(business => {
+        console.log(business);
+
         if (business) {
-          this.model = business;
-          this.cdr.markForCheck();
+          this.model = {
+            ...castDraft(business)
+          };
           this.selectedBusiness = business;
+          this.cdr.markForCheck();
         }
-      })
+      }),
+      pipe(untilDestroyed(this))
     )
     .subscribe();
 
@@ -117,15 +127,13 @@ export class BusinessCuComponent implements OnInit {
   ];
 
   public saveBusiness() {
+    this.loading.show('');
     let business = this.model as INegocio;
     if (!this.form.valid) {
       return;
     }
-
     const createBusiness = (sourceImage?: CloudinaryResponse) => {
       let imageSource = sourceImage ? sourceImage : {};
-      console.log('create', sourceImage);
-
       business = {
         ...business,
         image: imageSource
@@ -138,20 +146,22 @@ export class BusinessCuComponent implements OnInit {
     };
 
     const existFile = () => this.file != null;
-
     const cloudinarAndCreate = this.cloudinaryService
       .uploadFile(this.file)
       .pipe(map(createBusiness));
 
     const editBusiness = (sourceImage?: CloudinaryResponse) => {
-      let imageSource = sourceImage ? sourceImage : {};
-      console.log('edit business');
-
-      business = {
-        ...business,
-        image: imageSource
-      };
-
+      if (sourceImage) {
+        business = {
+          ...business,
+          image: sourceImage
+        };
+      } else {
+        business = {
+          ...business,
+          image: this.selectedBusiness?.image || {}
+        };
+      }
       this.store.dispatch(
         businessActions.editBusiness({
           negocio: business
