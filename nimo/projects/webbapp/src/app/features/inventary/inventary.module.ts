@@ -33,6 +33,7 @@ import { FormlyNgZorroAntdModule } from '@ngx-formly/ng-zorro-antd';
 import { BusinessShowComponent } from './components/business-show/business-show.component';
 import { BusinessCardComponent } from './components/business-show/business-card.component';
 import { BaseComponent } from './containers/base/base.component';
+import { ContactsComponent } from './containers/contacts/contacts.component';
 
 @NgModule({
   declarations: [
@@ -54,7 +55,8 @@ import { BaseComponent } from './containers/base/base.component';
     BusinessCuComponent,
     BusinessShowComponent,
     BusinessCardComponent,
-    BaseComponent
+    BaseComponent,
+    ContactsComponent
   ],
   imports: [
     CommonModule,

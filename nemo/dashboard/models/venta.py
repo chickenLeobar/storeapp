@@ -4,7 +4,7 @@ from .product import Product
 from django.core.validators import MinValueValidator
 from enum import Enum, unique
 from typing import OrderedDict
-
+from .contact import  Contact
 
 @unique
 class MethodCont(Enum):
@@ -18,13 +18,17 @@ class Venta(models.Model):
     # IDEA: changue this for contact :)
 
     cliente = models.ForeignKey(
-        'Usuario', related_name="clients", on_delete=models.CASCADE, null=True, blank=True)
+        Contact, related_name="clients", on_delete=models.CASCADE, null=True, blank=True)
+
     serie_documento = models.CharField(max_length=16, null=True)
+
     tipo_documento = models.CharField(max_length=8, null=True)
+
     vendedor = models.ForeignKey(
         'Usuario', related_name="seller", on_delete=models.CASCADE, null=True, blank=True)
-    meta =  models.JSONField(default=dict)
+    meta = models.JSONField(default=dict)
 
+    business = models.ForeignKey('Negocio', on_delete=models.CASCADE)
 
 
 class DetalleVenta(models.Model):

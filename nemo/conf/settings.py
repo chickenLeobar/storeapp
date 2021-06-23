@@ -168,7 +168,6 @@ MEDIA_ROOT = BASE_DIR.joinpath("media")
 
 ADMIN_MEDIA_PREFIX = STATIC_URL + "admin/"
 
-
 STATICFILES_DIRS = (
     ("bundles", BASE_DIR.joinpath("assets/bundles")),
     ("media", BASE_DIR.joinpath("media")),

@@ -10,6 +10,7 @@ import * as fromBrand from '../reducers/brand.reducer';
 import * as fromCateory from './category.reducer';
 import * as fromProduct from './product.reducer';
 import * as fromBusiness from './business.reducer';
+import * as fromContact from './contact.reduces';
 export const featureKey = 'inventary';
 
 export interface InventaryState {
@@ -17,6 +18,7 @@ export interface InventaryState {
   [fromCateory.featureKey]: fromCateory.State;
   [fromProduct.featureKey]: fromProduct.State;
   [fromBusiness.featureKey]: fromBusiness.State;
+  [fromContact.featureKey]: fromContact.State;
 }
 export const selectInventaryState = createFeatureSelector<InventaryState>(
   featureKey
@@ -30,7 +32,8 @@ const _reducers: ActionReducerMap<InventaryState, Action> = {
   [fromBrand.featureKey]: fromBrand.reducer,
   [fromCateory.featureKey]: fromCateory.reducer,
   [fromProduct.featureKey]: fromProduct.reducer,
-  [fromBusiness.featureKey]: fromBusiness.reducer
+  [fromBusiness.featureKey]: fromBusiness.reducer,
+  [fromContact.featureKey]: fromContact.reducer
 };
 
 export function reducers(state: InventaryState, action: Action) {
@@ -136,3 +139,14 @@ export const {
   selectCurrentBusiness,
   selectRawBusiness
 } = fromBusiness.getSelectors(selectBusinessState);
+
+/*=============================================
+=            Contact            =
+=============================================*/
+
+export const selectContactState = createSelector(
+  selectInventaryState,
+  state => state[fromContact.featureKey]
+);
+
+export const contactSelectors = fromContact.getSelectors(selectContactState);

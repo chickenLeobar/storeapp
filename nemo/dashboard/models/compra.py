@@ -1,9 +1,11 @@
 from operator import mod
 from django.db import models
-from .shared import TipoDocumento
+
 from .product import Product
 
-from django.utils import timezone
+
+from .contact import Contact
+
 from django.core.validators import MinValueValidator
 """
 Proveedor
@@ -15,22 +17,13 @@ Proveedor
 """
 
 
-class Proveedor(models.Model):
-    nombre = models.CharField(max_length=150, unique=True)
-    direccion = models.CharField(max_length=250,  null=True)
-    fecha_registro = models.DateTimeField(default=timezone.now)
-    decripción = models.TextField(max_length=150)
-    correo = models.EmailField()
-    phone = models.CharField(max_length=250)
 
 
 class Compra(models.Model):
     fecha_compra = models.DateField()
     monto_total = models.DecimalField(max_digits=10, decimal_places=4)
-    proveedor = models.ForeignKey(Proveedor, on_delete=models.CASCADE)
+    proveedor = models.ForeignKey(Contact, null=True , blank=True , on_delete=models.DO_NOTHING)
     serie_documento = models.CharField(max_length=16, null=True)
-    tipo_documento = models.ForeignKey(
-        TipoDocumento, on_delete=models.DO_NOTHING)
 
 
 class DetalleCompra(models.Model):

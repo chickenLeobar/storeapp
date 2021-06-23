@@ -4,6 +4,7 @@ import { InventaryComponent } from './containers/inventary/inventary.component';
 import { SaleComponent } from './containers/sale/sale.component';
 import { BusinessComponent } from './containers/business/business.component';
 import { BaseComponent } from './containers/base/base.component';
+import { ContactsComponent } from './containers/contacts/contacts.component';
 const routes: Routes = [
   {
     component: BaseComponent,
@@ -11,7 +12,8 @@ const routes: Routes = [
     children: [
       { path: 'inventary', component: InventaryComponent },
       { path: 'sale', component: SaleComponent },
-      { path: 'business', component: BusinessComponent }
+      { path: 'business', component: BusinessComponent },
+      { path: 'contacts', component: ContactsComponent }
     ]
   }
 ];

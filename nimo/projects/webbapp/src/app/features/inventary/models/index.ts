@@ -29,6 +29,21 @@ export interface INegocio {
   date_created?: Date;
 }
 
+export type TypeContact = 'RROVEEDOR' | 'CLIENTE';
+export type TypeDocument = 'DNI' | 'RUC';
+
+export interface IContact {
+  id: number;
+  name: string;
+  type_document: TypeDocument;
+  type_contact: TypeContact;
+  notes: string;
+  business: number;
+  email: string;
+  num_document: string;
+  direction: string;
+}
+
 export interface IProduct {
   id: number;
   name: string;
@@ -41,8 +56,6 @@ export interface IProduct {
   brand?: number;
   category: number;
   images?: [];
-  // brand
-  // category
 }
 
 export interface IDetailSale {

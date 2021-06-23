@@ -15,9 +15,9 @@ import { Store } from '@ngrx/store';
 import { selectProductSale, State, selectProducts } from '../reducers';
 import { SaleService } from '../services/sale.service';
 import { tapResponse } from '@ngrx/component-store';
-import { of } from 'rxjs';
+import { of, EMPTY } from 'rxjs';
 import { filtersAreDirty } from 'shared';
-
+import { LoadingService } from '../components/loading/loading.service';
 @Injectable()
 export class ProductEffects {
   $loadProducts = createEffect(() =>
@@ -127,6 +127,25 @@ export class ProductEffects {
     )
   );
 
+  // loading
+  $loadingController = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(
+          productActions.addProductSuccess,
+          productActions.removeProductSuccess,
+          productActions.editProductSuccess
+        ),
+        switchMap(res => {
+          this.loading.hide();
+          return EMPTY;
+        })
+      ),
+    {
+      dispatch: false
+    }
+  );
+
   private filterProducts(
     filters: { category?: number; brand?: number; query?: string },
     products: IProduct[]
@@ -164,6 +183,7 @@ export class ProductEffects {
     private actions$: Actions,
     private productService: ProductService,
     private store: Store<State>,
-    private saleService: SaleService
+    private saleService: SaleService,
+    private loading: LoadingService
   ) {}
 }

@@ -4,11 +4,10 @@
   "compilerOptions": {
     "outDir": "../../out-tsc/app",
     "types": [],
-    "baseUrl": "./",
-    "rootDir": "./",
+    "baseUrl": ".",
     "skipLibCheck": true,
     "paths": {
-      "@enviroments/*" : ["./src/enviroments/*"]
+    
     }
   },
   "files": [

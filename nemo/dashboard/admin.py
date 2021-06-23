@@ -1,11 +1,11 @@
-from .models import (Product, Brand, Category, Compra,
-                     DetalleCompra, Venta, DetalleVenta, Proveedor)
-from django.contrib import admin
-from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
+# from .models import (Product, Brand, Category, Compra,
+     #                DetalleCompra, Venta, DetalleVenta, Proveedor)
+# from django.contrib import admin
+# from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 
 # Register your models here.
 
-from .models import Usuario
+# from .models import Usuario
 
 
 # class UserAdmin(BaseUserAdmin):
@@ -21,9 +21,9 @@ from .models import Usuario
 
 
 # admin.site.register(Usuario, UserAdmin)
-admin.site.register(Product)
-admin.site.register(Brand)
-admin.site.register(Category)
-admin.site.register(Compra)
-admin.site.register(DetalleCompra)
-admin.site.register(Proveedor)
+# admin.site.register(Product)
+# admin.site.register(Brand)
+# admin.site.register(Category)
+# admin.site.register(Compra)
+# admin.site.register(DetalleCompra)
+# admin.site.register(Proveedor)

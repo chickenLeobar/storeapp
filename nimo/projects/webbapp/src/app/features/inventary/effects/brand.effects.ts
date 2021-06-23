@@ -63,6 +63,5 @@ export class BrandEffects {
       })
     )
   );
-
   constructor(private actions$: Actions, private brandService: BrandService) {}
 }

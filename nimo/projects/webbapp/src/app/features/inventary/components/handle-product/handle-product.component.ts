@@ -20,6 +20,7 @@ interface InitialState {
   interfaz?: IInterfaz;
   currentProduct?: IProduct;
 }
+import { LoadingService } from '../loading/loading.service';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 @Component({
   selector: 'leo-handle-product',
@@ -101,7 +102,8 @@ export class HandleProductComponent implements OnInit {
     private readonly componentStore: ComponentStore<InitialState>,
     private store: Store<State>,
     private resultMode: HandleCountMode,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private loading: LoadingService
   ) {
     this.componentStore.setState({});
     this.changueEvaluateMethod$({ mode: 'MONT' });
@@ -128,7 +130,6 @@ export class HandleProductComponent implements OnInit {
       .subscribe(pr => {
         let praux = pr as IProduct;
         // set values in form
-        console.log('on init');
         this.productForm.patchValue({
           ...praux
         });
@@ -143,7 +144,11 @@ export class HandleProductComponent implements OnInit {
 
   public registerProduct(event: NzSafeAny) {
     // prepare product
+
     let product = this.productForm.value as IProduct;
+
+    this.loading.show('Guardando producto');
+
     const sendBrand = Boolean(this.visibleBrandChague.value);
     if (!sendBrand) {
       delete product?.brand;

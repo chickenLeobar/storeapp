@@ -27,7 +27,14 @@ import { NzAvatarModule } from 'ng-zorro-antd/avatar';
 import { NzListModule } from 'ng-zorro-antd/list';
 import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
 import { LoadingModule } from './components/loading/loading.module';
-const EXTRA = [FlexLayoutModule, EmptyIconsModule, LoadingModule];
+import { LayoutMeModule } from '../../theme/layouts/layout.module';
+import { NzMenuModule } from 'ng-zorro-antd/menu';
+const EXTRA = [
+  FlexLayoutModule,
+  EmptyIconsModule,
+  LoadingModule,
+  LayoutMeModule
+];
 
 const zorro = [
   NzUploadModule,
@@ -53,7 +60,8 @@ const zorro = [
   NzEmptyModule,
   NzMessageModule,
   NzAvatarModule,
-  NzDropDownModule
+  NzDropDownModule,
+  NzMenuModule
 ];
 
 const MATERIAL = [ScrollingModule, DragDropModule];

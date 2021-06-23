@@ -14,6 +14,7 @@ from rest_framework import routers
 
 from rest_framework.documentation import include_docs_urls
 
+from dashboard.views.contact import   ContactViewSet
 
 from .api.cloudinary import Cloudinary
 
@@ -26,6 +27,8 @@ router.register(r"^negocio", BusinessViewSet)
 router.register(r"^category", CategoryViewSet)
 router.register(r"^brand", BrandViewSet)
 router.register(r'^sale', SaleViewSet)
+router.register(r'^contact',ContactViewSet)
+
 
 urlpatterns = [
     url(r'^$', index, name="dashboard"),
