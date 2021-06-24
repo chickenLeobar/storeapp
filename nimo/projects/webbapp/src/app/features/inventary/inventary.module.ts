@@ -34,6 +34,9 @@ import { BusinessShowComponent } from './components/business-show/business-show.
 import { BusinessCardComponent } from './components/business-show/business-card.component';
 import { BaseComponent } from './containers/base/base.component';
 import { ContactsComponent } from './containers/contacts/contacts.component';
+import { ItemContactComponent } from './components/contacts/item-contact/item-contact.component';
+import { HandleContactComponent } from './components/contacts/handle-contact/handle-contact.component';
+import { ContactPreviewComponent } from './components/contacts/contact-preview/contact-preview.component';
 
 @NgModule({
   declarations: [
@@ -56,7 +59,10 @@ import { ContactsComponent } from './containers/contacts/contacts.component';
     BusinessShowComponent,
     BusinessCardComponent,
     BaseComponent,
-    ContactsComponent
+    ContactsComponent,
+    ItemContactComponent,
+    HandleContactComponent,
+    ContactPreviewComponent
   ],
   imports: [
     CommonModule,

@@ -1,14 +1,19 @@
 <div gdAreas="content content content preview" gdGap="10px 40px">
   <nz-card gdArea="content" [nzTitle]="header">
     <ng-template #header>
-      <ul nz-menu nzMode="horizontal">
-        <li nz-menu-item>
-          <a>Clientes </a>
-        </li>
-        <li nz-menu-item>
-          <a>Contactos </a>
-        </li>
-      </ul>
+      <div fxLayout="row" class="w-100" fxLayoutAlign="space-between center">
+        <ul nz-menu nzMode="horizontal">
+          <li nz-menu-item>
+            <a>Clientes </a>
+          </li>
+          <li nz-menu-item>
+            <a>Contactos </a>
+          </li>
+        </ul>
+        <button nz-button nzType="primary" (click)="openHandleContact()">
+          <i nz-icon nzType="plus" nzTheme="outline"></i>
+        </button>
+      </div>
     </ng-template>
     <h2 nz-typography>
       Clientes
@@ -22,69 +27,13 @@
     </nz-form-item>
     <!-- list of contacts -->
     <nz-list>
-      <nz-list-item *ngFor="let item of [1, 2, 3, 4, 5, 6, 7]">
-        <nz-list-item-meta nzDescription="Desde: 10/50/08">
-          <nz-list-item-meta-title>
-            <p nz-typography>
-              Lorenzo Soto Benavides
-            </p>
-          </nz-list-item-meta-title>
-        </nz-list-item-meta>
-        <ul nz-list-item-actions>
-          <nz-list-item-action>
-            <nz-space nzDirection="vertical" nzAlign="end">
-              <span nz-typography *nzSpaceItem>
-                987654321
-              </span>
-              <span nz-typography *nzSpaceItem>
-                nieves.lorenzo@eample.com
-              </span>
-            </nz-space>
-          </nz-list-item-action>
-        </ul>
-      </nz-list-item>
+      <leo-item-contact
+        (onSelected)="clickCard($event)"
+        [contact]="item"
+        *ngFor="let item of contacts$ | async"
+      >
+      </leo-item-contact>
     </nz-list>
   </nz-card>
-  <nz-card
-    gdArea="preview"
-    style="height: 40vh; width: 350px;"
-    fxLayout
-    fxLayoutAlign="center center"
-  >
-    <nz-space nzAlign="start" nzDirection="vertical">
-      <nz-descriptions
-        *nzSpaceItem
-        style="width: 300px;"
-        nzTitle="Elmer Joselito León Barboza"
-        [nzColumn]="{ xxl: 1, xl: 1, lg: 1, md: 1, sm: 1, xs: 1 }"
-      >
-        <nz-descriptions-item nzTitle="T. documento">
-          Dni
-        </nz-descriptions-item>
-        <nz-descriptions-item nzTitle="N. documento">
-          76280650
-        </nz-descriptions-item>
-        <nz-descriptions-item nzTitle="T. Contacto">
-          Cliente
-        </nz-descriptions-item>
-
-        <nz-descriptions-item nzTitle="Telefono">
-          987654321
-        </nz-descriptions-item>
-        <nz-descriptions-item nzTitle="Correo">
-          usatloqueando@gmail.com
-        </nz-descriptions-item>
-
-        <nz-descriptions-item nzTitle="F. Registro">
-          20-20-20
-        </nz-descriptions-item>
-      </nz-descriptions>
-      <!-- buttons -->
-      <div *nzSpaceItem>
-        <button nz-button nzType="primary">
-          ventas
-        </button>
-      </div>
-    </nz-space>
-  </nz-card>
+  <leo-contact-preview [contact]="contact$ | async"></leo-contact-preview>
 </div>

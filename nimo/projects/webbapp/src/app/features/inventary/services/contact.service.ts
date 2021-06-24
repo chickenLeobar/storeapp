@@ -2,13 +2,13 @@ import { Observable } from 'rxjs';
 import { IProduct, IContact } from './../models/index';
 import { Injectable } from '@angular/core';
 import { environment } from '../../../../environments/environment';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable()
 export class ContactService {
   private readonly apiurl = environment.apiUrl.concat('api/contact/');
   constructor(private http: HttpClient) {}
-  public createContact(contact: IContact) {
+  public createContact(contact: Partial<IContact>) {
     let url = this.apiurl;
     contact = {
       ...contact,
@@ -22,6 +22,7 @@ export class ContactService {
   }
   public getContacts() {
     let url = this.apiurl;
+
     return this.http.get(url) as Observable<IContact[]>;
   }
   public deleteContact(contact: IContact) {

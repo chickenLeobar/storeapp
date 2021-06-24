@@ -22,7 +22,7 @@ export const createContactSucess = createAction(
 
 export const updateContact = createAction(
   '[contacts] update contact',
-  props<{ contact: Partial<IContact> }>()
+  props<{ contact: IContact }>()
 );
 
 export const updateContactSuccess = createAction(
@@ -37,5 +37,10 @@ export const removeContact = createAction(
 
 export const removeContactSucces = createAction(
   '[contacts] remove contact success',
+  props<{ contact: IContact }>()
+);
+
+export const selectedContact = createAction(
+  '[contacts/api] select contact',
   props<{ contact: IContact }>()
 );

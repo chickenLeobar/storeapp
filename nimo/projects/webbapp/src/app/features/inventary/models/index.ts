@@ -29,19 +29,21 @@ export interface INegocio {
   date_created?: Date;
 }
 
-export type TypeContact = 'RROVEEDOR' | 'CLIENTE';
+export type TypeContact = 'PROVIDER' | 'CLIENT';
 export type TypeDocument = 'DNI' | 'RUC';
 
 export interface IContact {
   id: number;
   name: string;
-  type_document: TypeDocument;
-  type_contact: TypeContact;
-  notes: string;
+  type_document?: TypeDocument;
+  type_contact?: TypeContact;
+  notes?: string;
   business: number;
-  email: string;
-  num_document: string;
-  direction: string;
+  email?: string;
+  num_document?: string;
+  direction?: string;
+  create?: Date;
+  phone?: string;
 }
 
 export interface IProduct {
