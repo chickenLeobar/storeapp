@@ -37,6 +37,8 @@ import { ContactsComponent } from './containers/contacts/contacts.component';
 import { ItemContactComponent } from './components/contacts/item-contact/item-contact.component';
 import { HandleContactComponent } from './components/contacts/handle-contact/handle-contact.component';
 import { ContactPreviewComponent } from './components/contacts/contact-preview/contact-preview.component';
+import { SearchComponent } from './components/contacts/search/search.component';
+import { MenuContactComponent } from './containers/contacts/menu-contact.component';
 
 @NgModule({
   declarations: [
@@ -62,7 +64,9 @@ import { ContactPreviewComponent } from './components/contacts/contact-preview/c
     ContactsComponent,
     ItemContactComponent,
     HandleContactComponent,
-    ContactPreviewComponent
+    ContactPreviewComponent,
+    SearchComponent,
+    MenuContactComponent
   ],
   imports: [
     CommonModule,

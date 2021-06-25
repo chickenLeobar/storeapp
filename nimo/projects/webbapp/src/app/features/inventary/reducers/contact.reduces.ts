@@ -13,12 +13,20 @@ export const featureKey = 'contacts';
 
 export interface State extends EntityState<IContact> {
   selected: number | null;
+  search: {
+    ids: number[];
+    isInitial: boolean;
+  };
 }
 
 export const adapter: EntityAdapter<IContact> = createEntityAdapter();
 
 const initialState: State = adapter.getInitialState({
-  selected: null
+  selected: null,
+  search: {
+    ids: [],
+    isInitial: true
+  }
 });
 
 export const reducer = createReducer(
@@ -45,6 +53,16 @@ export const reducer = createReducer(
       ...state,
       selected: contact.id
     };
+  }),
+  // search contacts
+  on(contactActions.searchContactsSuccess, (state, { ids, isInitial }) => {
+    return {
+      ...state,
+      search: {
+        ids,
+        isInitial
+      }
+    };
   })
 );
 
@@ -52,9 +70,27 @@ export const getSelectors = (
   baseSelector: MemoizedSelector<NzSafeAny, State>
 ) => {
   const { selectAll, selectEntities } = adapter.getSelectors(baseSelector);
-  const selectWithSearch = createSelector(selectAll, entities => {
-    return entities;
-  });
+
+  const selectSearch = createSelector(baseSelector, state => state.search);
+
+  const selectWithSearch = createSelector(
+    selectAll,
+    selectSearch,
+    (entities, search) => {
+      if (search.isInitial && search.ids.length === 0) {
+        return entities;
+      }
+      if (!search.isInitial && search.ids.length === 0) {
+        return [];
+      }
+      return entities.filter(en => {
+        if (!en.id) {
+          return false;
+        }
+        return (search.ids as number[]).indexOf(en.id) >= 0;
+      });
+    }
+  );
 
   const selectedCurrentId = createSelector(
     baseSelector,
@@ -71,6 +107,7 @@ export const getSelectors = (
 
   return {
     selectWithSearch,
-    selectedCurrentContact
+    selectedCurrentContact,
+    selectAllContacts: selectAll
   };
 };

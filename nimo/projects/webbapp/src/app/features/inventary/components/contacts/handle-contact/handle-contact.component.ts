@@ -3,7 +3,8 @@ import { NzSafeAny } from 'ng-zorro-antd/core/types';
 import { FormGroup } from '@angular/forms';
 import { Component, OnInit, EventEmitter } from '@angular/core';
 import { FormlyFormOptions, FormlyFieldConfig } from '@ngx-formly/core';
-import { NzModalRef } from 'ng-zorro-antd/modal';
+import { isNull, isUndefined } from 'lodash';
+
 @Component({
   selector: 'leo-handle-contact',
   template: `
@@ -17,7 +18,7 @@ import { NzModalRef } from 'ng-zorro-antd/modal';
       </formly-form>
       <div *nzModalFooter>
         <button nz-button (click)="saveData()" nzType="primary">
-          Guardar contacto
+          {{ labelHandle }}
         </button>
       </div>
     </form>
@@ -25,8 +26,27 @@ import { NzModalRef } from 'ng-zorro-antd/modal';
   styles: []
 })
 export class HandleContactComponent implements OnInit {
-  form = new FormGroup({});
-  model: NzSafeAny = {};
+  public form = new FormGroup({});
+
+  public model: NzSafeAny = {};
+  private _contact!: IContact;
+
+  public addContact(v: IContact | null | undefined) {
+    if (!isNull(v) && !isUndefined(v)) {
+      this._contact = v;
+      this.model = {
+        ...v
+      };
+    } else {
+      this.model = {};
+    }
+  }
+  public get labelHandle() {
+    return this.isEdit ? 'Editar' : 'Guardar';
+  }
+  public get isEdit() {
+    return this._contact != null;
+  }
 
   onContactSave = new EventEmitter<Partial<IContact>>();
 
@@ -122,11 +142,17 @@ export class HandleContactComponent implements OnInit {
     }
   ];
 
-  constructor(private modalRef: NzModalRef) {}
+  constructor() {}
 
   public saveData() {
     let contact: Partial<IContact> = this.model;
     if (this.form.valid) {
+      if (this.isEdit) {
+        contact = {
+          ...contact,
+          id: this._contact.id
+        };
+      }
       this.onContactSave.emit(contact);
     } else {
       console.log('Lauch error here');

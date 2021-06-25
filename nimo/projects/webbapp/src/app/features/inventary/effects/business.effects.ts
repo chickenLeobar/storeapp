@@ -77,6 +77,7 @@ export class BusinessEffects {
                 .indexOf(query.toLocaleLowerCase()) >= 0
           )
           .map(deal => deal.id);
+
         let isIntial = true;
         if (filtersAreDirty({ query }) && ids.length == 0) {
           isIntial = false;

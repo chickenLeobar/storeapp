@@ -43,10 +43,10 @@ SECRET_KEY = "django-insecure-on=haw5$y1bez=n0&bj*$rs!ck_ndx1sgk_ft$_-=2fzi7*2xm
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["194.62.99.14", "127.0.0.1",
-                 "app.wellnespro.com", "localhost"]
+ALLOWED_HOSTS = ["194.62.99.14", "127.0.0.1", "app.wellnespro.com","localhost"]
 
 CRISPY_TEMPLATE_PACK = "bootstrap4"
+
 # Application definition
 
 
@@ -54,6 +54,9 @@ REST_FRAMEWORK = {
     "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
     "PAGE_SIZE": 10,
 }
+
+CORS_ORIGIN_ALLOW_ALL=True
+
 
 INSTALLED_APPS = [
     "django.contrib.admin",
@@ -76,7 +79,27 @@ INSTALLED_APPS = [
 ]
 
 AUTH_USER_MODEL = "dashboard.Usuario"
-CORS_ORIGIN_ALLOW_ALL = True
+
+CORS_ALLOW_METHODS = [
+    'DELETE',
+    'GET',
+    'OPTIONS',
+    'PATCH',
+    'POST',
+    'PUT',
+]
+CORS_ALLOW_HEADERS = [
+    'accept',
+    'accept-encoding',
+    'authorization',
+    'content-type',
+    'dnt',
+    'origin',
+    'user-agent',
+    'x-csrftoken',
+    'x-requested-with',
+]
+
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
@@ -85,10 +108,11 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    # cors
-    'corsheaders.middleware.CorsMiddleware',
-    'django.middleware.common.CommonMiddleware',
+    'corsheaders.middleware.CorsMiddleware'
 ]
+
+
+
 
 ROOT_URLCONF = "conf.urls"
 

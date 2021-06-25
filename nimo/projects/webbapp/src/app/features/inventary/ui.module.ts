@@ -29,11 +29,13 @@ import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
 import { LoadingModule } from './components/loading/loading.module';
 import { LayoutMeModule } from '../../theme/layouts/layout.module';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
+import { PortalModule } from '@angular/cdk/portal';
 const EXTRA = [
   FlexLayoutModule,
   EmptyIconsModule,
   LoadingModule,
-  LayoutMeModule
+  LayoutMeModule,
+  PortalModule
 ];
 
 const zorro = [

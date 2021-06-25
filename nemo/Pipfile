@@ -16,8 +16,8 @@ djangorestframework = "*"
 pillow = "*"
 coreapi = "*"
 pyyaml = "*"
-django-cors-headers = "*"
 cloudinary = "*"
+django-cors-headers = "*"
 
 [dev-packages]
 autopep8 = "*"

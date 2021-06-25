@@ -17,7 +17,9 @@ export class ContactService {
     return this.http.post(url, contact) as Observable<IContact>;
   }
   public editContact(contact: IContact) {
-    let url = this.apiurl.concat(`${contact.id}`);
+    let url = this.apiurl.concat(`${contact.id}/`);
+    console.log(contact);
+
     return this.http.put(url, contact) as Observable<IContact>;
   }
   public getContacts() {
@@ -26,7 +28,7 @@ export class ContactService {
     return this.http.get(url) as Observable<IContact[]>;
   }
   public deleteContact(contact: IContact) {
-    let url = this.apiurl.concat(`${contact.id}`);
+    let url = this.apiurl.concat(`${contact.id}/`);
     return this.http.delete(url);
   }
 }

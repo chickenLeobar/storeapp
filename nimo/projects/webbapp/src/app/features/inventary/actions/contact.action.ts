@@ -1,3 +1,4 @@
+import { TypeContact } from './../models/index';
 import { createAction, props } from '@ngrx/store';
 import { IContact } from '../models';
 
@@ -43,4 +44,14 @@ export const removeContactSucces = createAction(
 export const selectedContact = createAction(
   '[contacts/api] select contact',
   props<{ contact: IContact }>()
+);
+
+export const searchContacts = createAction(
+  '[contacts] search contact',
+  props<{ query: string; typeContact: TypeContact }>()
+);
+
+export const searchContactsSuccess = createAction(
+  '[contacts] search contact sucess',
+  props<{ ids: number[]; isInitial: boolean }>()
 );
