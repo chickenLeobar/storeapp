@@ -12,6 +12,7 @@ cloudinary.config(
     api_key=env('CLOUDINARY_APIKEY', default=None),
     api_secret=env('CLOUDINARY_APISECRET', default=None),
 )
+
 def generate_signature():
     timestamp = datetime.timestamp(datetime.now())
     api_key = env('CLOUDINARY_APISECRET', default=None)
@@ -32,7 +33,6 @@ class Cloudinary(APIView):
     def delete(self, request: Request, format=None, *args, **kwargs):
         # obtain public id of param
         public_id = kwargs.get('id', -1)
-        print(cloudinary.config().api_key)
         try:
             if public_id == -1:
                 return Response({'error', 'public id not was provided'}, status=HTTP_400_BAD_REQUEST)

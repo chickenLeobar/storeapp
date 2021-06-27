@@ -1,7 +1,7 @@
 <ng-template [nzModalTitle]>
   <div class="w-100" fxLayout fxLayoutAlign="space-between center">
     <h3 nz-typography>
-      Detalle De venta
+      Venta
     </h3>
     <img width="90px" class="p-2 mr-3" src="assets/images/logo_b.svg" alt="" />
   </div>
@@ -15,8 +15,49 @@
       {{ vm.results.count }}
     </nz-descriptions-item>
   </nz-descriptions>
-  <h4 nz-typography>
-    Productos
+  <div fxLayout="column" class="w-100 py-2">
+    <nz-form-item fxFlex="100%">
+      <nz-form-label>
+        Comprobante
+      </nz-form-label>
+      <nz-form-control>
+        <nz-select style="width: 150px;"> </nz-select>
+      </nz-form-control>
+    </nz-form-item>
+    <div fxFlex="100%">
+      <nz-form-item>
+        <nz-form-control>
+          <nz-form-label>
+            Cliente
+          </nz-form-label>
+          <nz-select nzShowSearch style="width: 350px;">
+            <nz-option
+              [nzValue]="contact.id"
+              [nzLabel]="contact.name"
+              *ngFor="let contact of vm.contacts"
+            >
+            </nz-option>
+          </nz-select>
+          <button nz-button nzType="primary" class="ml-2" nzDanger>
+            <i nz-icon nzType="plus" nzTheme="outline"></i>
+          </button>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-descriptions nzBordered style="width: 350px;">
+        <nz-descriptions-item nzTitle="Documento" nzSpan="3">
+          789456321
+        </nz-descriptions-item>
+        <nz-descriptions-item nzTitle="Nombre" nzSpan="3">
+          Elmer Joselito
+        </nz-descriptions-item>
+        <nz-descriptions-item nzTitle="Dirección" nzSpan="3">
+          El ejercito 249
+        </nz-descriptions-item>
+      </nz-descriptions>
+    </div>
+  </div>
+  <h4 nz-typography class="my-2">
+    Detalle de venta
   </h4>
   <nz-table #productsTable [nzData]="vm.sales">
     <thead>

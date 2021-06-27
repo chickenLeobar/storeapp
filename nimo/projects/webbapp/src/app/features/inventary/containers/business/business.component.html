@@ -1,30 +1,32 @@
-<nz-layout class="w-100" *ngIf="vm$ | async as vm">
-  <nz-content class="">
-    <!-- search -->
-    <div nz-row>
-      <nz-form-item nz-col nzSpan="10">
-        <nz-form-control>
-          <nz-input-group nzPrefixIcon="search">
-            <input
-              type="text"
-              [formControl]="searchInput"
-              nz-input
-              placeholder="Buscar negocio"
-            />
-          </nz-input-group>
-        </nz-form-control>
-      </nz-form-item>
-      <button
-        nz-button
-        nzType="primary"
-        (click)="openModalBuiness()"
-        nz-col
-        nzOffset="4"
-      >
-        <i nz-icon nzType="plus" nzTheme="outline"></i>
-      </button>
-    </div>
-    <!-- BUSINESS-->
-    <leo-business-show [business]="vm.business"> </leo-business-show>
-  </nz-content>
-</nz-layout>
+<leo-container>
+  <nz-layout class="w-100" *ngIf="vm$ | async as vm">
+    <nz-content class="">
+      <!-- search -->
+      <div nz-row>
+        <nz-form-item nz-col nzSpan="10">
+          <nz-form-control>
+            <nz-input-group nzPrefixIcon="search">
+              <input
+                type="text"
+                [formControl]="searchInput"
+                nz-input
+                placeholder="Buscar negocio"
+              />
+            </nz-input-group>
+          </nz-form-control>
+        </nz-form-item>
+        <button
+          nz-button
+          nzType="primary"
+          (click)="openModalBuiness()"
+          nz-col
+          nzOffset="4"
+        >
+          <i nz-icon nzType="plus" nzTheme="outline"></i>
+        </button>
+      </div>
+      <!-- BUSINESS-->
+      <leo-business-show [business]="vm.business"> </leo-business-show>
+    </nz-content>
+  </nz-layout>
+</leo-container>

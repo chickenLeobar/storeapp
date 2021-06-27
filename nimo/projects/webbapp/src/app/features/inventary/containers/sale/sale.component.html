@@ -1,81 +1,82 @@
-<nz-layout class="w-100  h-100" *ngIf="$vm | async as vm">
-  <nz-content nz-row nzJustify="start" nzAlign="top">
-    <!-- search -->
+<leo-container mode="large">
+  <nz-layout class="w-100  h-100" *ngIf="$vm | async as vm">
+    <nz-content nz-row nzJustify="start" nzAlign="top">
+      <!-- search -->
+      <form nz-form [formGroup]="searchForm" class="w-100">
+        <nz-form-control nz-col nzSpan="8">
+          <nz-input-group nzPrefixIcon="search">
+            <input
+              type="text"
+              nz-input
+              placeholder="Buscar"
+              formControlName="query"
+            />
+          </nz-input-group>
+        </nz-form-control>
+        <div nz-row class="w-100 my-2">
+          <nz-form-control nzSpan="8">
+            <nz-form-label>
+              Marca
+            </nz-form-label>
+            <nz-select
+              class="w-50"
+              nzShowSearch
+              nzAllowClear
+              formControlName="brand"
+            >
+              <nz-option
+                *ngFor="let brand of vm.brands"
+                [nzValue]="brand.id"
+                [nzLabel]="brand.name"
+              >
+              </nz-option>
+            </nz-select>
+          </nz-form-control>
+          <nz-form-control nzSpan="8">
+            <nz-form-label>
+              Categoria
+            </nz-form-label>
+            <nz-select
+              class="w-50"
+              nzShowSearch
+              nzAllowClear
+              formControlName="category"
+            >
+              <nz-option
+                *ngFor="let categorie of vm.categories"
+                [nzValue]="categorie.id"
+                [nzLabel]="categorie.name"
+              >
+              </nz-option>
+            </nz-select>
+          </nz-form-control>
+        </div>
+      </form>
+      <!-- filters -->
+      <leo-sale-show-products [products]="vm.products"></leo-sale-show-products>
+    </nz-content>
+    <nz-sider nzWidth="30%" nzTheme="light">
+      <!--list-->
 
-    <form nz-form [formGroup]="searchForm" class="w-100">
-      <nz-form-control nz-col nzSpan="8">
-        <nz-input-group nzPrefixIcon="search">
-          <input
-            type="text"
-            nz-input
-            placeholder="Buscar"
-            formControlName="query"
-          />
-        </nz-input-group>
-      </nz-form-control>
-      <div nz-row class="w-100 my-2">
-        <nz-form-control nzSpan="8">
-          <nz-form-label>
-            Marca
-          </nz-form-label>
-          <nz-select
-            class="w-50"
-            nzShowSearch
-            nzAllowClear
-            formControlName="brand"
-          >
-            <nz-option
-              *ngFor="let brand of vm.brands"
-              [nzValue]="brand.id"
-              [nzLabel]="brand.name"
-            >
-            </nz-option>
-          </nz-select>
-        </nz-form-control>
-        <nz-form-control nzSpan="8">
-          <nz-form-label>
-            Categoria
-          </nz-form-label>
-          <nz-select
-            class="w-50"
-            nzShowSearch
-            nzAllowClear
-            formControlName="category"
-          >
-            <nz-option
-              *ngFor="let categorie of vm.categories"
-              [nzValue]="categorie.id"
-              [nzLabel]="categorie.name"
-            >
-            </nz-option>
-          </nz-select>
-        </nz-form-control>
+      <leo-sale-products
+        [totalAndCount]="vm.totalAndCount"
+        [sales]="vm.sales"
+      ></leo-sale-products>
+
+      <!-- actions -->
+      <div class="w-100 actions">
+        <button nz-button nzType="primary" (click)="saveSale()">
+          vender
+        </button>
       </div>
-    </form>
-    <!-- filters -->
-    <leo-sale-show-products [products]="vm.products"></leo-sale-show-products>
-  </nz-content>
-  <nz-sider nzWidth="30%" nzTheme="light">
-    <!--list-->
-
-    <leo-sale-products
-      [totalAndCount]="vm.totalAndCount"
-      [sales]="vm.sales"
-    ></leo-sale-products>
-
-    <!-- actions -->
-    <div class="w-100 actions">
-      <button nz-button nzType="primary" (click)="saveSale()">
-        vender
-      </button>
-    </div>
-    <div class="actions_bottom">
-      <button nz-button nzType="primary" nzDanger (click)="cancelSale()">
-        cancelar
-      </button>
-      <button nz-button nzType="primary">
-        caja
-      </button>
-    </div>
-  </nz-sider>
-</nz-layout>
+      <div class="actions_bottom">
+        <button nz-button nzType="primary" nzDanger (click)="cancelSale()">
+          cancelar
+        </button>
+        <button nz-button nzType="primary">
+          caja
+        </button>
+      </div>
+    </nz-sider>
+  </nz-layout>
+</leo-container>

@@ -1,14 +1,7 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  Optional,
-  OnInit,
-  Inject,
-  SkipSelf,
-  Host
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { SaleStoreService } from '../../containers/sale/sale.store';
 import { ComponentStore } from '@ngrx/component-store';
+import { contactSelectors } from '../../reducers';
 interface localState {}
 @Component({
   selector: 'leo-display-sale',
@@ -24,13 +17,19 @@ export class DisplaySaleComponent implements OnInit {
   ) {}
   private readonly totalAndCount$ = this.saleStore.totalAndCount$;
   private readonly sales$ = this.saleStore.sales$;
+
+  private readonly contacts$ = this.saleStore.contacts$;
+  // private
+  // private readonly contacts$ = this.
   public $vm = this.compoenentStore.select(
     this.totalAndCount$,
     this.sales$,
-    (results, sales) => {
+    this.contacts$,
+    (results, sales, contacts) => {
       return {
         results,
-        sales
+        sales,
+        contacts
       };
     }
   );

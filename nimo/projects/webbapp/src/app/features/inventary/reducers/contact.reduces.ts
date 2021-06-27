@@ -1,3 +1,4 @@
+import { TypeContact } from './../models/index';
 import { NzSafeAny } from 'ng-zorro-antd/core/types';
 import {
   createReducer,
@@ -73,6 +74,8 @@ export const getSelectors = (
 
   const selectSearch = createSelector(baseSelector, state => state.search);
 
+  // filters
+
   const selectWithSearch = createSelector(
     selectAll,
     selectSearch,
@@ -92,6 +95,12 @@ export const getSelectors = (
     }
   );
 
+  const selectPerTypeContact = (mode: TypeContact) => {
+    return createSelector(selectWithSearch, entities => {
+      return entities.filter(co => co.type_contact == mode);
+    });
+  };
+
   const selectedCurrentId = createSelector(
     baseSelector,
     state => state.selected
@@ -108,6 +117,7 @@ export const getSelectors = (
   return {
     selectWithSearch,
     selectedCurrentContact,
-    selectAllContacts: selectAll
+    selectAllContacts: selectAll,
+    selectPerTypeContact
   };
 };

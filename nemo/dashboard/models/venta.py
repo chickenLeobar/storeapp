@@ -26,6 +26,7 @@ class Venta(models.Model):
 
     vendedor = models.ForeignKey(
         'Usuario', related_name="seller", on_delete=models.CASCADE, null=True, blank=True)
+
     meta = models.JSONField(default=dict)
 
     business = models.ForeignKey('Negocio', on_delete=models.CASCADE)

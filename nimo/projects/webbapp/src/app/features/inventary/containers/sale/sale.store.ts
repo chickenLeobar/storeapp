@@ -5,7 +5,7 @@ import {
   State,
   selectBrands,
   selectCategories,
-  selectProducts,
+  contactSelectors,
   selectProductSale,
   selectProductsWithSerach
 } from '../../reducers';
@@ -42,6 +42,9 @@ export class SaleStoreService extends ComponentStore<SaleStore> {
   categories$ = this.store.select(selectCategories);
   products$ = this.store.select(selectProductsWithSerach);
   sales$ = this.store.select(selectProductSale);
+  contacts$ = this.store.select(
+    contactSelectors.selectPerTypeContact('CLIENT')
+  );
 
   totalAndCount$ = this.select(this.sales$, sales => {
     const [count, mont] = sales.reduce(
@@ -72,13 +75,15 @@ export class SaleStoreService extends ComponentStore<SaleStore> {
     this.products$,
     this.sales$,
     this.totalAndCount$,
-    (brands, categories, products, sales, totalAndCount) => {
+    this.contacts$,
+    (brands, categories, products, sales, totalAndCount, contacts) => {
       return {
         brands,
         categories,
         products,
         sales,
-        totalAndCount
+        totalAndCount,
+        contacts
       };
     }
   );

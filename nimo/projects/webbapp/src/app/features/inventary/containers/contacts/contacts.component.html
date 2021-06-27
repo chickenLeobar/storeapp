@@ -1,32 +1,34 @@
-<div gdAreas="content content content preview" gdGap="10px 40px">
-  <nz-card gdArea="content" [nzTitle]="header">
-    <ng-template #header>
-      <div fxLayout="row" class="w-100" fxLayoutAlign="space-between center">
-        <leo-menu-contact
-          (onTypeContact)="onTypeContact($event)"
-        ></leo-menu-contact>
-        <button nz-button nzType="primary" (click)="openHandleContact()">
-          <i nz-icon nzType="plus" nzTheme="outline"></i>
-        </button>
-      </div>
-    </ng-template>
-    <h2 nz-typography>
-      Clientes
-    </h2>
-    <leo-search (onSearch)="onSearch($event)"></leo-search>
-    <!-- list of contacts -->
-    <nz-list>
-      <leo-item-contact
-        (onSelected)="clickCard($event)"
-        [contact]="item"
-        *ngFor="let item of contacts$ | async"
-      >
-      </leo-item-contact>
-    </nz-list>
-  </nz-card>
-  <leo-contact-preview
-    (onEdit)="onEditContact($event)"
-    [contact]="contact$ | async"
-    (onDelete)="onDeleteContact($event)"
-  ></leo-contact-preview>
-</div>
+<leo-container mode="normal">
+  <div gdAreas="content content content preview" gdGap="10px 40px">
+    <nz-card gdArea="content" [nzTitle]="header">
+      <ng-template #header>
+        <div fxLayout="row" class="w-100" fxLayoutAlign="space-between center">
+          <leo-menu-contact
+            (onTypeContact)="onTypeContact($event)"
+          ></leo-menu-contact>
+          <button nz-button nzType="primary" (click)="openHandleContact()">
+            <i nz-icon nzType="plus" nzTheme="outline"></i>
+          </button>
+        </div>
+      </ng-template>
+      <h2 nz-typography>
+        Clientes
+      </h2>
+      <leo-search (onSearch)="onSearch($event)"></leo-search>
+      <!-- list of contacts -->
+      <nz-list>
+        <leo-item-contact
+          (onSelected)="clickCard($event)"
+          [contact]="item"
+          *ngFor="let item of contacts$ | async"
+        >
+        </leo-item-contact>
+      </nz-list>
+    </nz-card>
+    <leo-contact-preview
+      (onEdit)="onEditContact($event)"
+      [contact]="contact$ | async"
+      (onDelete)="onDeleteContact($event)"
+    ></leo-contact-preview>
+  </div>
+</leo-container>

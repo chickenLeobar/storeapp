@@ -38,12 +38,12 @@ export const reducer = createReducer(
   on(productActions.loadProductSuccess, (state, { products }) => {
     // FIXME:
     // save sale temporaly in localStorage
-    // if (localStorage.getItem('sale')) {
-    //   state = {
-    //     ...state,
-    //     saleProducts: JSON.parse(localStorage.getItem('sale') || '')
-    //   };
-    // }
+    if (localStorage.getItem('sale')) {
+      state = {
+        ...state,
+        saleProducts: JSON.parse(localStorage.getItem('sale') || '')
+      };
+    }
     return adapter.setAll(products, state);
   }),
   // edit products
@@ -92,10 +92,10 @@ export const reducer = createReducer(
       }
       // // FIXME:
       // // save sale temporaly in localStorage
-      // localStorage.setItem(
-      //   'sale',
-      //   JSON.stringify(Object.assign({}, state.saleProducts))
-      // );
+      localStorage.setItem(
+        'sale',
+        JSON.stringify(Object.assign({}, state.saleProducts))
+      );
     });
   }),
   // clean sale

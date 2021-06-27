@@ -1,3 +1,4 @@
+import { ContainerMode } from './../../../../theme/layouts/container/container.component';
 import { Store } from '@ngrx/store';
 import {
   Component,
@@ -37,8 +38,10 @@ export class SaleComponent implements OnInit {
     private fb: FormBuilder,
     private viewContainerRef: ViewContainerRef
   ) {}
+
   ngOnInit(): void {
     this.listenFilters();
+    this.modalDisplaySale();
   }
   private listenFilters(): void {
     this.searchForm.valueChanges
