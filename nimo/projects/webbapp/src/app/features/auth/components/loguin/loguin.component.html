@@ -1,0 +1,35 @@
+<nz-card>
+  <h2 nz-typography class="pt-2">Iniciar Sesión</h2>
+  <form action="" nz-form>
+    <!-- correo -->
+    <nz-form-item>
+      <nz-form-control>
+        <input type="email" nz-input placeholder="Correo" nzSize="large" />
+      </nz-form-control>
+    </nz-form-item>
+    <!-- password -->
+    <nz-form-item>
+      <nz-form-control>
+        <input
+          type="password"
+          nz-input
+          placeholder="Contraseña"
+          nzSize="large"
+          nzSize="large"
+        />
+      </nz-form-control>
+    </nz-form-item>
+    <!-- button -->
+    <nz-form-item nzAlign="middle" nzJustify="center" class="w-100">
+      <button nz-button nzType="primary">
+        Iniciar Sesión
+      </button>
+      <a href="" class="w-100 py-4">
+        ¿Olvidaste tu contraseña?
+      </a>
+    </nz-form-item>
+  </form>
+  <span>
+    ¿No tienes una cuenta? <a routerLink="../register"> Registrate ahora</a>
+  </span>
+</nz-card>

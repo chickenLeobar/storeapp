@@ -1,0 +1,57 @@
+<nz-card>
+  <h2 nz-typography class="py-2">Registrarse</h2>
+  <form action="" nz-form>
+    <!-- name and lastname -->
+    <nz-form-item nzGutter="10">
+      <nz-form-control nzSpan="12">
+        <input type="text" nz-input placeholder="Nombres" nzSize="large" />
+      </nz-form-control>
+      <nz-form-control nzSpan="12">
+        <input type="text" nz-input placeholder="Apellidos" nzSize="large" />
+      </nz-form-control>
+    </nz-form-item>
+    <!-- email -->
+    <nz-form-item>
+      <nz-form-control>
+        <input type="email" nz-input placeholder="Correo" nzSize="large" />
+      </nz-form-control>
+    </nz-form-item>
+    <!-- telefono -->
+    <nz-form-item>
+      <nz-form-control>
+        <input type="tel" nz-input placeholder="Teléfono" nzSize="large" />
+      </nz-form-control>
+    </nz-form-item>
+
+    <!-- password -->
+    <nz-form-item>
+      <nz-form-control>
+        <input
+          type="password"
+          nz-input
+          placeholder="Contraseña"
+          nzSize="large"
+        />
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-control>
+        <input
+          type="password"
+          nz-input
+          placeholder="Repetir Contraseña"
+          nzSize="large"
+        />
+      </nz-form-control>
+    </nz-form-item>
+    <!-- button -->
+    <nz-form-item nzAlign="middle" nzJustify="center" class="w-100">
+      <button nz-button nzType="primary">
+        Registrarse
+      </button>
+    </nz-form-item>
+  </form>
+  <span>
+    ¿Ya tienes una cuenta? <a href="" routerLink="../loguin"> Iniciar Sesión</a>
+  </span>
+</nz-card>

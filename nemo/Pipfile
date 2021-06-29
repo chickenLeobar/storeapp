@@ -18,6 +18,8 @@ coreapi = "*"
 pyyaml = "*"
 cloudinary = "*"
 django-cors-headers = "*"
+djangorestframework-simplejwt = "*"
+django-redis = "==5.0.0"
 
 [dev-packages]
 autopep8 = "*"

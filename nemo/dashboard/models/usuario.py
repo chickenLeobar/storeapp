@@ -12,15 +12,11 @@ class Usuario(AbstractBaseUser, PermissionsMixin):
     celular = models.CharField(max_length=15, null=True)
     # auth
     email = models.EmailField(verbose_name="Email address", unique=True)
-    is_staff = models.BooleanField(default=False)
-    is_active = models.BooleanField(default=False)
-    is_bussiness = models.BooleanField(default=False)
-    is_admin = models.BooleanField(default=False)
     data_joined = models.DateTimeField(default=timezone.now)
-
+    validated =  models.BooleanField(default=False ,blank=True)
     USERNAME_FIELD = "email"
 
     objects = CustomUserManger()
 
     def __str__(self):
-        return self.name
+        return self.nombres

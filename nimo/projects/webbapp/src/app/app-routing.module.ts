@@ -4,7 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: '' },
   {
-    path: '',
+    path: 'app',
     loadChildren: () =>
       import('./features/inventary/inventary.module').then(
         m => m.InventaryModule

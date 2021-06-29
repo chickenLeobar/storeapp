@@ -5,6 +5,7 @@ from conf.settings import env
 from datetime import datetime
 from rest_framework.status import HTTP_400_BAD_REQUEST, HTTP_500_INTERNAL_SERVER_ERROR
 import cloudinary
+
 from cloudinary import uploader
 
 cloudinary.config(
@@ -27,7 +28,9 @@ def generate_signature():
 
 
 class Cloudinary(APIView):
+
     def get(self , request : Request):
+
         return generate_signature()
 
     def delete(self, request: Request, format=None, *args, **kwargs):

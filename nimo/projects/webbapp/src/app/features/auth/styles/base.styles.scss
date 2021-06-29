@@ -1,0 +1,71 @@
+@mixin place_logo_left {
+  .left_logo {
+    position: absolute;
+    width: 50vw;
+    height: 100vh;
+    top: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    img {
+      width: 350px;
+      z-index: 50;
+    }
+  }
+}
+@mixin right_content {
+  .right_content {
+    position: absolute;
+    width: 50vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    justify-content: flex-end;
+    display: flex;
+    align-items: center;
+  }
+}
+
+@mixin box_container {
+  .box {
+    width: 470px;
+    text-align: center;
+    margin-right: 10vw;
+  }
+}
+
+.container {
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  .content {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    &::after {
+      $width_circle: 1500px;
+      position: absolute;
+      content: "";
+      width: $width_circle;
+      height: $width_circle;
+      background-color: #001529;
+      top: -40%;
+      right: -30%;
+      border-radius: 50%;
+    }
+    @include place_logo_left();
+    @include right_content();
+    @include box_container();
+    .input_confirm {
+      width: 65px !important;
+      height: 65px !important;
+      display: flex !important;
+      justify-content: center;
+      align-items: center;
+      font-size: 35px;
+      text-align: center;
+    }
+  }
+}

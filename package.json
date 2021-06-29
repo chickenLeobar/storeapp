@@ -1,16 +1,18 @@
 {
-  "name": "@memonorepo/root",
+  "name": "@storeapp/root",
   "version": "1.0.0",
   "private": true,
   "workspaces": [
     "packages/*",
-    "services/*"
+    "services/*",
+    "nimo"
   ],
   "scripts": {
     "postinstall": "preconstruct dev && manypkg check",
     "build": "preconstruct build",
     "fixpre": "preconstruct fix ",
-    "commit": "cz"
+    "commit": "cz",
+    "dev:nimo": "concurrently \"yarn manypkg run nimo serve:shared\" \"yarn manypkg run nimo start\""
   },
   "dependencies": {
     "@babel/core": "^7.14.3",
@@ -21,7 +23,9 @@
     "@babel/preset-typescript": "^7.13.0",
     "@changesets/cli": "^2.16.0",
     "@manypkg/cli": "^0.18.0",
-    "@preconstruct/cli": "^2.1.0"
+    "@preconstruct/cli": "^2.1.0",
+    "concurrently": "^6.2.0",
+    "install": "^0.13.0"
   },
   "config": {
     "commitizen": {

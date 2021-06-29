@@ -26,26 +26,7 @@ import { FormlyNgZorroAntdModule } from '@ngx-formly/ng-zorro-antd';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
-import { EmptyDefaultComponentComponent } from './core/componets/empty-default-component/empty-default-component.component';
-import { NzConfig, NZ_CONFIG } from 'ng-zorro-antd/core/config';
-
-// const nzConfigFactory = (
-//   injector: Injector,
-//   resolver: ComponentFactoryResolver
-// ): NzConfig => {
-//   const factory = resolver.resolveComponentFactory(
-//     EmptyDefaultComponentComponent
-//   );
-//   const { tplEmpty } = factory.create(injector).instance;
-//   console.log('render empty');
-
-//   return {
-//     empty: {
-//       nzDefaultEmptyContent: tplEmpty
-//     }
-//   };
-// };
-
+import { AuthModule } from './features/auth';
 const zorro = [
   NzDropDownModule,
   NzSpaceModule,
@@ -53,6 +34,9 @@ const zorro = [
   NzButtonModule,
   NzSelectModule
 ];
+
+const FEATURES = [AuthModule];
+
 registerLocaleData(es);
 
 @NgModule({
@@ -77,7 +61,8 @@ registerLocaleData(es);
       logOnly: environment.production,
       name: 'Store app'
     }),
-    StoreRouterConnectingModule.forRoot()
+    StoreRouterConnectingModule.forRoot(),
+    FEATURES
   ],
   providers: [
     { provide: NZ_I18N, useValue: es_ES }

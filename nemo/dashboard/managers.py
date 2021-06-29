@@ -7,8 +7,7 @@ class CustomUserManger(BaseUserManager):
         """
         Create and save a User with the given email and password
         """
-
-        if(not email):
+        if (not email):
             raise ValueError(('El email debe ser proveido'))
         email = self.normalize_email(email)
         user = self.model(email=email, **extra_fields)
@@ -18,8 +17,7 @@ class CustomUserManger(BaseUserManager):
         return user
 
     def create_superuser(self, email, password, **extra_fields):
-        extra_fields.setdefault('is_staff', True)
-        extra_fields.setdefault('is_superuser', True)
-        extra_fields.setdefault('is_active', True)
-
         return self.create_user(email, password, **extra_fields)
+
+    def exist_user(self, email: str):
+        return super().get_queryset().filter(email=email).first()

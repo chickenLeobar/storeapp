@@ -30,6 +30,7 @@ import { LoadingModule } from './components/loading/loading.module';
 import { LayoutMeModule } from '../../theme/layouts/layout.module';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
 import { PortalModule } from '@angular/cdk/portal';
+
 const EXTRA = [
   FlexLayoutModule,
   EmptyIconsModule,
