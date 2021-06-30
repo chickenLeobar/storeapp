@@ -7,7 +7,7 @@ import { Actions, createEffect, ofType, concatLatestFrom } from '@ngrx/effects';
 import * as contactActions from '../actions/contact.action';
 import { ContactService } from '../services/contact.service';
 import { State, contactSelectors } from '../reducers';
-import { LoadingService } from '../components/loading/loading.service';
+import { LoadingService } from '../../../core/ui/loading/loading.service';
 
 @Injectable()
 export class ContactEffects {

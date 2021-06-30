@@ -6,7 +6,7 @@ import { NegocioService } from '../services/business.service';
 import { Store } from '@ngrx/store';
 import { State, selectRawBusiness } from '../reducers';
 import { filtersAreDirty } from 'shared';
-import { LoadingService } from '../components/loading/loading.service';
+import { LoadingService } from '../../../core/ui/loading/loading.service';
 @Injectable()
 export class BusinessEffects {
   $loadAllBusiness = createEffect(() =>

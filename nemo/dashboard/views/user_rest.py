@@ -14,10 +14,11 @@ from ..models import Usuario
 from rest_framework.decorators import api_view
 
 from rest_framework.request import Request
-from rest_framework.exceptions import ValidationError
+from rest_framework.exceptions import ValidationError, PermissionDenied
 from rest_framework.status import HTTP_500_INTERNAL_SERVER_ERROR
 from django.core.mail import send_mail
-
+from django.contrib.auth import authenticate
+from  django.shortcuts import  get_object_or_404
 import random
 
 
@@ -67,14 +68,11 @@ class CreateUserViewSet(CreateAPIView):
         user_saved = serializer.save()
         token = get_token(user_saved)
         # generate code for user
-        print(user_saved)
         CodeResolver.save_code_and_send_email(user_saved.email)
         return Response(data={
             'user': serializer.data,
             'token': token
         })
-
-
 
 
 @api_view(['POST'])
@@ -88,6 +86,7 @@ def validateUser(request: Request):
             user.validated = True
             token = get_token(user)
             serializer = auth_serialize.UserSerializer(instance=user)
+            user.save()
             return Response(data={
                 'token': token,
                 'user': serializer.data
@@ -108,3 +107,29 @@ def generate_new_code(request: Request):
             'token': get_token(exist_user)
         }, status=200)
     raise ValidationError(detail="email not exist")
+
+
+@api_view(['POST'])
+def authenticate_user(request: Request):
+    email = request.data['email']
+    password = request.data['password']
+    raw_user = authenticate(username=email, password=password)
+    user_serializer = auth_serialize.UserSerializer(instance=raw_user)
+    if raw_user:
+        return Response({
+             'user' : user_serializer.data,
+            'token': get_token(raw_user),
+        }, status=200)
+
+    raise PermissionDenied()
+
+
+@api_view(['get'])
+def get_user(request: Request, *args, **kwargs):
+    id = kwargs.pop('id')
+    user = get_object_or_404(Usuario , pk = id)
+    user_serializer = auth_serialize.UserSerializer(instance=user)
+    return Response({
+            'user': user_serializer.data
+    })
+

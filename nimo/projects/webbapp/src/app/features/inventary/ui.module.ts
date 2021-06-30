@@ -26,7 +26,7 @@ import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzAvatarModule } from 'ng-zorro-antd/avatar';
 import { NzListModule } from 'ng-zorro-antd/list';
 import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
-import { LoadingModule } from './components/loading/loading.module';
+import { LoadingModule } from '../../core/ui/loading/loading.module';
 import { LayoutMeModule } from '../../theme/layouts/layout.module';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
 import { PortalModule } from '@angular/cdk/portal';

@@ -27,6 +27,11 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import { AuthModule } from './features/auth';
+import { JwtModule } from '@auth0/angular-jwt';
+export function tokenGetter() {
+  return localStorage.getItem('token');
+}
+
 const zorro = [
   NzDropDownModule,
   NzSpaceModule,
@@ -62,7 +67,14 @@ registerLocaleData(es);
       name: 'Store app'
     }),
     StoreRouterConnectingModule.forRoot(),
-    FEATURES
+    FEATURES,
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: tokenGetter
+        // allowedDomains: [''],
+        // disallowedRoutes: ['http://example.com/examplebadroute/']
+      }
+    })
   ],
   providers: [
     { provide: NZ_I18N, useValue: es_ES }

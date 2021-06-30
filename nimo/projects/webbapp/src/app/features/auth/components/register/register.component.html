@@ -1,25 +1,55 @@
 <nz-card>
   <h2 nz-typography class="py-2">Registrarse</h2>
-  <form action="" nz-form>
+  <form action="" nz-form [formGroup]="form" (ngSubmit)="register()">
     <!-- name and lastname -->
     <nz-form-item nzGutter="10">
       <nz-form-control nzSpan="12">
-        <input type="text" nz-input placeholder="Nombres" nzSize="large" />
+        <!-- <nz-form-item>
+          Nombres
+        </nz-form-item> -->
+        <input
+          type="text"
+          nz-input
+          formControlName="nombres"
+          placeholder="Nombres"
+          nzSize="large"
+        />
       </nz-form-control>
       <nz-form-control nzSpan="12">
-        <input type="text" nz-input placeholder="Apellidos" nzSize="large" />
+        <!-- <nz-form-item>
+          Apellidos
+        </nz-form-item> -->
+        <input
+          type="text"
+          nz-input
+          formControlName="apellidos"
+          placeholder="Apellidos"
+          nzSize="large"
+        />
       </nz-form-control>
     </nz-form-item>
     <!-- email -->
     <nz-form-item>
       <nz-form-control>
-        <input type="email" nz-input placeholder="Correo" nzSize="large" />
+        <input
+          type="email"
+          nz-input
+          formControlName="email"
+          placeholder="Correo"
+          nzSize="large"
+        />
       </nz-form-control>
     </nz-form-item>
     <!-- telefono -->
     <nz-form-item>
       <nz-form-control>
-        <input type="tel" nz-input placeholder="Teléfono" nzSize="large" />
+        <input
+          type="tel"
+          nz-input
+          formControlName="celular"
+          placeholder="Teléfono"
+          nzSize="large"
+        />
       </nz-form-control>
     </nz-form-item>
 
@@ -29,6 +59,7 @@
         <input
           type="password"
           nz-input
+          formControlName="password"
           placeholder="Contraseña"
           nzSize="large"
         />
@@ -46,7 +77,7 @@
     </nz-form-item>
     <!-- button -->
     <nz-form-item nzAlign="middle" nzJustify="center" class="w-100">
-      <button nz-button nzType="primary">
+      <button nz-button type="submit" nzType="primary">
         Registrarse
       </button>
     </nz-form-item>

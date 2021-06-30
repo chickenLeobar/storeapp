@@ -10,7 +10,7 @@ import * as productActions from '../../actions/product.actionts';
 import { Store } from '@ngrx/store';
 import { State, selectCategories, selectProducts } from '../../reducers';
 import { ComponentStore } from '@ngrx/component-store';
-import { LoadingService } from '../../components/loading/loading.service';
+import { LoadingService } from '../../../../core/ui/loading/loading.service';
 interface ContainerProductState {}
 
 @Component({

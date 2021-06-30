@@ -13,7 +13,7 @@ import { HandleContactComponent } from '../../components/contacts/handle-contact
 import { Store } from '@ngrx/store';
 import { State, contactSelectors } from '../../reducers';
 import * as contactActions from '../../actions/contact.action';
-import { LoadingService } from '../../components/loading/loading.service';
+import { LoadingService } from '../../../../core/ui/loading/loading.service';
 import { take } from 'rxjs/operators';
 @Component({
   selector: 'leo-contacts',

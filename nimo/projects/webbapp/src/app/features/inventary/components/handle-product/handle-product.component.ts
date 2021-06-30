@@ -10,7 +10,6 @@ import {
   State,
   selectAndSearchCategories,
   selectBrands,
-  selecCurrentId,
   selectCurrentProduct
 } from '../../reducers';
 import { AvalibleModes, HandleCountMode, IInterfaz } from '../../libs';
@@ -20,7 +19,7 @@ interface InitialState {
   interfaz?: IInterfaz;
   currentProduct?: IProduct;
 }
-import { LoadingService } from '../loading/loading.service';
+import { LoadingService } from '../../../../core/ui/loading/loading.service';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 @Component({
   selector: 'leo-handle-product',

@@ -12,9 +12,17 @@ import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzModalModule } from 'ng-zorro-antd/modal';
 import { NzTypographyModule } from 'ng-zorro-antd/typography';
-
-const DEPENDENCES_EXTRA = [FlexLayoutModule];
-
+import { HttpClientModule } from '@angular/common/http';
+import { EffectsModule } from '@ngrx/effects';
+import effects from './effects';
+import { StoreModule } from '@ngrx/store';
+import * as fromAuth from '../auth/reducers';
+import services from './services';
+import { ReactiveFormsModule } from '@angular/forms';
+import { LoadingModule } from '../../core/ui/loading/loading.module';
+import { CodeComponent } from './components/confirm-email/code.component';
+const DEPENDENCES_EXTRA = [FlexLayoutModule, LoadingModule];
+import { authProvider } from './services/token.service';
 const ZORRO = [
   NzButtonModule,
   NzCardModule,
@@ -27,11 +35,22 @@ const COMPONENTS = [
   BaseComponent,
   LoguinComponent,
   RegisterComponent,
-  ConfirmEmailComponent
+  ConfirmEmailComponent,
+  CodeComponent
 ];
 
 @NgModule({
   declarations: COMPONENTS,
-  imports: [CommonModule, AuthsRoutingModule, DEPENDENCES_EXTRA, ...ZORRO]
+  imports: [
+    CommonModule,
+    AuthsRoutingModule,
+    HttpClientModule,
+    DEPENDENCES_EXTRA,
+    ...ZORRO,
+    ReactiveFormsModule,
+    EffectsModule.forFeature(effects),
+    StoreModule.forFeature(fromAuth.featureKey, fromAuth.reducers)
+  ],
+  providers: [...services, authProvider]
 })
 export class AuthModule {}

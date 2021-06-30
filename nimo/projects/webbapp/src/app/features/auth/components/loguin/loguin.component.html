@@ -1,16 +1,23 @@
 <nz-card>
   <h2 nz-typography class="pt-2">Iniciar Sesión</h2>
-  <form action="" nz-form>
+  <form [formGroup]="form" nz-form (ngSubmit)="loguin()">
     <!-- correo -->
     <nz-form-item>
       <nz-form-control>
-        <input type="email" nz-input placeholder="Correo" nzSize="large" />
+        <input
+          type="email"
+          formControlName="email"
+          nz-input
+          placeholder="Correo"
+          nzSize="large"
+        />
       </nz-form-control>
     </nz-form-item>
     <!-- password -->
     <nz-form-item>
       <nz-form-control>
         <input
+          formControlName="password"
           type="password"
           nz-input
           placeholder="Contraseña"
@@ -21,7 +28,7 @@
     </nz-form-item>
     <!-- button -->
     <nz-form-item nzAlign="middle" nzJustify="center" class="w-100">
-      <button nz-button nzType="primary">
+      <button nz-button type="submit" nzType="primary">
         Iniciar Sesión
       </button>
       <a href="" class="w-100 py-4">

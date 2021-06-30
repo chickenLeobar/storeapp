@@ -17,7 +17,7 @@ import { SaleService } from '../services/sale.service';
 import { tapResponse } from '@ngrx/component-store';
 import { of, EMPTY } from 'rxjs';
 import { filtersAreDirty } from 'shared';
-import { LoadingService } from '../components/loading/loading.service';
+import { LoadingService } from '../../../core/ui/loading/loading.service';
 @Injectable()
 export class ProductEffects {
   $loadProducts = createEffect(() =>

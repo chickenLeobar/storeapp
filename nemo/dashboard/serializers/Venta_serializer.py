@@ -54,7 +54,6 @@ class VentaSerializer(serializers.ModelSerializer):
             sale: Venta = Venta.objects.create(**validated_data)
             # save details
             sale.save()
-            object_sale = VentaSerializer(sale)
             for detail in details:
                 detail_prepared = DetalleVenta.objects.create(**detail, venta=sale)
                 detail_prepared.save()

@@ -4,14 +4,14 @@ import {
   OnInit,
   HostBinding,
   ViewEncapsulation,
-  ChangeDetectionStrategy,
-  Inject,
-  AfterViewInit,
-  NgZone
+  ChangeDetectionStrategy
 } from '@angular/core';
-import { DOCUMENT } from '@angular/common';
-import { merge, fromEvent } from 'rxjs';
-import { untilDestroyed, UntilDestroy } from '@ngneat/until-destroy';
+import { FormControl } from '@angular/forms';
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
+import { Store } from '@ngrx/store';
+import { State } from '../../reducers';
+import * as authActions from '../../actions/auth.actions';
+import { LoadingService } from '../../../../core/ui/loading/loading.service';
 @Component({
   selector: 'leo-confirm-email',
   templateUrl: './confirm-email.component.html',
@@ -20,55 +20,17 @@ import { untilDestroyed, UntilDestroy } from '@ngneat/until-destroy';
   styles: []
 })
 @UntilDestroy()
-export class ConfirmEmailComponent implements OnInit, AfterViewInit {
+export class ConfirmEmailComponent implements OnInit {
   @HostBinding('class') class_ = 'box';
-  constructor(
-    @Inject(DOCUMENT) private document: Document,
-    private zone: NgZone
-  ) {}
-  ngAfterViewInit(): void {
-    this.onlyNumbersPrevention();
-  }
+  code: FormControl = new FormControl('');
+  constructor(private store: Store<State>, private loading: LoadingService) {}
 
-  ngOnInit(): void {}
+  ngAfterViewInit(): void {}
 
-  private onlyNumbersPrevention() {
-    this.zone.runOutsideAngular(() => {
-      let elements = Object.assign(
-        [] as HTMLInputElement[],
-        this.document.getElementsByClassName('input_confirm')
-      );
-      const elementsWIthId = elements.map((el, i) => {
-        el.dataset.id = `${i}`;
-        return el;
-      });
-
-      const obs = elementsWIthId.map(el => fromEvent(el, 'input'));
-      merge(...obs)
-        .pipe(untilDestroyed(this))
-        .subscribe(event => {
-          const isDelete =
-            (event as NzSafeAny).inputType == 'deleteContentBackward';
-          const target = event.target as NzSafeAny;
-          const val = (target as NzSafeAny).value;
-          let id = Number(target.dataset.id);
-          const regex = new RegExp('^[0-9]$');
-          if (isDelete) {
-            const prevEl = elements[--id];
-            if (prevEl) {
-              prevEl.focus();
-            }
-          }
-          if (regex.test(val)) {
-            target.value = val;
-            const nextEl = elements[++id];
-            if (nextEl) {
-              nextEl.focus();
-            }
-          } else {
-            target.value = (val as string).substr(0, val.length - 1);
-          }
-        });
+  ngOnInit(): void {
+    this.code.valueChanges.pipe(untilDestroyed(this)).subscribe(val => {
+      this.loading.show('Cargando...');
+      this.store.dispatch(authActions.comproateCode({ code: val }));
     });
   }
 }

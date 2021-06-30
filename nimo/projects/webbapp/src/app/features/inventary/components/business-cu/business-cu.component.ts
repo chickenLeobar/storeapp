@@ -18,7 +18,7 @@ import { iif, of, defer, pipe } from 'rxjs';
 import { get } from 'lodash';
 import { obtainPreviewUrlOrNotFound } from '../../utils';
 import { untilDestroyed, UntilDestroy } from '@ngneat/until-destroy';
-import { LoadingService } from '../loading/loading.service';
+import { LoadingService } from '../../../../core/ui/loading/loading.service';
 import { castDraft } from 'immer';
 @Component({
   selector: 'leo-business-cu',
