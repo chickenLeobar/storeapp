@@ -1,24 +1,19 @@
 from django.contrib.auth.models import Group
 from rest_framework.response import Response
 from rest_framework import viewsets, permissions
-
 from django.core.cache import cache
-
 from ..serializers import auth_serialize
 from rest_framework.generics import CreateAPIView
-
 from rest_framework_simplejwt.tokens import RefreshToken
-
 from ..models import Usuario
-
 from rest_framework.decorators import api_view
-
 from rest_framework.request import Request
-from rest_framework.exceptions import ValidationError, PermissionDenied
+from rest_framework.exceptions import ValidationError, AuthenticationFailed
 from rest_framework.status import HTTP_500_INTERNAL_SERVER_ERROR
 from django.core.mail import send_mail
 from django.contrib.auth import authenticate
 from  django.shortcuts import  get_object_or_404
+
 import random
 
 
@@ -91,8 +86,8 @@ def validateUser(request: Request):
                 'token': token,
                 'user': serializer.data
             })
-        raise ValidationError(detail="Code expired")
-    raise ValidationError(detail="Code expired")
+        raise ValidationError(detail="Este codigo no es valido o ha expirado")
+    raise ValidationError(detail="Este codigo no es valido o ha expirado")
 
 
 # refresh code
@@ -106,6 +101,7 @@ def generate_new_code(request: Request):
         return Response(data={
             'token': get_token(exist_user)
         }, status=200)
+
     raise ValidationError(detail="email not exist")
 
 
@@ -120,8 +116,7 @@ def authenticate_user(request: Request):
              'user' : user_serializer.data,
             'token': get_token(raw_user),
         }, status=200)
-
-    raise PermissionDenied()
+    raise AuthenticationFailed(detail="Credenciales incorrectas")
 
 
 @api_view(['get'])

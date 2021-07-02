@@ -30,7 +30,6 @@ router = routers.DefaultRouter()
 
 
 router.register(r"^products", ProductViewSet)
-
 router.register(r"^negocio", BusinessViewSet)
 router.register(r"^category", CategoryViewSet)
 router.register(r"^brand", BrandViewSet)

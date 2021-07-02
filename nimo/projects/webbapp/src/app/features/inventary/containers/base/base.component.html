@@ -2,14 +2,14 @@
   <ul nz-menu>
     <li
       nz-menu-item
-      [routerLink]="['/inventary']"
+      [routerLink]="['/app', 'inventary']"
       routerLinkActive="router-link-active"
     >
       Inventario
     </li>
     <li
       nz-menu-item
-      [routerLink]="['/sale']"
+      [routerLink]="['/app', 'sale']"
       routerLinkActive="router-link-active"
     >
       Ventas
@@ -25,12 +25,17 @@
             <i
               nz-icon
               nzType="appstore"
-              [routerLink]="['/business']"
+              [routerLink]="['/app', 'business']"
               routerLinkActive="router-link-active"
               nzTheme="outline"
             ></i>
           </button>
-          <nz-select *nzSpaceItem nzSize="default" style="width: 150px">
+          <nz-select
+            [formControl]="selectBusinessControl"
+            *nzSpaceItem
+            nzSize="default"
+            style="width: 150px"
+          >
             <nz-option
               [nzLabel]="deal.name"
               [nzValue]="deal.id"

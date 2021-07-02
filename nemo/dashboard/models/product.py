@@ -1,7 +1,7 @@
 import re
 import cloudinary
 from django.db import models
-
+from ..models.Negocio import Negocio
 # - imagen
 # - descripcion
 # - price
@@ -11,15 +11,17 @@ from django.db import models
 # - stockc
 
 from django.core.validators import MinValueValidator
+
 unit = (
     ("KG", "kilogramo"),
     ("Lt", "Listro"),
     ("und", "unidad")
 )
 
+
 class Brand(models.Model):
     name = models.CharField(max_length=150, null=False, verbose_name="Nombre")
-    # business = models.ForeignKey('Negocio', on_delete=models.CASCADE)
+    business = models.ForeignKey(Negocio, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name
@@ -29,7 +31,7 @@ class Category(models.Model):
     name = models.CharField(max_length=200, null=False,
                             verbose_name="Nombre")
     description = models.TextField(max_length=800)
-    business = models.ForeignKey('Negocio', on_delete=models.CASCADE)
+    business = models.ForeignKey(Negocio, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name
@@ -59,7 +61,7 @@ class Product(models.Model):
 
     method_cont = models.CharField(verbose_name="Unidad", default="und", max_length=50)
     brand = models.ForeignKey(
-        Brand, on_delete=models.CASCADE, verbose_name="Marca"  , null=True)
+        Brand, on_delete=models.CASCADE, verbose_name="Marca", null=True)
 
     category = models.ForeignKey(
         Category, on_delete=models.CASCADE, verbose_name='Categoria')
@@ -67,9 +69,11 @@ class Product(models.Model):
     # ad images
     images = models.JSONField(null=False, default=list)
 
+    # business
+    business = models.ForeignKey(Negocio, on_delete=models.CASCADE)
+
     def __str__(self):
         return self.name
 
     class Meta:
-        unique_together = [['name','category'] ,['name']]
-
+        unique_together = [['name', 'category'], ['name']]

@@ -137,7 +137,8 @@ export const {
   selectAllBusiness,
   selectModalState,
   selectCurrentBusiness,
-  selectRawBusiness
+  selectRawBusiness,
+  selectedWorkingBusiness
 } = fromBusiness.getSelectors(selectBusinessState);
 
 /*=============================================

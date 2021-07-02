@@ -8,7 +8,7 @@ import { es_ES } from 'ng-zorro-antd/i18n';
 import { registerLocaleData } from '@angular/common';
 import es from '@angular/common/locales/es';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { IconsProviderModule } from './icons-provider.module';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
@@ -28,6 +28,7 @@ import { environment } from '../environments/environment';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import { AuthModule } from './features/auth';
 import { JwtModule } from '@auth0/angular-jwt';
+import { ErrorInterceptor } from './core/interceptors/error.interceptor';
 export function tokenGetter() {
   return localStorage.getItem('token');
 }
@@ -77,7 +78,8 @@ registerLocaleData(es);
     })
   ],
   providers: [
-    { provide: NZ_I18N, useValue: es_ES }
+    { provide: NZ_I18N, useValue: es_ES },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }
     // {
     //   provide: NZ_CONFIG,
     //   useFactory: nzConfigFactory,

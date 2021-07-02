@@ -15,6 +15,7 @@ export const adapter = createEntityAdapter<INegocio>();
 export interface State extends EntityState<INegocio> {
   selectedBusiness: number | null;
   businessModal: boolean;
+  businessWorkspace: number | null;
   search: {
     isInitial: boolean;
     ids: number[];
@@ -24,6 +25,7 @@ export interface State extends EntityState<INegocio> {
 const initialState: State = adapter.getInitialState({
   selectedBusiness: null,
   businessModal: false,
+  businessWorkspace: null,
   search: {
     isInitial: true,
     ids: []
@@ -84,6 +86,13 @@ export const reducer = createReducer(
       ...state,
       selectedBusiness: null
     };
+  }),
+  // selected working business
+  on(businessActions.selectedWorkingBusiness, (state, { id }) => {
+    return {
+      ...state,
+      businessWorkspace: id
+    };
   })
 );
 
@@ -104,7 +113,6 @@ export const getSelectors = (
       if (!search.isInitial && search.ids.length == 0) {
         return [];
       }
-
       return negocios.filter(negocio => {
         if (!negocio.id) {
           return false;
@@ -130,11 +138,15 @@ export const getSelectors = (
       return id !== null ? entities[id] : null;
     }
   );
+  const selectedWorkingBusiness = createSelector(selectorBase, state => {
+    return state.businessWorkspace;
+  });
 
   return {
     selectAllBusiness,
     selectModalState,
     selectCurrentBusiness,
-    selectRawBusiness: selectAll
+    selectRawBusiness: selectAll,
+    selectedWorkingBusiness
   };
 };

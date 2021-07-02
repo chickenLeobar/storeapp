@@ -1,13 +1,14 @@
-<leo-container>
+<leo-container mode="small">
   <nz-layout class="w-100" *ngIf="vm$ | async as vm">
     <nz-content class="">
       <!-- search -->
-      <div nz-row>
+      <div nz-row nzJustify="center">
         <nz-form-item nz-col nzSpan="10">
           <nz-form-control>
             <nz-input-group nzPrefixIcon="search">
               <input
                 type="text"
+                nzSize="large"
                 [formControl]="searchInput"
                 nz-input
                 placeholder="Buscar negocio"

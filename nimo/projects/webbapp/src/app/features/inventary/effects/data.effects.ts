@@ -2,13 +2,17 @@ import { map } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { loadAll } from '../actions/router.actions';
-import { loadProducts } from '../actions/product.actionts';
-import { loadCategories } from '../actions/category.actions';
-import { loadContacts } from '../actions/contact.action';
-import { loadAllBusiness } from '../actions/business.actions';
-import { loadBrands } from '../actions/brand.actions';
+import { loadProducts, loadProductSuccess } from '../actions/product.actionts';
+import {
+  loadCategories,
+  loadCategoriesSucess
+} from '../actions/category.actions';
+import { loadContacts, loadContactsSucess } from '../actions/contact.action';
+import { loadBrands, loadBrandsSucces } from '../actions/brand.actions';
 import { Store } from '@ngrx/store';
 import { State } from '../reducers';
+import { LoadingService } from '../../../core/ui/loading/loading.service';
+
 @Injectable()
 export class DataEffects {
   $loadAll = createEffect(
@@ -22,7 +26,7 @@ export class DataEffects {
           // load contacts
           this.store.dispatch(loadContacts());
           //load business
-          this.store.dispatch(loadAllBusiness());
+          // this.store.dispatch(loadAllBusiness());
           // load brands
           this.store.dispatch(loadBrands({ query: '' }));
         })
@@ -31,6 +35,38 @@ export class DataEffects {
       dispatch: false
     }
   );
+  $loadingStart = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(loadProducts, loadContacts, loadCategories, loadBrands),
+        map(() => {
+          if (!this.loading.isVisible) {
+            this.loading.show();
+          }
+        })
+      ),
+    { dispatch: false }
+  );
 
-  constructor(private actions$: Actions, private store: Store<State>) {}
+  $hideLoading = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(
+          loadCategoriesSucess,
+          loadContactsSucess,
+          loadProductSuccess,
+          loadBrandsSucces
+        ),
+        map(() => {
+          this.loading.hide();
+        })
+      ),
+    { dispatch: false }
+  );
+
+  constructor(
+    private actions$: Actions,
+    private store: Store<State>,
+    private loading: LoadingService
+  ) {}
 }

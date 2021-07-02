@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EffectsModule } from '@ngrx/effects';
@@ -40,7 +40,9 @@ import { ContactPreviewComponent } from './components/contacts/contact-preview/c
 import { SearchComponent } from './components/contacts/search/search.component';
 import { MenuContactComponent } from './containers/contacts/menu-contact.component';
 import { DescriptionsComponent } from './components/contacts/contact-preview/descriptions.component';
-
+import { ErrorInterceptor } from '../../core/interceptors/error.interceptor';
+// add params to url
+import { AddParamsInterceptor } from './services/add-params.interceptor';
 @NgModule({
   declarations: [
     // fields
@@ -88,6 +90,10 @@ import { DescriptionsComponent } from './components/contacts/contact-preview/des
     StoreModule.forFeature(fromInventary.featureKey, fromInventary.reducers),
     EffectsModule.forFeature(effects)
   ],
-  providers: [...services]
+  providers: [
+    ...services,
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: AddParamsInterceptor, multi: true }
+  ]
 })
 export class InventaryModule {}

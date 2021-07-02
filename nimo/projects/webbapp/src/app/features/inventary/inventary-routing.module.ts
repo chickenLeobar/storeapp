@@ -5,15 +5,28 @@ import { SaleComponent } from './containers/sale/sale.component';
 import { BusinessComponent } from './containers/business/business.component';
 import { BaseComponent } from './containers/base/base.component';
 import { ContactsComponent } from './containers/contacts/contacts.component';
+import { SelectBusinessGuard } from './guards/select-business.service';
 const routes: Routes = [
   {
     component: BaseComponent,
     path: '',
     children: [
-      { path: 'inventary', component: InventaryComponent },
-      { path: 'sale', component: SaleComponent },
+      {
+        path: 'inventary',
+        component: InventaryComponent,
+        canActivate: [SelectBusinessGuard]
+      },
+      {
+        path: 'sale',
+        component: SaleComponent,
+        canActivate: [SelectBusinessGuard]
+      },
       { path: 'business', component: BusinessComponent },
-      { path: 'contacts', component: ContactsComponent }
+      {
+        path: 'contacts',
+        component: ContactsComponent,
+        canActivate: [SelectBusinessGuard]
+      }
     ]
   }
 ];

@@ -37,9 +37,7 @@ export class StoreBusinessService extends ComponentStore<BusinessState> {
     this.store.dispatch(businessActions.selectBusiness({ negocio: deal }));
     this.store.dispatch(businessActions.openModalBusiness());
   }
-
   // search business
-
   public searchBusiness(query: string): void {
     this.store.dispatch(businessActions.searchBusiness({ query }));
   }

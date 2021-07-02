@@ -1,25 +1,27 @@
-import { IBrand } from './../models/index';
+import { IBrand } from './../models';
 import { Injectable } from '@angular/core';
-import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { Actions, createEffect, ofType, concatLatestFrom } from '@ngrx/effects';
 import * as brandActions from '../actions/brand.actions';
 import {
   switchMap,
   map,
   concatMap,
   exhaustMap,
-  tap,
   mergeMap
 } from 'rxjs/operators';
 import { BrandService } from '../services/brand.service';
-
+import { Store } from '@ngrx/store';
+import { selectedWorkingBusiness } from '../reducers';
 @Injectable()
 export class BrandEffects {
   $loadBrands = createEffect(() =>
     this.actions$.pipe(
       ofType(brandActions.loadBrands),
-      switchMap(payload =>
+      concatLatestFrom(() => this.store.select(selectedWorkingBusiness)),
+      switchMap(([payload, idBusiness]) =>
         this.brandService.getBrands(payload?.query || '').pipe(
           map(nodes => {
+            // console.log("");
             return brandActions.loadBrandsSucces({ brands: nodes });
           })
         )
@@ -63,5 +65,9 @@ export class BrandEffects {
       })
     )
   );
-  constructor(private actions$: Actions, private brandService: BrandService) {}
+  constructor(
+    private actions$: Actions,
+    private brandService: BrandService,
+    private store: Store
+  ) {}
 }

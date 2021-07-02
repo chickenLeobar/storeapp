@@ -5,7 +5,7 @@ from django.core.validators import MinValueValidator
 from enum import Enum, unique
 from typing import OrderedDict
 from .contact import  Contact
-
+from  .Negocio import Negocio
 @unique
 class MethodCont(Enum):
     MONT = "MONT"
@@ -29,7 +29,7 @@ class Venta(models.Model):
 
     meta = models.JSONField(default=dict)
 
-    business = models.ForeignKey('Negocio', on_delete=models.CASCADE)
+    business = models.ForeignKey(Negocio, on_delete=models.CASCADE)
 
 
 class DetalleVenta(models.Model):

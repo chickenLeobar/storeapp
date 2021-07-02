@@ -15,10 +15,12 @@ import { authSelectors } from '../reducers';
 
 @Injectable()
 export class AuthEffects {
-  $loguin = createEffect(() =>
-    this.actions$
-      .pipe(ofType(authActions.loguin))
-      .pipe(switchMap(act => this.loguin(act)))
+  $loguin = createEffect(
+    () =>
+      this.actions$
+        .pipe(ofType(authActions.loguin))
+        .pipe(switchMap(act => this.loguin(act))),
+    { dispatch: false }
   );
   $register = createEffect(() =>
     this.actions$
@@ -87,11 +89,11 @@ export class AuthEffects {
   private loguin = (action: ReturnType<typeof authActions.loguin>) => {
     return this.authService.loguin(action.email, action.password).pipe(
       map(res => {
-        this.store.dispatch(pageActions.enterDashboard());
-        const user = get(res, 'user');
         const token = get(res, 'token');
+        const user = get(res, 'user') as IUser;
         this.tokenService.saveToken(token);
-        return authActions.loguinSuccess({ user: user });
+        this.store.dispatch(authActions.loguinSuccess({ user: user }));
+        this.store.dispatch(pageActions.enterDashboard());
       })
     );
   };

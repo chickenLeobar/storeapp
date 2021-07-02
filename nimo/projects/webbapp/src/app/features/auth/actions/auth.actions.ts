@@ -34,3 +34,5 @@ export const fetchUserSuccess = createAction(
   '[auth/api]  fetch user succes',
   props<{ user: IUser }>()
 );
+
+export const logoutUser = createAction('[auth] logout');

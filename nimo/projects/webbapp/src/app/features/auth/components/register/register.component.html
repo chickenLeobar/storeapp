@@ -3,10 +3,7 @@
   <form action="" nz-form [formGroup]="form" (ngSubmit)="register()">
     <!-- name and lastname -->
     <nz-form-item nzGutter="10">
-      <nz-form-control nzSpan="12">
-        <!-- <nz-form-item>
-          Nombres
-        </nz-form-item> -->
+      <nz-form-control nzSpan="12" nzErrorTip="Este campo es requerido">
         <input
           type="text"
           nz-input
@@ -15,10 +12,7 @@
           nzSize="large"
         />
       </nz-form-control>
-      <nz-form-control nzSpan="12">
-        <!-- <nz-form-item>
-          Apellidos
-        </nz-form-item> -->
+      <nz-form-control nzSpan="12" nzErrorTip="Este campo es requerido">
         <input
           type="text"
           nz-input
@@ -30,7 +24,7 @@
     </nz-form-item>
     <!-- email -->
     <nz-form-item>
-      <nz-form-control>
+      <nz-form-control nzErrorTip="Este email no es valido">
         <input
           type="email"
           nz-input
@@ -55,7 +49,7 @@
 
     <!-- password -->
     <nz-form-item>
-      <nz-form-control>
+      <nz-form-control [nzErrorTip]="errorPassword">
         <input
           type="password"
           nz-input
@@ -64,16 +58,31 @@
           nzSize="large"
         />
       </nz-form-control>
+      <ng-template #errorPassword let-control>
+        <ng-container *ngIf="control.hasError('password')">
+          {{ control.getError("password") }}
+        </ng-container>
+      </ng-template>
     </nz-form-item>
     <nz-form-item>
-      <nz-form-control>
+      <nz-form-control [nzErrorTip]="errorTpl">
         <input
           type="password"
           nz-input
+          formControlName="verifyPassword"
           placeholder="Repetir Contraseña"
           nzSize="large"
         />
       </nz-form-control>
+      <ng-template #errorTpl let-control>
+        <ng-container *ngIf="control.hasError('required')">
+          Este campo es requerido
+        </ng-container>
+
+        <ng-container *ngIf="control.hasError('confirm')">
+          las contraseñas no coinciden
+        </ng-container>
+      </ng-template>
     </nz-form-item>
     <!-- button -->
     <nz-form-item nzAlign="middle" nzJustify="center" class="w-100">

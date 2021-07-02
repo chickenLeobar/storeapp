@@ -11,7 +11,7 @@ class Usuario(AbstractBaseUser, PermissionsMixin):
     ciudad = models.CharField(max_length=100, null=True)
     celular = models.CharField(max_length=15, null=True)
     # auth
-    email = models.EmailField(verbose_name="Email address", unique=True)
+    email = models.EmailField(verbose_name="Email address", unique=True , validators=[])
     data_joined = models.DateTimeField(default=timezone.now)
     validated =  models.BooleanField(default=False ,blank=True)
     USERNAME_FIELD = "email"

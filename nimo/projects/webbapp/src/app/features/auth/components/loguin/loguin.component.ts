@@ -9,6 +9,7 @@ import {
 import { Store } from '@ngrx/store';
 import { State } from '../../reducers';
 import * as authActions from '../../actions/auth.actions';
+import { Validators } from '@angular/forms';
 
 @Component({
   selector: 'leo-loguin',
@@ -18,8 +19,8 @@ import * as authActions from '../../actions/auth.actions';
 })
 export class LoguinComponent implements OnInit {
   public form: FormGroup = this.fb.group({
-    email: this.fb.control(''),
-    password: this.fb.control('')
+    email: this.fb.control('', [Validators.required]),
+    password: this.fb.control('', [Validators.required])
   });
   constructor(private fb: FormBuilder, private store: Store<State>) {}
   @HostBinding('class') class_ = 'box';

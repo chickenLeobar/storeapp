@@ -12,6 +12,7 @@ import { Store } from '@ngrx/store';
 import { State } from '../../reducers';
 import * as authActions from '../../actions/auth.actions';
 import { LoadingService } from '../../../../core/ui/loading/loading.service';
+import { authSelectors } from '../../reducers';
 @Component({
   selector: 'leo-confirm-email',
   templateUrl: './confirm-email.component.html',
@@ -24,6 +25,8 @@ export class ConfirmEmailComponent implements OnInit {
   @HostBinding('class') class_ = 'box';
   code: FormControl = new FormControl('');
   constructor(private store: Store<State>, private loading: LoadingService) {}
+
+  $user = this.store.select(authSelectors.getUser);
 
   ngAfterViewInit(): void {}
 

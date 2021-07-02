@@ -29,20 +29,26 @@ export const reducer = createReducer(
         user
       };
     }
-  )
+  ),
+  on(authActions.logoutUser, state => {
+    return {
+      ...state,
+      user: null
+    };
+  })
 );
 
 export const getSelectors = (
   selectorBase: MemoizedSelector<NzSafeAny, State>
 ) => {
   const getUser = createSelector(selectorBase, state => {
-    console.log('state');
-
-    console.log(state);
-
     return state.user;
   });
+  const isUserLoggedIn = createSelector(selectorBase, state => {
+    return !!state.user;
+  });
   return {
-    getUser
+    getUser,
+    isUserLoggedIn
   };
 };

@@ -1,8 +1,8 @@
-<nz-card>
+<nz-card *ngIf="$user | async as user">
   <h2 nz-typography class="pt-2">Verificación</h2>
   <p>
-    Para confirmar tu identidad hemos enviado un email a example@gmail.com con
-    un codigo de acceso
+    Para confirmar tu identidad hemos enviado un email a {{ user.email }} con un
+    codigo de acceso
   </p>
   <form action="" class="py-3" nz-form nzLayout="inline">
     <leo-code [formControl]="code"></leo-code>

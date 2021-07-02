@@ -18,51 +18,7 @@ import { DOCUMENT } from '@angular/common';
   selector: 'leo-code',
   template: `
     <div nz-form nzLayout="inline">
-      <nz-form-item>
-        <nz-form-control>
-          <input
-            type="text"
-            nz-input
-            class="input_confirm"
-            min="0"
-            placeholder="0"
-          />
-        </nz-form-control>
-      </nz-form-item>
-      <nz-form-item>
-        <nz-form-control>
-          <input
-            type="text"
-            nz-input
-            class="input_confirm"
-            min="0"
-            placeholder="0"
-          />
-        </nz-form-control>
-      </nz-form-item>
-      <nz-form-item>
-        <nz-form-control>
-          <input
-            type="text"
-            nz-input
-            class="input_confirm"
-            min="0"
-            placeholder="0"
-          />
-        </nz-form-control>
-      </nz-form-item>
-      <nz-form-item>
-        <nz-form-control>
-          <input
-            type="text"
-            nz-input
-            class="input_confirm"
-            min="0"
-            placeholder="0"
-          />
-        </nz-form-control>
-      </nz-form-item>
-      <nz-form-item>
+      <nz-form-item *ngFor="let item of [1, 2, 3, 4, 5]">
         <nz-form-control>
           <input
             type="text"
@@ -141,8 +97,6 @@ export class CodeComponent
             if (nextEl) {
               nextEl.focus();
             } else {
-              console.log(getValue());
-
               if (this.onChangue) {
                 this.onChangue(getValue());
               }

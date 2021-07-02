@@ -56,3 +56,8 @@ export const searchBusinessSuccess = createAction(
   '[business/api] search business success',
   props<{ ids: number[]; isInitial: boolean }>()
 );
+
+export const selectedWorkingBusiness = createAction(
+  '[business] selected working business',
+  props<{ id: number }>()
+);

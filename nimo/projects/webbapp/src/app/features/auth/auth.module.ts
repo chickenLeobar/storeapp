@@ -23,13 +23,15 @@ import { LoadingModule } from '../../core/ui/loading/loading.module';
 import { CodeComponent } from './components/confirm-email/code.component';
 const DEPENDENCES_EXTRA = [FlexLayoutModule, LoadingModule];
 import { authProvider } from './services/token.service';
+import { NzMessageModule } from 'ng-zorro-antd/message';
 const ZORRO = [
   NzButtonModule,
   NzCardModule,
   NzFormModule,
   NzInputModule,
   NzModalModule,
-  NzTypographyModule
+  NzTypographyModule,
+  NzMessageModule
 ];
 const COMPONENTS = [
   BaseComponent,

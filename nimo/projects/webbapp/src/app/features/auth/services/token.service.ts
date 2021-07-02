@@ -7,7 +7,6 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 import { get } from 'lodash';
 import * as authActions from '../actions/auth.actions';
 import { Router } from '@angular/router';
-
 export function initializerUser(tokenService: TokenService) {
   return () => {
     return new Promise((res, re) => {
@@ -35,11 +34,17 @@ export class TokenService {
       ? get(this.jwtService.decodeToken(), 'user_id')
       : null;
   }
+
+  public logout() {
+    localStorage.removeItem('token');
+    this.store.dispatch(authActions.logoutUser());
+  }
   public fetchUser(): void {
     const respToken = this.tokenIsValid();
     if (typeof respToken == 'number') {
       this.store.dispatch(authActions.fetchUser({ id: respToken }));
     } else {
+      localStorage.removeItem('token');
       this.router.navigateByUrl('auth/loguin');
     }
   }

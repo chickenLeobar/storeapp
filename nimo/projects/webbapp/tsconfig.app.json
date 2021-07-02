@@ -4,17 +4,22 @@
   "compilerOptions": {
     "outDir": "../../out-tsc/app",
     "types": [],
-    "baseUrl": ".",
+    "baseUrl": "./",
     "skipLibCheck": true,
     "paths": {
-    
-    }
+     "@app/*" : ["src/app/*"]
+    },
+    "allowSyntheticDefaultImports": true
   },
   "files": [
     "src/main.ts",
     "src/polyfills.ts",
   ],
   "include": [
-    "src/**/*.d.ts"
+    "src/**/*.d.ts",
+    "src/**/*.ts"
+  ],
+  "exclude": [
+    "src/**/*.spec.ts"
   ]
 }

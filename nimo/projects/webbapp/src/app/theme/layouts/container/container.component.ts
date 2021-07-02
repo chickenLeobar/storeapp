@@ -5,7 +5,8 @@ import {
   OnChanges,
   SimpleChanges,
   ChangeDetectorRef,
-  ChangeDetectionStrategy
+  ChangeDetectionStrategy,
+  HostBinding
 } from '@angular/core';
 
 import { css, cx } from '@emotion/css';
@@ -28,7 +29,12 @@ export class ContainerComponent implements OnInit, OnChanges {
 
   public className$ = new BehaviorSubject<string>('container');
 
-  // @HostBinding('class') class!: string;
+  @HostBinding('class') class: string = css`
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    width: 100vw;
+  `;
 
   constructor(private cdr: ChangeDetectorRef) {}
 
@@ -38,8 +44,6 @@ export class ContainerComponent implements OnInit, OnChanges {
   }
 
   private applySizeOnContainer(mode: ContainerMode) {
-    console.log('resolve');
-
     this.className$.next(cx(this.resolveSizeOnContainer(mode), 'container'));
   }
   private resolveSizeOnContainer(mode: ContainerMode) {
@@ -47,14 +51,17 @@ export class ContainerComponent implements OnInit, OnChanges {
       case 'large':
         return css`
           max-width: 1600px !important;
+          width: 1600px;
         `;
       case 'normal':
         return css`
           max-width: 1400px !important;
+          width: 1400px;
         `;
       case 'small':
         return css`
           max-width: 1200px !important;
+          width: 1200px;
         `;
       default:
         break;
