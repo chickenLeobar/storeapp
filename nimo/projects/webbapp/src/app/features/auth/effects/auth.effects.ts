@@ -72,6 +72,8 @@ export class AuthEffects {
         ofType(pageActions.enterDashboard),
         map(() => {
           this.loadingService.hide();
+          // console.log('enter dashboard');
+          // FIXME: redirect logic here
           this.router.navigateByUrl('/app/business');
         })
       ),

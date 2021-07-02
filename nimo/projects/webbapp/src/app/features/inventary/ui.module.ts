@@ -30,6 +30,8 @@ import { LoadingModule } from '../../core/ui/loading/loading.module';
 import { LayoutMeModule } from '../../theme/layouts/layout.module';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
 import { PortalModule } from '@angular/cdk/portal';
+import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
+import { NzCollapseModule } from 'ng-zorro-antd/collapse';
 
 const EXTRA = [
   FlexLayoutModule,
@@ -64,7 +66,9 @@ const zorro = [
   NzMessageModule,
   NzAvatarModule,
   NzDropDownModule,
-  NzMenuModule
+  NzMenuModule,
+  NzDatePickerModule,
+  NzCollapseModule
 ];
 
 const MATERIAL = [ScrollingModule, DragDropModule];

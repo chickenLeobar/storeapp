@@ -10,7 +10,7 @@ import {
   ViewEncapsulation,
   HostListener
 } from '@angular/core';
-import * as productActions from '../../actions/product.actionts';
+import * as saleActions from '../../actions/sale.action';
 import { existsProductInsale } from '../../reducers';
 import { take, tap } from 'rxjs/operators';
 import { get } from 'lodash';
@@ -77,7 +77,7 @@ export class ProductComponent implements OnInit {
           } else {
             if (this.product)
               this.store.dispatch(
-                productActions.addProductForSale({
+                saleActions.addProductForSale({
                   product: this.product,
                   count: 0
                 })

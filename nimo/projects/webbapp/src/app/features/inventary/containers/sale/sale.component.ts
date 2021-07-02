@@ -15,6 +15,7 @@ import { isArray } from 'lodash';
 import { searchProducts } from '../../actions/product.actionts';
 import { DisplaySaleComponent } from '../../components/display-sale/display-sale.component';
 import { untilDestroyed, UntilDestroy } from '@ngneat/until-destroy';
+import * as saleActions from '../../actions/sale.action';
 @Component({
   selector: 'leo-sale',
   templateUrl: './sale.component.html',
@@ -41,7 +42,7 @@ export class SaleComponent implements OnInit {
 
   ngOnInit(): void {
     this.listenFilters();
-    this.modalDisplaySale();
+    // this.modalDisplaySale();
   }
   private listenFilters(): void {
     this.searchForm.valueChanges
@@ -78,7 +79,7 @@ export class SaleComponent implements OnInit {
   }
 
   private modalDisplaySale() {
-    this.modal.create({
+    const refModal = this.modal.create({
       nzTitle: 'Detalle de venta',
       nzContent: DisplaySaleComponent,
       nzWidth: '800px',
@@ -87,5 +88,11 @@ export class SaleComponent implements OnInit {
         this.state.saveSale();
       }
     });
+
+    refModal.componentInstance?.onInfo
+      .pipe(untilDestroyed(this))
+      .subscribe(info => {
+        this.store.dispatch(saleActions.addInfo(info));
+      });
   }
 }

@@ -12,7 +12,7 @@ class MethodCont(Enum):
 
 
 class Venta(models.Model):
-    fecha_venta = models.DateTimeField(auto_now=True)
+    fecha_venta = models.DateTimeField(blank=False)
     # true is necessary to prevent Erro "required field" in serializer
     monto_total = models.DecimalField(max_digits=10, decimal_places=4, blank=True)
     # IDEA: changue this for contact :)

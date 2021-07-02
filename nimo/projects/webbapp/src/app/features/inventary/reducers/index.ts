@@ -11,6 +11,7 @@ import * as fromCateory from './category.reducer';
 import * as fromProduct from './product.reducer';
 import * as fromBusiness from './business.reducer';
 import * as fromContact from './contact.reduces';
+import * as fromSale from './sale.reducer';
 export const featureKey = 'inventary';
 
 export interface InventaryState {
@@ -19,6 +20,7 @@ export interface InventaryState {
   [fromProduct.featureKey]: fromProduct.State;
   [fromBusiness.featureKey]: fromBusiness.State;
   [fromContact.featureKey]: fromContact.State;
+  [fromSale.featureKey]: fromSale.State;
 }
 export const selectInventaryState = createFeatureSelector<InventaryState>(
   featureKey
@@ -33,7 +35,8 @@ const _reducers: ActionReducerMap<InventaryState, Action> = {
   [fromCateory.featureKey]: fromCateory.reducer,
   [fromProduct.featureKey]: fromProduct.reducer,
   [fromBusiness.featureKey]: fromBusiness.reducer,
-  [fromContact.featureKey]: fromContact.reducer
+  [fromContact.featureKey]: fromContact.reducer,
+  [fromSale.featureKey]: fromSale.reducer
 };
 
 export function reducers(state: InventaryState, action: Action) {
@@ -107,24 +110,6 @@ export const selectAndSearchCategories = createSelector(
 );
 
 /*=============================================
-=            Products            =
-=============================================*/
-
-export const selectProductState = createSelector(
-  selectInventaryState,
-  state => state[fromProduct.featureKey]
-);
-
-export const {
-  selectProducts,
-  selectTotalProducts,
-  selectCurrentProduct,
-  selectProductSale,
-  selectProductsWithSerach,
-  existsProductInsale
-} = fromProduct.getSelectors(selectProductState);
-
-/*=============================================
 =            Negocios            =
 =============================================*/
 
@@ -151,3 +136,47 @@ export const selectContactState = createSelector(
 );
 
 export const contactSelectors = fromContact.getSelectors(selectContactState);
+
+/*=============================================
+=            Products            =
+=============================================*/
+
+export const selectProductState = createSelector(
+  selectInventaryState,
+  state => state[fromProduct.featureKey]
+);
+
+export const {
+  selectProducts,
+  selectTotalProducts,
+  selectCurrentProduct,
+  selectProductsWithSerach,
+  selectedEntitiesProducts
+} = fromProduct.getSelectors(selectProductState);
+
+/*=============================================
+=            sale            =
+=============================================*/
+
+export const selectSaleState = createSelector(
+  selectInventaryState,
+  state => state[fromSale.featureKey]
+);
+
+export const {
+  selectedInfoOfSale,
+  existsProductInsale,
+  selectItemsIdsOfSale
+} = fromSale.getSelectors(selectSaleState);
+
+/*=============================================
+=            sale <-> product            =
+=============================================*/
+
+const { selectProductSale } = fromSale.getFunctions();
+
+export const selectProductsOfSale = createSelector(
+  selectedEntitiesProducts,
+  selectItemsIdsOfSale,
+  selectProductSale
+);

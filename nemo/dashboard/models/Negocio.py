@@ -16,7 +16,7 @@ class Negocio(models.Model):
     date_created = models.DateTimeField(auto_now=True, blank=True)
 
     def __str__(self) -> str:
-        return self.nombre
+        return self.name
 
     class Meta:
         unique_together = [['name', 'direction']]

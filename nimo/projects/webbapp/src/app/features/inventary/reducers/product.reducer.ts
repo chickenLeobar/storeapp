@@ -10,21 +10,18 @@ import { NzSafeAny } from 'ng-zorro-antd/core/types';
 import * as productActions from '../actions/product.actionts';
 import { IProduct } from '../models';
 
-import { filtersAreDirty } from 'shared';
-
 export const featureKey = 'product';
 
 export const adapter: EntityAdapter<IProduct> = createEntityAdapter();
 
 export interface State extends EntityState<IProduct> {
   selectId: number | null;
-  saleProducts: Record<number, { mont: number; count: number }>;
   searchProducts: number[];
 }
 
 const initialState: State = adapter.getInitialState({
   selectId: null,
-  saleProducts: [],
+
   searchProducts: []
 });
 
@@ -36,14 +33,6 @@ export const reducer = createReducer(
   }),
   /// load products
   on(productActions.loadProductSuccess, (state, { products }) => {
-    // FIXME:
-    // save sale temporaly in localStorage
-    if (localStorage.getItem('sale')) {
-      state = {
-        ...state,
-        saleProducts: JSON.parse(localStorage.getItem('sale') || '')
-      };
-    }
     return adapter.setAll(products, state);
   }),
   // edit products
@@ -68,55 +57,12 @@ export const reducer = createReducer(
       selectId: null
     };
   }),
-  // add product for
-  on(productActions.addProductForSale, (state, { product, count }) => {
-    return produce(state, draf => {
-      let pr = draf.saleProducts[product.id];
-      if (pr) {
-        if (product.method_cont == 'MONT') {
-          draf.saleProducts[product.id] = {
-            count: count,
-            mont: count
-          };
-        } else {
-          draf.saleProducts[product.id] = {
-            count: count,
-            mont: count * product.mont_exist
-          };
-        }
-      } else {
-        draf.saleProducts[product.id] = {
-          count: 0,
-          mont: 0
-        };
-      }
-      // // FIXME:
-      // // save sale temporaly in localStorage
-      localStorage.setItem(
-        'sale',
-        JSON.stringify(Object.assign({}, state.saleProducts))
-      );
-    });
-  }),
-  // clean sale
-  on(productActions.cleanSale, state => {
-    return {
-      ...state,
-      saleProducts: {}
-    };
-  }),
   // search values
   on(productActions.searchProductsSuccess, (state, { ids }) => {
     return {
       ...state,
       searchProducts: ids
     };
-  }),
-  // remove product of sale
-  on(productActions.removeProducOfsale, (state, { id }) => {
-    return produce(state, draf => {
-      delete draf.saleProducts[id];
-    });
   })
 );
 export const getSelectors = (
@@ -128,6 +74,7 @@ export const getSelectors = (
     selectEntities,
     selectTotal: selectTotalProducts
   } = adapter.getSelectors(selectorBase);
+
   const selectProducts = createSelector(selectAll, products => {
     return products;
   });
@@ -156,47 +103,20 @@ export const getSelectors = (
     }
   );
 
-  const selecSaleInfo = createSelector(
-    selectorBase,
-    state => state.saleProducts
-  );
-
   const selectCurrentProduct = createSelector(
     selectCurrentId,
     selectEntities,
     (id, entities) => (id ? entities[id] : null)
   );
 
-  const existsProductInsale = (id: number) => {
-    return createSelector(selecSaleInfo, sales => {
-      return sales[id] ? true : false;
-    });
-  };
-
-  // select product of sale
-  const selectProductSale = createSelector(
-    selectEntities,
-    selecSaleInfo,
-    (entities, saleInfo) => {
-      return Object.keys(saleInfo).map((key, i) => {
-        let pr = entities[key];
-        let sale = saleInfo[Number(key)];
-        return {
-          product: pr,
-          mont: sale.mont,
-          count: sale.count
-        };
-      });
-    }
-  );
+  // selected client of sale
 
   return {
     selectCurrentId,
     selectProducts,
     selectTotalProducts,
     selectCurrentProduct,
-    selectProductSale,
-    selectProductsWithSerach,
-    existsProductInsale
+    selectedEntitiesProducts: selectEntities,
+    selectProductsWithSerach
   };
 };

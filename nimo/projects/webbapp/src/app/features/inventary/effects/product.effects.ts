@@ -1,23 +1,32 @@
+import { NzSafeAny } from 'ng-zorro-antd/core/types';
 import { IProduct } from './../models/index';
 import {
   switchMap,
   map,
   concatMap,
   exhaustMap,
-  tap,
-  filter
+  take,
+  switchMapTo
 } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType, concatLatestFrom } from '@ngrx/effects';
 import { ProductService } from '../services/product.service';
 import * as productActions from '../actions/product.actionts';
 import { Store } from '@ngrx/store';
-import { selectProductSale, State, selectProducts } from '../reducers';
+import {
+  selectProductsOfSale,
+  State,
+  selectProducts,
+  selectedInfoOfSale
+} from '../reducers';
 import { SaleService } from '../services/sale.service';
 import { tapResponse } from '@ngrx/component-store';
-import { of, EMPTY } from 'rxjs';
+import { of, EMPTY, Observable } from 'rxjs';
 import { filtersAreDirty } from 'shared';
 import { LoadingService } from '../../../core/ui/loading/loading.service';
+import * as saleActions from '../actions/sale.action';
+import { combineLatest } from 'rxjs';
+import { NzMessageService } from 'ng-zorro-antd/message';
 @Injectable()
 export class ProductEffects {
   $loadProducts = createEffect(() =>
@@ -81,27 +90,46 @@ export class ProductEffects {
     )
   );
 
+  private obtainSale = (source: Observable<NzSafeAny>) => {
+    const details = this.store.select(selectProductsOfSale);
+    const info = this.store.select(selectedInfoOfSale);
+    const combine = combineLatest([details, info])
+      .pipe(
+        map(([details, info]) => {
+          return {
+            details,
+            info
+          };
+        })
+      )
+      .pipe(take(1));
+    return source.pipe(switchMapTo(combine));
+  };
+
   /*=============================================
    =            Sale actions            =
    =============================================*/
   $saveSale = createEffect(
     () =>
       this.actions$.pipe(
-        ofType(productActions.saveSale),
-        concatLatestFrom(() => this.store.select(selectProductSale)),
-        exhaustMap(([, sales]) => {
-          const details = sales.map(node => ({
+        ofType(saleActions.saveSale),
+        this.obtainSale,
+        exhaustMap(({ details: items, info }) => {
+          const details = items.map(node => ({
             producto: node.product?.id,
             cantidad: node.count
           }));
           return this.saleService
             .saveSale({
-              details: details
+              details: details,
+              fecha_venta: info?.date!,
+              cliente: info?.selectedContact || undefined
             })
             .pipe(
               tapResponse(
                 res => {
-                  this.store.dispatch(productActions.cleanSale());
+                  this.store.dispatch(saleActions.cleanSale());
+                  this.message.success('Venta creada correctamente');
                 },
                 err => {
                   console.log(err);
@@ -184,6 +212,7 @@ export class ProductEffects {
     private productService: ProductService,
     private store: Store<State>,
     private saleService: SaleService,
-    private loading: LoadingService
+    private loading: LoadingService,
+    private message: NzMessageService
   ) {}
 }

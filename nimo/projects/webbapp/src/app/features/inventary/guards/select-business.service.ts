@@ -27,8 +27,11 @@ export class SelectBusinessGuard implements CanActivate {
     return this.store.select(selectedWorkingBusiness).pipe(
       map(businessid => {
         if (businessid) {
+          console.log('blocked me');
+
           return true;
         } else {
+          console.log('blocked me  dos');
           // FIXME: create amazing page for wait
           this.modal.error({
             nzTitle: 'Negocio no seleccionado',

@@ -8,10 +8,9 @@ import {
 } from '@angular/core';
 
 import { Store } from '@ngrx/store';
-import { State, existsProductInsale } from '../../reducers';
-import * as productActions from '../../actions/product.actionts';
+import { State } from '../../reducers';
+import * as saleActions from '../../actions/sale.action';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
-
 export interface ISaleItem {
   product?: IProduct;
   count: number;
@@ -59,7 +58,6 @@ export class SaleProductsComponent implements OnInit {
 
   // controle drag
   public drop(event: CdkDragDrop<any[]>) {
-    console.log(event);
     moveItemInArray(
       event.container.data,
       event.previousIndex,
@@ -74,7 +72,7 @@ export class SaleProductsComponent implements OnInit {
   public onSale(event: { product: IProduct | undefined; count: number }): void {
     if (event.product)
       this.store.dispatch(
-        productActions.addProductForSale({
+        saleActions.addProductForSale({
           product: event.product,
           count: event.count
         })
@@ -84,7 +82,7 @@ export class SaleProductsComponent implements OnInit {
   public removeItem(saleItem: ISaleItem) {
     if (saleItem.product?.id)
       this.store.dispatch(
-        productActions.removeProducOfsale({ id: saleItem.product?.id })
+        saleActions.removeProducOfsale({ id: saleItem.product?.id })
       );
   }
 }

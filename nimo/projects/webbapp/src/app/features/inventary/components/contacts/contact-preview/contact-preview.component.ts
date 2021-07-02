@@ -28,11 +28,11 @@ import { NzModalService } from 'ng-zorro-antd/modal';
     >
       <div #templatePortalContent></div>
       <nz-space nzAlign="start" nzDirection="vertical">
-        <leo-descriptions
+        <descriptions-contact
           *nzSpaceItem
           style="width: 300px; "
           [contact]="contact"
-        ></leo-descriptions>
+        ></descriptions-contact>
 
         <!-- buttons -->
         <div *nzSpaceItem>
@@ -74,7 +74,13 @@ import { NzModalService } from 'ng-zorro-antd/modal';
   encapsulation: ViewEncapsulation.None
 })
 export class ContactPreviewComponent implements OnInit, AfterViewInit {
-  @Input() contact!: IContact | undefined | null;
+  _contact!: IContact | undefined | null;
+  @Input() set contact(v: IContact | undefined | null) {
+    this._contact = v;
+  }
+  get contact() {
+    return this._contact;
+  }
 
   @Output() onEdit = new EventEmitter<unknown>();
   @Output() onDelete = new EventEmitter<unknown>();

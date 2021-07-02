@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 export function initializerUser(tokenService: TokenService) {
   return () => {
     return new Promise((res, re) => {
+      // console.log('initializer');
       tokenService.fetchUser();
       res({});
     });

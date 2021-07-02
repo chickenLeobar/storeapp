@@ -10,6 +10,7 @@ import {
   ChangeDetectorRef
 } from '@angular/core';
 import { isNull, isUndefined, get } from 'lodash';
+import { InputBoolean } from 'ng-zorro-antd/core/util';
 
 function isValid(candidate: unknown) {
   let isValid = true;
@@ -36,9 +37,10 @@ type ItemDetail = {
 };
 
 @Component({
-  selector: 'leo-descriptions',
+  selector: 'descriptions-contact',
   template: `
     <nz-descriptions
+      [nzBordered]="nzBordered"
       [nzTitle]="contact?.name || ''"
       [nzColumn]="{ xxl: 1, xl: 1, lg: 1, md: 1, sm: 1, xs: 1 }"
     >
@@ -53,7 +55,15 @@ type ItemDetail = {
 })
 export class DescriptionsComponent implements OnInit {
   constructor(private cdr: ChangeDetectorRef) {}
-  @Input() contact!: IContact | undefined | null;
+  _contact!: IContact | undefined | null;
+  @Input() set contact(v: IContact | undefined | null) {
+    this._contact = v;
+  }
+  get contact() {
+    return this._contact;
+  }
+
+  @Input() @InputBoolean() nzBordered: NzSafeAny;
 
   ngOnInit(): void {}
 
@@ -66,6 +76,9 @@ export class DescriptionsComponent implements OnInit {
         this.details = this.buildDetails(contact.currentValue);
         this.cdr.markForCheck();
       }
+    } else {
+      this.details = [];
+      this.cdr.markForCheck();
     }
   }
   private buildDetails(contact: IContact): ItemDetail[] {

@@ -5,9 +5,11 @@ import { Observable } from 'rxjs';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { tap } from 'rxjs/operators';
 interface ISaleRequest {
-  bussiness?: number;
+  business?: number;
   vendedor?: number;
   details: Partial<IDetailSale>[];
+  fecha_venta: Date;
+  cliente?: number;
 }
 
 @Injectable()
@@ -21,18 +23,24 @@ export class SaleService {
      * FIXME:
      *  pass correct business id and seller
      */
-    if (!sale?.bussiness) {
+    if (!sale?.business) {
       sale = {
         ...sale,
-        bussiness: 1
+        business: 8
       };
     }
     if (!sale?.vendedor) {
       sale = {
         ...sale,
-        vendedor: 1
+        vendedor: 60
       };
     }
-    return this.http.post(url, sale).pipe(tap(console.log));
+    return this.http.post(url, sale).pipe(
+      tap(d => {
+        console.log('save sale');
+
+        console.log(d);
+      })
+    );
   }
 }

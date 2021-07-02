@@ -43,17 +43,6 @@ export const cleanProductId = createAction(
   '[product/api] clean selected product'
 );
 
-export const addProductForSale = createAction(
-  '[product/api] add product for sale',
-  props<{ product: IProduct; count: number }>()
-);
-
-// clean sale
-export const cleanSale = createAction('[product/api] clean sale');
-
-// save sale on server
-export const saveSale = createAction('[product/api] save sale');
-
 // action for search products
 
 export const searchProducts = createAction(
@@ -66,8 +55,3 @@ export const searchProductsSuccess = createAction(
 );
 
 // remove item
-
-export const removeProducOfsale = createAction(
-  '[product/api] remove product of sale',
-  props<{ id: number }>()
-);

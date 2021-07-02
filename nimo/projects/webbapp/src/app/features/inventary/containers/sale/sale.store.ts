@@ -1,4 +1,3 @@
-import { tap } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import {
@@ -6,33 +5,28 @@ import {
   selectBrands,
   selectCategories,
   contactSelectors,
-  selectProductSale,
+  selectProductsOfSale,
   selectProductsWithSerach
 } from '../../reducers';
 import { ComponentStore } from '@ngrx/component-store';
-import * as categoriactions from '../../actions/category.actions';
-import * as fromActions from '../../actions/brand.actions';
-import * as productActions from '../../actions/product.actionts';
+
+import * as saleActions from '../../actions/sale.action';
 export interface SaleStore {}
 
 @Injectable()
 export class SaleStoreService extends ComponentStore<SaleStore> {
   constructor(private store: Store<State>) {
     super({});
-    this.store.dispatch(categoriactions.loadCategories({ query: '' }));
-    this.store.dispatch(fromActions.loadBrands({ query: '' }));
-    this.store.dispatch(productActions.loadProducts());
   }
-
   /*=============================================
   =            Dispatch actions            =
   =============================================*/
 
   public cancelSale() {
-    this.store.dispatch(productActions.cleanSale());
+    this.store.dispatch(saleActions.cleanSale());
   }
   public saveSale(): void {
-    this.store.dispatch(productActions.saveSale());
+    this.store.dispatch(saleActions.saveSale());
   }
 
   /*=============================================
@@ -41,7 +35,7 @@ export class SaleStoreService extends ComponentStore<SaleStore> {
   brands$ = this.store.select(selectBrands);
   categories$ = this.store.select(selectCategories);
   products$ = this.store.select(selectProductsWithSerach);
-  sales$ = this.store.select(selectProductSale);
+  sales$ = this.store.select(selectProductsOfSale);
   contacts$ = this.store.select(
     contactSelectors.selectPerTypeContact('CLIENT')
   );

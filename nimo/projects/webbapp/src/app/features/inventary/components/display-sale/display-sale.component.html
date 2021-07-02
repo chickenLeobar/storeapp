@@ -14,36 +14,55 @@
     <nz-descriptions-item nzTitle="Cantidad Total" nzSpan="3">
       {{ vm.results.count }}
     </nz-descriptions-item>
+    <nz-descriptions-item nzTitle="Fecha" nzSpan="3">
+      <nz-date-picker [formControl]="dateofSale"></nz-date-picker>
+    </nz-descriptions-item>
   </nz-descriptions>
-  <div fxLayout="column" class="w-100 py-2">
-    <nz-form-item fxFlex="100%">
+  <nz-collapse>
+    <nz-collapse-panel nzHeader="Cliente">
+      <div fxLayout="column" class="w-100 py-2">
+        <!-- Boucher -->
+        <!-- <nz-form-item fxFlex="100%">
       <nz-form-label>
         Comprobante
       </nz-form-label>
       <nz-form-control>
         <nz-select style="width: 150px;"> </nz-select>
       </nz-form-control>
-    </nz-form-item>
-    <div fxFlex="100%">
-      <nz-form-item>
-        <nz-form-control>
-          <nz-form-label>
-            Cliente
-          </nz-form-label>
-          <nz-select nzShowSearch style="width: 350px;">
-            <nz-option
-              [nzValue]="contact.id"
-              [nzLabel]="contact.name"
-              *ngFor="let contact of vm.contacts"
+    </nz-form-item> -->
+        <div fxFlex="100%">
+          <nz-form-item>
+            <nz-form-control>
+              <nz-select
+                nzShowSearch
+                style="width: 350px;"
+                [formControl]="contactCtrl"
+                nzAllowClear
+                (ngModelChange)="onChangueContact($event)"
+              >
+                <nz-option
+                  [nzValue]="contact.id"
+                  [nzLabel]="contact.name"
+                  *ngFor="let contact of vm.contacts"
+                >
+                </nz-option>
+              </nz-select>
+              <button nz-button nzType="primary" class="ml-2" nzDanger>
+                <i nz-icon nzType="plus" nzTheme="outline"></i>
+              </button>
+            </nz-form-control>
+          </nz-form-item>
+
+          <ng-container>
+            <descriptions-contact
+              [contact]="contactselected | async"
+              nzBordered
+              style="width: 350px;"
             >
-            </nz-option>
-          </nz-select>
-          <button nz-button nzType="primary" class="ml-2" nzDanger>
-            <i nz-icon nzType="plus" nzTheme="outline"></i>
-          </button>
-        </nz-form-control>
-      </nz-form-item>
-      <nz-descriptions nzBordered style="width: 350px;">
+            </descriptions-contact>
+          </ng-container>
+
+          <!-- <nz-descriptions nzBordered style="width: 350px;">
         <nz-descriptions-item nzTitle="Documento" nzSpan="3">
           789456321
         </nz-descriptions-item>
@@ -53,9 +72,11 @@
         <nz-descriptions-item nzTitle="Dirección" nzSpan="3">
           El ejercito 249
         </nz-descriptions-item>
-      </nz-descriptions>
-    </div>
-  </div>
+      </nz-descriptions> -->
+        </div>
+      </div>
+    </nz-collapse-panel>
+  </nz-collapse>
   <h4 nz-typography class="my-2">
     Detalle de venta
   </h4>
