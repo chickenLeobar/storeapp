@@ -37,6 +37,7 @@ export class HandleContactComponent implements OnInit {
       this.model = {
         ...v
       };
+      console.log(v);
     } else {
       this.model = {};
     }
@@ -155,7 +156,6 @@ export class HandleContactComponent implements OnInit {
       }
       this.onContactSave.emit(contact);
     } else {
-      console.log('Lauch error here');
     }
   }
   ngOnInit(): void {}

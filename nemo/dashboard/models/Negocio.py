@@ -1,4 +1,5 @@
 from django.db import models
+from .usuario import Usuario
 
 
 class Negocio(models.Model):
@@ -14,6 +15,7 @@ class Negocio(models.Model):
     last_open = models.DateTimeField(blank=True, auto_now_add=True)
     date_updated = models.DateTimeField(auto_now_add=True, blank=True)
     date_created = models.DateTimeField(auto_now=True, blank=True)
+    user = models.ForeignKey(Usuario, on_delete=models.CASCADE)
 
     def __str__(self) -> str:
         return self.name

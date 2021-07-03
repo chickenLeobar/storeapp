@@ -43,6 +43,10 @@ import { DescriptionsComponent } from './components/contacts/contact-preview/des
 import { ErrorInterceptor } from '../../core/interceptors/error.interceptor';
 // add params to url
 import { AddParamsInterceptor } from './services/add-params.interceptor';
+
+// APP_INITIALIZER
+import { NegocioService } from './services/business.service';
+import { SalesComponent } from './containers/sales/sales.component';
 @NgModule({
   declarations: [
     // fields
@@ -70,7 +74,8 @@ import { AddParamsInterceptor } from './services/add-params.interceptor';
     ContactPreviewComponent,
     SearchComponent,
     MenuContactComponent,
-    DescriptionsComponent
+    DescriptionsComponent,
+    SalesComponent
   ],
   imports: [
     CommonModule,
@@ -96,4 +101,8 @@ import { AddParamsInterceptor } from './services/add-params.interceptor';
     { provide: HTTP_INTERCEPTORS, useClass: AddParamsInterceptor, multi: true }
   ]
 })
-export class InventaryModule {}
+export class InventaryModule {
+  constructor(private negocioService: NegocioService) {
+    this.negocioService.prepareBusiness();
+  }
+}

@@ -3,6 +3,7 @@ import { CloudinaryResponse } from 'shared';
 export interface IBrand {
   id?: number;
   name: string;
+  business?: number;
 }
 
 export interface ICategory {
@@ -27,6 +28,7 @@ export interface INegocio {
   last_open?: Date;
   date_updated?: Date;
   date_created?: Date;
+  user: number;
 }
 
 export type TypeContact = 'PROVIDER' | 'CLIENT';
@@ -57,7 +59,8 @@ export interface IProduct {
   method_cont: AvalibleModes;
   brand?: number;
   category: number;
-  images?: [];
+  images?: CloudinaryResponse[];
+  business?: number;
 }
 
 export interface IDetailSale {

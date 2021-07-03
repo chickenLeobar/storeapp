@@ -29,6 +29,7 @@ import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import { AuthModule } from './features/auth';
 import { JwtModule } from '@auth0/angular-jwt';
 import { ErrorInterceptor } from './core/interceptors/error.interceptor';
+import effects from './core/effects';
 export function tokenGetter() {
   return localStorage.getItem('token');
 }
@@ -58,7 +59,7 @@ registerLocaleData(es);
     NzMenuModule,
     ...zorro,
     StoreModule.forRoot(ROOT_REDUCERS, {}),
-    EffectsModule.forRoot([]),
+    EffectsModule.forRoot(effects),
     ReactiveFormsModule,
     FormlyNgZorroAntdModule,
     FormlyModule.forRoot({ extras: { lazyRender: true } }),

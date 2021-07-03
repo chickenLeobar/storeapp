@@ -1,5 +1,5 @@
 <div align="center">
-   <h1>Store app</h1>
+   <h1>ROESBA</h1>
    <img width="300" src="./icon.svg"/>
 </div>
 <br/>
@@ -34,11 +34,10 @@ This project is not open source yet
 
 - **Write rour custom User:\***
   - [blog](https://testdriven.io/blog/django-custom-user-model/#user-model)
-  - [docs](Write rour custom User:)
   - [django-notes](https://github.com/ArchTaqi/django-rest-api/blob/master/docs/00-django-notes.md)
 
 ## tools
 
 - [Angular](https://angular.io/)
 - [django-rest-frameworks](https://www.django-rest-framework.org/)
-- [NGRIO](https://ngrx.io/)
+- [NGRx](https://ngrx.io/)

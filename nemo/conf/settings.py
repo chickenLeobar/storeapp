@@ -75,6 +75,7 @@ INSTALLED_APPS = [
     "webpack_loader",
     "rest_framework",
     'corsheaders',
+    'view_table',
     # apps
     "website",
     "dashboard",

@@ -10,3 +10,18 @@
     }
   }
 }
+
+.image_preview {
+  max-height: 250px;
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  img {
+    width: 100%;
+    object-fit: cover;
+  }
+}
+.sale_products {
+  min-height: 800px;
+}

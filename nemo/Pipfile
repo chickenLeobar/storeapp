@@ -20,6 +20,7 @@ cloudinary = "*"
 django-cors-headers = "*"
 djangorestframework-simplejwt = "*"
 django-redis = "==5.0.0"
+django-view-table = "*"
 
 [dev-packages]
 autopep8 = "*"

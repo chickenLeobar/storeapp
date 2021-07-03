@@ -1,8 +1,10 @@
+import { get } from 'lodash';
+import { CloudinaryResponse, CloudinaryService } from 'shared';
 import { IProduct } from './../../models/index';
 import { FormControl, FormBuilder } from '@angular/forms';
 import { NzSafeAny } from 'ng-zorro-antd/core/types';
-import { map, switchMap, tap, filter, take } from 'rxjs/operators';
-import { EMPTY, Observable, of } from 'rxjs';
+import { map, switchMap, tap, filter, take, mergeMap } from 'rxjs/operators';
+import { EMPTY, Observable, of, defer, iif } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 import { ComponentStore } from '@ngrx/component-store';
 import { Store } from '@ngrx/store';
@@ -29,6 +31,9 @@ import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 })
 @UntilDestroy()
 export class HandleProductComponent implements OnInit {
+  public file!: File;
+
+  public imageUrl!: NzSafeAny;
   methodcounts: {
     label: string;
     value: AvalibleModes;
@@ -50,6 +55,8 @@ export class HandleProductComponent implements OnInit {
       label: 'kilo'
     }
   ];
+
+  private selectedProduct: null | IProduct = null;
 
   /*=============================================
   =            others controls            =
@@ -91,6 +98,20 @@ export class HandleProductComponent implements OnInit {
     }
   );
 
+  public receiveFile({
+    errors,
+    file
+  }: {
+    errors: string[];
+    file: File | null;
+  }) {
+    if (errors.length == 0 && file != null) {
+      this.file = file;
+      console.log('receive file');
+    } else {
+      console.log('errors');
+    }
+  }
   /*=============================================
   =            variaables            =
   =============================================*/
@@ -102,7 +123,8 @@ export class HandleProductComponent implements OnInit {
     private store: Store<State>,
     private resultMode: HandleCountMode,
     private fb: FormBuilder,
-    private loading: LoadingService
+    private loading: LoadingService,
+    private cloudinaryService: CloudinaryService
   ) {
     this.componentStore.setState({});
     this.changueEvaluateMethod$({ mode: 'MONT' });
@@ -119,12 +141,7 @@ export class HandleProductComponent implements OnInit {
   ngOnInit(): void {
     this.formConfigurations();
     this.$selectedCurrentProdcut
-      .pipe(
-        tap(d => {
-          console.log(d);
-        }),
-        filter(Boolean)
-      )
+      .pipe(filter(Boolean))
       .pipe(untilDestroyed(this))
       .subscribe(pr => {
         let praux = pr as IProduct;
@@ -155,26 +172,87 @@ export class HandleProductComponent implements OnInit {
     if (!this.resultMode.stockVisible) {
       delete product.stock;
     }
-    //
-    this.$selectedCurrentProdcut.pipe(take(1)).subscribe(pr => {
-      if (this.isEdit) {
+
+    const createProduct = (sourceImage?: CloudinaryResponse) => {
+      console.log(sourceImage);
+      console.log(this.file);
+      let imageSource = sourceImage ? [sourceImage] : [];
+      product = {
+        ...product,
+        images: imageSource
+      };
+      this.store.dispatch(
+        productActions.addProduct({
+          product: product
+        })
+      );
+    };
+    const existFile = () => this.file != null;
+    const cloudinarAndCreate = this.cloudinaryService
+      .uploadFile(this.file)
+      .pipe(map(createProduct));
+
+    const editProduct = (sourceImage?: CloudinaryResponse) => {
+      let imageSource = sourceImage ? [sourceImage] : [];
+      if (sourceImage) {
         product = {
           ...product,
-          id: pr.id
+          images: imageSource
         };
-        this.store.dispatch(productActions.editProduct({ product }));
       } else {
-        this.store.dispatch(
-          productActions.addProduct({
-            product: product
-          })
-        );
+        product = {
+          ...product,
+          id: this.selectedProduct?.id!,
+          images: this.selectedProduct?.images || []
+        };
       }
-    });
+      this.store.dispatch(productActions.editProduct({ product }));
+    };
+
+    const cloudinaryAndUpate = this.cloudinaryService
+      .deleteAndCreate(get(product, 'image[0].public_id', null), this.file)
+      .pipe(map(editProduct));
+
+    const create$ = iif(
+      existFile,
+      cloudinarAndCreate,
+      defer(() => createProduct())
+    );
+    const update$ = iif(
+      existFile,
+      cloudinaryAndUpate,
+      defer(() => editProduct())
+    );
+
+    of([1])
+      .pipe(
+        mergeMap(() => iif(() => this.isEdit, update$, create$)),
+        take(1)
+      )
+      .subscribe();
+
+    // this.$selectedCurrentProdcut.pipe(take(1)).subscribe(pr => {
+    //   if (this.isEdit) {
+    //     product = {
+    //       ...product,
+    //       id: pr.id
+    //     };
+    //     this.store.dispatch(productActions.editProduct({ product }));
+    //   } else {
+    //     this.store.dispatch(
+    //       productActions.addProduct({
+    //         product: product
+    //       })
+    //     );
+    //   }
+    // });
   }
   // selected current id
-  $selectedCurrentProdcut = this.store.select(
-    selectCurrentProduct
+  $selectedCurrentProdcut = this.store.select(selectCurrentProduct).pipe(
+    tap((pr: NzSafeAny) => {
+      this.selectedProduct = pr;
+      this.imageUrl = get(pr, 'images[0].url', null);
+    })
   ) as Observable<IProduct>;
 
   public $vm = this.componentStore.select(

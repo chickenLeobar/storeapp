@@ -1,0 +1,44 @@
+<mxfile>
+    <diagram id="MQIf1fhXBT7RKoLkI6yp" name="sale">
+        <mxGraphModel dx="1357" dy="1545" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="12" value="" style="whiteSpace=wrap;html=1;aspect=fixed;fillColor=none;" parent="1" vertex="1">
+                    <mxGeometry x="-320" y="-90" width="510" height="510" as="geometry"/>
+                </mxCell>
+                <mxCell id="4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="12" target="5" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="380" y="230" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="6" value="Al abrir un venta" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="4" vertex="1" connectable="0">
+                    <mxGeometry x="-0.1053" y="-2" relative="1" as="geometry">
+                        <mxPoint as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="2" value="Campos a mostrar&lt;br&gt;- Fecha de la venta&lt;br&gt;- Cliente&lt;br&gt;- monto&lt;br&gt;- Cantidad&lt;br&gt;- Vendedor" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="-279" y="180" width="240" height="140" as="geometry"/>
+                </mxCell>
+                <mxCell id="3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" parent="1" source="2" target="2" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="5" value="- Articulos en esa venta&lt;br&gt;- Datos de la venta" style="whiteSpace=wrap;html=1;aspect=fixed;" parent="1" vertex="1">
+                    <mxGeometry x="390" y="190" width="120" height="120" as="geometry"/>
+                </mxCell>
+                <mxCell id="8" value="Tabla de ventas" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+                    <mxGeometry x="-290" y="100" width="100" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="10" value="Vista de una venta particular" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+                    <mxGeometry x="400" y="120" width="100" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="13" value="Monto total Vendido" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;" parent="1" vertex="1">
+                    <mxGeometry x="-280" y="-40" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="14" value="Ganancia" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;" parent="1" vertex="1">
+                    <mxGeometry x="-100" y="-50" width="120" height="60" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>

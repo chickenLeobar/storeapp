@@ -26,7 +26,7 @@ export const editBusinesSuccess = createAction(
   props<{ negocio: INegocio }>()
 );
 export const removeBusiness = createAction(
-  '[business/api] remove negocio sucess',
+  '[business/api] remove negocio',
   props<{ negocio: INegocio }>()
 );
 

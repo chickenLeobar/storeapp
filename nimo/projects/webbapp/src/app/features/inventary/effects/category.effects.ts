@@ -12,7 +12,6 @@ import {
 } from 'rxjs/operators';
 import * as categoryActions from '../actions/category.actions';
 import { CategoryService } from '../services/category.service';
-import { of } from 'rxjs';
 @Injectable()
 export class CategoryEffects {
   $loadCategories = createEffect(() => {

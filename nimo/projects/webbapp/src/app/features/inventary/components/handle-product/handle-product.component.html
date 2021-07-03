@@ -5,6 +5,12 @@
     [formGroup]="productForm"
     (ngSubmit)="registerProduct($event)"
   >
+    <!-- photo -->
+    <le-upload-input
+      (payloadUploadEvent)="receiveFile($event)"
+      [imageUrl]="imageUrl"
+    >
+    </le-upload-input>
     <!-- name -->
     <nz-form-item>
       <nz-form-control>

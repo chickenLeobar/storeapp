@@ -7,17 +7,19 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 import { get } from 'lodash';
 import * as authActions from '../actions/auth.actions';
 import { Router } from '@angular/router';
+
 export function initializerUser(tokenService: TokenService) {
   return () => {
     return new Promise((res, re) => {
-      // console.log('initializer');
       tokenService.fetchUser();
       res({});
     });
   };
 }
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class TokenService {
   constructor(
     private jwtService: JwtHelperService,
@@ -38,7 +40,9 @@ export class TokenService {
 
   public logout() {
     localStorage.removeItem('token');
+    localStorage.clear();
     this.store.dispatch(authActions.logoutUser());
+    this.router.navigateByUrl('/auth/loguin');
   }
   public fetchUser(): void {
     const respToken = this.tokenIsValid();

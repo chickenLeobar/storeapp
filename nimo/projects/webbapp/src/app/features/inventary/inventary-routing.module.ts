@@ -6,6 +6,7 @@ import { BusinessComponent } from './containers/business/business.component';
 import { BaseComponent } from './containers/base/base.component';
 import { ContactsComponent } from './containers/contacts/contacts.component';
 import { SelectBusinessGuard } from './guards/select-business.service';
+import { SalesComponent } from './containers/sales/sales.component';
 const routes: Routes = [
   {
     component: BaseComponent,
@@ -20,6 +21,11 @@ const routes: Routes = [
         path: 'sale',
         component: SaleComponent,
         canActivate: [SelectBusinessGuard]
+      },
+      {
+        path: 'sales',
+        component: SaleComponent,
+        canActivate: [SalesComponent]
       },
       { path: 'business', component: BusinessComponent },
       {

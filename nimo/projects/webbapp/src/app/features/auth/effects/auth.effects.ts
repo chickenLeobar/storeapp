@@ -12,7 +12,7 @@ import { State } from '../reducers';
 import { Router } from '@angular/router';
 import { LoadingService } from '../../../core/ui/loading/loading.service';
 import { authSelectors } from '../reducers';
-
+import { LAST_ROUTE_KEY } from '../../../globals/constants';
 @Injectable()
 export class AuthEffects {
   $loguin = createEffect(
@@ -72,9 +72,14 @@ export class AuthEffects {
         ofType(pageActions.enterDashboard),
         map(() => {
           this.loadingService.hide();
-          // console.log('enter dashboard');
-          // FIXME: redirect logic here
-          this.router.navigateByUrl('/app/business');
+          const lastRoute = localStorage.getItem(LAST_ROUTE_KEY);
+          const equal =
+            lastRoute == '/auth/loguin' || lastRoute == '/auth/confirm';
+          if (lastRoute && !equal) {
+            this.router.navigateByUrl(lastRoute);
+          } else {
+            this.router.navigateByUrl('/app/business');
+          }
         })
       ),
     { dispatch: false }

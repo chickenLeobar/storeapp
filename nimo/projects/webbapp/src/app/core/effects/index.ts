@@ -1,3 +1,3 @@
 import { LoadingEffects } from './loading.effects';
-
-export default [LoadingEffects];
+import { RouterEffects } from './router.effects';
+export default [LoadingEffects, RouterEffects];

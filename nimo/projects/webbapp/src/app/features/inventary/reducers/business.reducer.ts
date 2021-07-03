@@ -4,7 +4,7 @@ import {
   createSelector,
   MemoizedSelector
 } from '@ngrx/store';
-import { EntityAdapter, createEntityAdapter, EntityState } from '@ngrx/entity';
+import { createEntityAdapter, EntityState } from '@ngrx/entity';
 import { INegocio } from '../models';
 import { NzSafeAny } from 'ng-zorro-antd/core/types';
 import * as businessActions from '../actions/business.actions';
@@ -89,6 +89,7 @@ export const reducer = createReducer(
   }),
   // selected working business
   on(businessActions.selectedWorkingBusiness, (state, { id }) => {
+    localStorage.setItem('business', String(id));
     return {
       ...state,
       businessWorkspace: id

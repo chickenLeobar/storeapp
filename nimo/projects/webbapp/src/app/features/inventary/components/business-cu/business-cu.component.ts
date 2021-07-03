@@ -58,8 +58,6 @@ export class BusinessCuComponent implements OnInit {
     .pipe(
       filter(el => el != null),
       tap(business => {
-        console.log(business);
-
         if (business) {
           this.model = {
             ...castDraft(business)

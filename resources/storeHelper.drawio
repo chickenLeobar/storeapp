@@ -1,6 +1,6 @@
 <mxfile host="65bd71144e" pages="5">
     <diagram id="RfkMmDbVt5dNeWL4ry-i" name="flujo de usuario">
-        <mxGraphModel dx="883" dy="617" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+        <mxGraphModel dx="1115" dy="474" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -156,7 +156,7 @@
         </mxGraphModel>
     </diagram>
     <diagram id="v6DjocmXlNZij4xRvVBf" name="dashboard de negocio">
-        <mxGraphModel dx="1710" dy="617" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+        <mxGraphModel dx="1942" dy="474" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
             <root>
                 <mxCell id="hCjHNbDSzBZaDk7ATthl-0"/>
                 <mxCell id="hCjHNbDSzBZaDk7ATthl-1" parent="hCjHNbDSzBZaDk7ATthl-0"/>
@@ -278,7 +278,7 @@
         </mxGraphModel>
     </diagram>
     <diagram id="DWWxPOnDmK70uYg21Ifs" name="Inventario">
-        <mxGraphModel dx="883" dy="617" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+        <mxGraphModel dx="1115" dy="474" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
             <root>
                 <mxCell id="ktvenG23UuUJDfky7fMs-0"/>
                 <mxCell id="ktvenG23UuUJDfky7fMs-1" parent="ktvenG23UuUJDfky7fMs-0"/>
@@ -325,7 +325,7 @@
         </mxGraphModel>
     </diagram>
     <diagram id="IoNmQR8w6x0UQzWgCLIl" name="clientes">
-        <mxGraphModel dx="883" dy="617" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+        <mxGraphModel dx="1115" dy="474" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
             <root>
                 <mxCell id="2sZZnEBah4CEPU8WiaMz-0"/>
                 <mxCell id="2sZZnEBah4CEPU8WiaMz-1" parent="2sZZnEBah4CEPU8WiaMz-0"/>
@@ -344,7 +344,7 @@
         </mxGraphModel>
     </diagram>
     <diagram id="J9V6BLGrJr3ILemB7VuB" name="trabajadores">
-        <mxGraphModel dx="883" dy="617" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+        <mxGraphModel dx="1115" dy="474" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
             <root>
                 <mxCell id="PBf8SXoPpyY96XagwdrJ-0"/>
                 <mxCell id="PBf8SXoPpyY96XagwdrJ-1" parent="PBf8SXoPpyY96XagwdrJ-0"/>

@@ -14,7 +14,7 @@ import { Store } from '@ngrx/store';
 import { State, contactSelectors } from '../../reducers';
 import * as contactActions from '../../actions/contact.action';
 import { LoadingService } from '../../../../core/ui/loading/loading.service';
-import { take } from 'rxjs/operators';
+import { take, tap } from 'rxjs/operators';
 @Component({
   selector: 'leo-contacts',
   templateUrl: './contacts.component.html',
@@ -23,10 +23,17 @@ import { take } from 'rxjs/operators';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ContactsComponent implements OnInit {
-  contacts$ = this.store.select(contactSelectors.selectWithSearch);
   contact$ = this.store.select(contactSelectors.selectedCurrentContact);
 
   private typeContactSelected: TypeContact = 'CLIENT';
+  contacts$ = this.store
+    .select(contactSelectors.selectPerTypeContact(this.typeContactSelected))
+    .pipe(
+      tap(d => {
+        console.log('contacts');
+        console.log(d);
+      })
+    );
 
   constructor(
     private modalService: NzModalService,
@@ -34,6 +41,10 @@ export class ContactsComponent implements OnInit {
     private store: Store<State>,
     private loading: LoadingService
   ) {}
+
+  public get label() {
+    return this.typeContactSelected == 'CLIENT' ? 'Clientes' : 'Proveedores';
+  }
 
   ngOnInit(): void {
     this.store.dispatch(contactActions.loadContacts());
@@ -52,8 +63,8 @@ export class ContactsComponent implements OnInit {
 
   public onTypeContact(source: TypeContact): void {
     this.typeContactSelected = source;
-    this.store.dispatch(
-      contactActions.searchContacts({ query: '', typeContact: source })
+    this.contacts$ = this.store.select(
+      contactSelectors.selectPerTypeContact(this.typeContactSelected)
     );
   }
   public onEditContact($event: unknown) {

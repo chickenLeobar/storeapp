@@ -1,21 +1,23 @@
-import { map, tap } from 'rxjs/operators';
 import { IBrand, ICategory } from './../models/index';
-import { Injectable } from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { environment } from '../../../../environments/environment';
 import { Observable } from 'rxjs';
+import { CURRENTBUSINESS } from '../libs/tokens';
 
 @Injectable()
 export class CategoryService {
   private apiurl = environment.apiUrl.concat('api/category/');
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    @Inject(CURRENTBUSINESS) private business: number
+  ) {}
   // create category
   public createCategory(category: ICategory): Observable<ICategory> {
     let url = this.apiurl;
-    // FIXME: temporal id  for every categories, until ready business CRUD
     category = {
       ...category,
-      business: 8
+      business: this.business
     };
     return this.http.post(url, category) as Observable<ICategory>;
   }
@@ -33,10 +35,9 @@ export class CategoryService {
   // edit category
   public editCategorie(category: ICategory): Observable<ICategory> {
     let url = this.apiurl.concat(`${category.id}/`);
-    // FIXME: temporal id  for every categories, until ready business CRUD
     category = {
       ...category,
-      business: 8
+      business: this.business
     };
     return this.http.put(url, category) as Observable<ICategory>;
   }

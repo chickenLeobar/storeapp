@@ -17,8 +17,10 @@ import {
   selectProductsOfSale,
   State,
   selectProducts,
-  selectedInfoOfSale
+  selectedInfoOfSale,
+  selectedWorkingBusiness
 } from '../reducers';
+import { authSelectors } from '../../auth/reducers';
 import { SaleService } from '../services/sale.service';
 import { tapResponse } from '@ngrx/component-store';
 import { of, EMPTY, Observable } from 'rxjs';
@@ -93,12 +95,17 @@ export class ProductEffects {
   private obtainSale = (source: Observable<NzSafeAny>) => {
     const details = this.store.select(selectProductsOfSale);
     const info = this.store.select(selectedInfoOfSale);
-    const combine = combineLatest([details, info])
+    const user = this.store.select(authSelectors.getUser);
+    const business = this.store.select(selectedWorkingBusiness);
+
+    const combine = combineLatest([details, info, user, business])
       .pipe(
-        map(([details, info]) => {
+        map(([details, info, user, business]) => {
           return {
             details,
-            info
+            info,
+            user,
+            business
           };
         })
       )
@@ -114,7 +121,7 @@ export class ProductEffects {
       this.actions$.pipe(
         ofType(saleActions.saveSale),
         this.obtainSale,
-        exhaustMap(({ details: items, info }) => {
+        exhaustMap(({ details: items, info, user, business }) => {
           const details = items.map(node => ({
             producto: node.product?.id,
             cantidad: node.count
@@ -123,7 +130,9 @@ export class ProductEffects {
             .saveSale({
               details: details,
               fecha_venta: info?.date!,
-              cliente: info?.selectedContact || undefined
+              cliente: info?.selectedContact!,
+              vendedor: user?.id,
+              business: business!
             })
             .pipe(
               tapResponse(

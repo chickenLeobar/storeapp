@@ -14,6 +14,14 @@
     >
       Ventas
     </li>
+    <!-- contacts -->
+    <li
+      nz-menu-item
+      [routerLink]="['/app', 'contacts']"
+      routerLinkActive="router-link-active"
+    >
+      Contactos
+    </li>
   </ul>
 </nz-dropdown-menu>
 <nz-layout class="app-layout">
@@ -45,7 +53,13 @@
           </nz-select>
         </nz-space>
       </li>
+
       <div class="menu__left">
+        <li class="px-2">
+          <button nz-button nzType="default" routerLink="./sale">
+            Vender
+          </button>
+        </li>
         <li
           nz-menu-item
           href=""
@@ -56,8 +70,21 @@
           Administración
         </li>
         <li nz-menu-item>
-          <nz-avatar nzIcon="user" nzSize="large"></nz-avatar>
+          <nz-avatar
+            nz-dropdown
+            [nzDropdownMenu]="menuUser"
+            nzIcon="user"
+            nzSize="large"
+          ></nz-avatar>
         </li>
+        <nz-dropdown-menu #menuUser="nzDropdownMenu">
+          <ul nz-menu nzSelectable>
+            <li nz-menu-item (click)="logout()">
+              <i nz-icon nzType="logout" nzTheme="outline"></i>
+              Logout
+            </li>
+          </ul>
+        </nz-dropdown-menu>
       </div>
     </ul>
   </nz-header>

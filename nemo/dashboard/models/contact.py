@@ -18,7 +18,7 @@ class Contact(models.Model):
         null=True, max_length=150, blank=True, choices=TypeDocuement.choices, default=TypeDocuement.DNI)
     num_document = models.CharField(max_length=80, null=True, blank=True)
     direction = models.CharField(max_length=250, null=True, blank=True)
-    email = models.EmailField(null=True, blank=True, unique=True)
+    email = models.EmailField(null=True, blank=True)
     phone = models.CharField(null=True ,max_length=50, blank=True)
 
     # type contact =  PROVIDE | CLIENT
@@ -35,4 +35,5 @@ class Contact(models.Model):
         Negocio, null=False, blank=False, on_delete=models.CASCADE)
 
     class Meta:
+        #unique_together =[["email" , 'business' ,'type_contact']]
         pass

@@ -13,26 +13,30 @@ import {
 import * as saleActions from '../../actions/sale.action';
 import { existsProductInsale } from '../../reducers';
 import { take, tap } from 'rxjs/operators';
-import { get } from 'lodash';
+
 import { NzMessageService } from 'ng-zorro-antd/message';
+import { get } from 'lodash';
 @Component({
   selector: 'leo-product',
   template: `
     <nz-card [nzCover]="covertemplate" class="card_product" nzHoverable>
       <ng-template #covertemplate>
-        <img
-          src="assets/images/pepsi.png"
-          *ngIf="imageFound; else notFoundImage"
-          alt=""
-          style="padding: 10px;"
-        />
-        <ng-template #notFoundImage>
+        <div class="image_preview">
           <img
-            src="assets/images/not_found_product.svg"
+            class=""
+            [src]="image"
+            *ngIf="imageFound; else notFoundImage"
             alt=""
             style="padding: 10px;"
           />
-        </ng-template>
+          <ng-template #notFoundImage>
+            <img
+              src="assets/images/not_found_product.svg"
+              alt=""
+              style="padding: 10px;"
+            />
+          </ng-template>
+        </div>
       </ng-template>
       <h3 nz-typography>{{ product.name }}</h3>
       <p nz-typography class="description">
@@ -91,7 +95,15 @@ export class ProductComponent implements OnInit {
   ngOnInit(): void {
     this.countMode.changueMode(this.product.method_cont);
   }
+
+  public get image() {
+    return get(
+      this.product,
+      'images[0].url',
+      'assets/images/not_found_product.svg'
+    );
+  }
   public get imageFound() {
-    return false;
+    return get(this.product, 'images[0].url', undefined);
   }
 }

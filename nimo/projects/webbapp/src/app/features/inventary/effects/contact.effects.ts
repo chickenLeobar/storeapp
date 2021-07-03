@@ -71,7 +71,6 @@ export class ContactEffects {
       ),
       map(([{ query, typeContact }, contacts]) => {
         const ids = this.filterContacts(contacts, { query, typeContact });
-        console.log(ids);
 
         let isInitial = true;
         if (query.trim().length != 0) {
@@ -117,7 +116,8 @@ export class ContactEffects {
         ofType(
           contactActions.loadContactsSucess,
           contactActions.updateContactSuccess,
-          contactActions.removeContactSucces
+          contactActions.removeContactSucces,
+          contactActions.createContactSucess
         ),
         map(() => {
           this.loading.hide();

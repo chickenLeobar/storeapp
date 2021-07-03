@@ -19,6 +19,8 @@ from dashboard.views.contact import   ContactViewSet
 
 from  .views.user_rest import  validateUser, generate_new_code , authenticate_user , get_user
 
+from .api.test_route import test_route
+
 from .api.cloudinary import Cloudinary
 
 from rest_framework_simplejwt.views import (
@@ -47,5 +49,6 @@ urlpatterns = [
     re_path('auth/newcode' , generate_new_code , name="code_user"),
     re_path('auth/login' , authenticate_user , name ="Loguin"),
     re_path('auth/register' , user_rest.CreateUserViewSet.as_view() , name="create_user"),
-    re_path(r'^auth/user/(?P<id>\d+)/$', get_user, name="get_user")
+    re_path(r'^auth/user/(?P<id>\d+)/$', get_user, name="get_user"),
+    re_path(r'^test', test_route, name="test_user"),
 ]
