@@ -13,8 +13,6 @@
 
 ## Contributtors: 💯
 
-- Gonzales Agip Omar Alexander
-- Montero Lopez Roberto
 - León Barboza Elmer Joselito
 
 ## Start this project
