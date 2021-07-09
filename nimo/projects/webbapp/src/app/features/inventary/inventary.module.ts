@@ -43,7 +43,7 @@ import { DescriptionsComponent } from './components/contacts/contact-preview/des
 import { ErrorInterceptor } from '../../core/interceptors/error.interceptor';
 // add params to url
 import { AddParamsInterceptor } from './services/add-params.interceptor';
-
+import { StaBadgeModule } from '../../core/ui/badgenums/badge.module';
 // APP_INITIALIZER
 import { NegocioService } from './services/business.service';
 import { SalesComponent } from './containers/sales/sales.component';
@@ -93,7 +93,8 @@ import { SalesComponent } from './containers/sales/sales.component';
     }),
     ReactiveFormsModule,
     StoreModule.forFeature(fromInventary.featureKey, fromInventary.reducers),
-    EffectsModule.forFeature(effects)
+    EffectsModule.forFeature(effects),
+    StaBadgeModule
   ],
   providers: [
     ...services,

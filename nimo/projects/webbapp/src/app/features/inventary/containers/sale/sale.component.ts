@@ -42,7 +42,7 @@ export class SaleComponent implements OnInit {
 
   ngOnInit(): void {
     this.listenFilters();
-    // this.modalDisplaySale();
+    this.modalDisplaySale();
   }
   private listenFilters(): void {
     this.searchForm.valueChanges

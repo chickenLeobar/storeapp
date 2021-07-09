@@ -24,8 +24,8 @@ const routes: Routes = [
       },
       {
         path: 'sales',
-        component: SaleComponent,
-        canActivate: [SalesComponent]
+        component: SalesComponent,
+        canActivate: [SelectBusinessGuard]
       },
       { path: 'business', component: BusinessComponent },
       {

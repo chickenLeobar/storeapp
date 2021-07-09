@@ -82,9 +82,6 @@ export class DisplaySaleComponent implements OnInit {
   );
 
   ngOnInit(): void {
-    this.compoenentStore.state$.subscribe(d => {
-      console.log(d);
-    });
     this.contactselected = this.changueIdContact.pipe(
       switchMap(d => {
         return iif(

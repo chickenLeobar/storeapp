@@ -9,6 +9,5 @@ from  ..db_views.sale_view import SaleView ,Saledbserializer
 
 @api_view(['GET'])
 def test_route(request: Request):
-
     data = Saledbserializer(SaleView.objects.all(),many=True)
     return Response({'hello' : data.data })

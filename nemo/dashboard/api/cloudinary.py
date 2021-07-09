@@ -14,6 +14,7 @@ cloudinary.config(
     api_secret=env('CLOUDINARY_APISECRET', default=None),
 )
 
+
 def generate_signature():
     timestamp = datetime.timestamp(datetime.now())
     api_key = env('CLOUDINARY_APISECRET', default=None)
@@ -29,7 +30,7 @@ def generate_signature():
 
 class Cloudinary(APIView):
 
-    def get(self , request : Request):
+    def get(self, request: Request):
 
         return generate_signature()
 

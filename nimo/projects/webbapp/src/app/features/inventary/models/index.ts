@@ -69,16 +69,30 @@ export interface IDetailSale {
 }
 
 // model for sale
-export interface ISale {
-  id?: number;
-  fecha_venta?: Date;
-  monto_total?: number;
-  cliente?: number;
-  serie_documento?: string;
-  tipo_documento?: string;
-  vendedor?: number;
-  meta?: {
-    business?: number;
-  };
-  details?: Partial<IDetailSale>[];
+// export interface ISale {
+//   id?: number;
+//   fecha_venta?: Date;
+//   monto_total?: number;
+//   cliente?: number;
+//   serie_documento?: string;
+//   tipo_documento?: string;
+//   vendedor?: number;
+//   meta?: {
+//     business?: number;
+//   };
+//   details?: Partial<IDetailSale>[];
+
+// }
+
+export interface ISaleShow {
+  id_venta: number;
+  fecha_venta: Date;
+  monto_total: string;
+  
+  client_name?: string;
+  client_id?: number;
+  itemscount: number;
+  business: number;
+  seller: string;
+  seller_id: number;
 }

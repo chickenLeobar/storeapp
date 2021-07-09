@@ -1,0 +1,42 @@
+@import "src/sass/variables";
+
+:host {
+  $color-selected: #001529;
+  $widht: 150px;
+  $height: 50px;
+  $size-font: 1rem;
+  height: $height;
+  display: block;
+  width: $widht;
+  background-color: #ffffff;
+  border: 1.5px solid $gray-4;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  border-radius: 10px;
+  overflow: hidden;
+  .box {
+    cursor: pointer;
+    text-transform: capitalize;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    height: 100% !important;
+    font-size: $size-font;
+    margin: 0 !important;
+    padding: 0 !important;
+    width: $widht / 2;
+    &.selected {
+      background: $color-selected;
+      color: #ffffff;
+    }
+  }
+  &.small {
+    width: $widht - 20px;
+    height: $height - 5px;
+    .box {
+      font-size: $size-font - 0.1rem;
+    }
+  }
+}

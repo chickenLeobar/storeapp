@@ -32,13 +32,14 @@ import { NzMenuModule } from 'ng-zorro-antd/menu';
 import { PortalModule } from '@angular/cdk/portal';
 import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
 import { NzCollapseModule } from 'ng-zorro-antd/collapse';
-
+import { SwitchModule } from '../../core/ui/switchstate/switchstate.module';
 const EXTRA = [
   FlexLayoutModule,
   EmptyIconsModule,
   LoadingModule,
   LayoutMeModule,
-  PortalModule
+  PortalModule,
+  SwitchModule
 ];
 
 const zorro = [

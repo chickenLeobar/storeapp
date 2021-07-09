@@ -1,1 +1,75 @@
-<p>sales works!</p>
+<leo-container mode="normal" *ngIf="vm$ | async as vm">
+  <div class="w-100 my-2">
+    <nz-space>
+      <sta-badge
+        *nzSpaceItem
+        title="Ingresos totales"
+        content="50$"
+        color="primary"
+      >
+      </sta-badge>
+      <sta-badge *nzSpaceItem title="Ganancias" content="50$" color="secondary">
+      </sta-badge>
+    </nz-space>
+  </div>
+  <div fxLayout="column" fxLayoutAlign="start">
+    <nz-form-item style="width: 350px;">
+      <nz-form-control>
+        <nz-input-group nzPrefixIcon="search">
+          <input type="text" nz-input placeholder="Buscar" />
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item fxFlex="100%">
+      <nz-space>
+        <nz-select *nzSpaceItem [(ngModel)]="mode">
+          <nz-option nzValue="date" nzLabel="Date"></nz-option>
+          <nz-option nzValue="week" nzLabel="Week"></nz-option>
+          <nz-option nzValue="month" nzLabel="Month"></nz-option>
+          <nz-option nzValue="year" nzLabel="Year"></nz-option>
+        </nz-select>
+        <nz-date-picker *nzSpaceItem [nzMode]="mode"></nz-date-picker>
+      </nz-space>
+    </nz-form-item>
+  </div>
+  <nz-table #salesTable [nzData]="vm.sales">
+    <thead>
+      <tr>
+        <th>
+          Fecha de venta
+        </th>
+        <th>
+          Cliente
+        </th>
+        <th>
+          Monto
+        </th>
+        <th>
+          Cantidad
+        </th>
+        <th>
+          Vendedor
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of salesTable.data">
+        <td>
+          {{ item.fecha_venta | date: "short" }}
+        </td>
+        <td>
+          {{ item.client_name || "No registrado" }}
+        </td>
+        <td>
+          {{ item.monto_total }}
+        </td>
+        <td>
+          {{ item.itemscount }}
+        </td>
+        <td>
+          {{ item.seller || "No registrado" }}
+        </td>
+      </tr>
+    </tbody>
+  </nz-table>
+</leo-container>

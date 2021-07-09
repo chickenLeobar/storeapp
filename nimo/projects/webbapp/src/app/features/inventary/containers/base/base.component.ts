@@ -24,6 +24,7 @@ import { TokenService } from '../../../auth/services/token.service';
 @UntilDestroy()
 export class BaseComponent implements OnInit {
   business$ = this.store.select(selectRawBusiness);
+
   constructor(
     private store: Store<State>,
     private fb: FormBuilder,

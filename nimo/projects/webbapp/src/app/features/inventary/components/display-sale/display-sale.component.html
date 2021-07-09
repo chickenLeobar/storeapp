@@ -18,6 +18,7 @@
       <nz-date-picker [formControl]="dateofSale"></nz-date-picker>
     </nz-descriptions-item>
   </nz-descriptions>
+  <!-- client -->
   <nz-collapse>
     <nz-collapse-panel nzHeader="Cliente">
       <div fxLayout="column" class="w-100 py-2">
@@ -52,7 +53,6 @@
               </button>
             </nz-form-control>
           </nz-form-item>
-
           <ng-container>
             <descriptions-contact
               [contact]="contactselected | async"
@@ -77,6 +77,14 @@
       </div>
     </nz-collapse-panel>
   </nz-collapse>
+  <div class="my-3">
+    <nz-form-control>
+      <nz-form-label>
+        Estado de pago
+      </nz-form-label>
+      <switch-state></switch-state>
+    </nz-form-control>
+  </div>
   <h4 nz-typography class="my-2">
     Detalle de venta
   </h4>

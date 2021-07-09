@@ -4,8 +4,10 @@ from .product import Product
 from django.core.validators import MinValueValidator
 from enum import Enum, unique
 from typing import OrderedDict
-from .contact import  Contact
-from  .Negocio import Negocio
+from .contact import Contact
+from .Negocio import Negocio
+
+
 @unique
 class MethodCont(Enum):
     MONT = "MONT"
@@ -31,9 +33,30 @@ class Venta(models.Model):
 
     business = models.ForeignKey(Negocio, on_delete=models.CASCADE)
 
+    state_payment = models.BooleanField(default=False)
+
+
+class Type_payment(models.Model):
+    name = models.CharField(max_length=250)
+    description = models.TextField(null=True, blank=True)
+    business = models.ForeignKey(Negocio, on_delete=models.CASCADE)
+
+    class Meta:
+        db_table = 'type_payment'
+
+
+class Abono_venta(models.Model):
+    mont = models.DecimalField(max_digits=9, decimal_places=2)
+    description = models.TextField()
+    venta = models.ForeignKey(Venta, on_delete=models.CASCADE, blank=True, related_name="abonos")
+    type_payment = models.ForeignKey(Type_payment, on_delete=models.DO_NOTHING)
+
+    class Meta:
+        db_table = 'abono_venta'
+
 
 class DetalleVenta(models.Model):
-    venta = models.ForeignKey(Venta, on_delete=models.CASCADE, blank=True)
+    venta = models.ForeignKey(Venta, on_delete=models.CASCADE, blank=True, related_name="details")
     producto = models.ForeignKey(Product, on_delete=models.CASCADE)
     cantidad = models.IntegerField(validators=[MinValueValidator(0)])
 

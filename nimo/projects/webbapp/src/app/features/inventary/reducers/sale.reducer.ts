@@ -113,15 +113,17 @@ export const getFunctions = () => {
     entities: Dictionary<IProduct>,
     saleInfo: SaleDetails
   ) => {
-    return Object.keys(saleInfo).map((key, i) => {
-      let pr = entities[key];
-      let sale = saleInfo[Number(key)];
-      return {
-        product: pr,
-        mont: sale.mont,
-        count: sale.count
-      };
-    });
+    return Object.keys(saleInfo)
+      .filter(key => !!saleInfo[Number(key)])
+      .map((key, i) => {
+        let pr = entities[key];
+        let sale = saleInfo[Number(key)];
+        return {
+          product: pr,
+          mont: sale.mont,
+          count: sale.count
+        };
+      });
   };
   return {
     selectProductSale

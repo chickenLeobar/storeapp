@@ -4,6 +4,13 @@ from rest_framework.viewsets import ModelViewSet
 from dashboard.utils.common_filters import CommonFilterBusinessMixin
 from ..db_views.sale_view import SaleView, Saledbserializer
 from rest_framework.response import Response
+from ..serializers.Venta_serializer import TypePaymentSerializer
+from ..models.venta import Type_payment
+
+
+class TypePaymentViewSet(CommonFilterBusinessMixin, ModelViewSet):
+    serializer_class = TypePaymentSerializer
+    queryset = Type_payment.objects.all()
 
 
 class SaleViewSet(CommonFilterBusinessMixin, ModelViewSet):
@@ -15,7 +22,6 @@ class SaleViewSet(CommonFilterBusinessMixin, ModelViewSet):
         business = self.request.query_params.get('business')
         if business is not None:
             queryset = queryset.filter(business=business)
-
         page = self.paginate_queryset(queryset)
         if page is not None:
             serializer = Saledbserializer(page, many=True)

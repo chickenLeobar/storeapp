@@ -2,13 +2,6 @@ import re
 import cloudinary
 from django.db import models
 from ..models.Negocio import Negocio
-# - imagen
-# - descripcion
-# - price
-# - name
-# - cantidad
-# - created
-# - stockc
 
 from django.core.validators import MinValueValidator
 
@@ -51,7 +44,7 @@ class Product(models.Model):
     description = models.TextField(null=False, max_length=250)
 
     stock = models.IntegerField(
-        validators=[MinValueValidator(0, "Min value is 0")], null=True)
+        validators=[MinValueValidator(0, "El valor minimo es 0")], null=True)
 
     created = models.DateTimeField(auto_created=True, auto_now_add=True)
 

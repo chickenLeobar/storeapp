@@ -30,6 +30,8 @@ import { AuthModule } from './features/auth';
 import { JwtModule } from '@auth0/angular-jwt';
 import { ErrorInterceptor } from './core/interceptors/error.interceptor';
 import effects from './core/effects';
+import { metaReducers } from './reducers';
+
 export function tokenGetter() {
   return localStorage.getItem('token');
 }
@@ -58,7 +60,7 @@ registerLocaleData(es);
     NzLayoutModule,
     NzMenuModule,
     ...zorro,
-    StoreModule.forRoot(ROOT_REDUCERS, {}),
+    StoreModule.forRoot(ROOT_REDUCERS, { metaReducers: metaReducers }),
     EffectsModule.forRoot(effects),
     ReactiveFormsModule,
     FormlyNgZorroAntdModule,
